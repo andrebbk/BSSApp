@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/spiral_calendar"
+            android:title="@string/calendar_Label" />
+        <item
+            android:id="@+id/nav_students"
+            android:icon="@drawable/user"
+            android:title="@string/students_Label" />
+        <item
+            android:id="@+id/nav_classes"
+            android:icon="@drawable/person_surfing"
+            android:title="@string/classes_Label" />
+        <item
+            android:id="@+id/nav_professors"
+            android:icon="@drawable/user_customer"
+            android:title="@string/professors_Label" />
+    </group>
+</menu>

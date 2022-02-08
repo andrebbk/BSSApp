@@ -21,4 +21,13 @@
         <item name="android:textColorSecondary">#FF3700B3</item>
         <item name="actionMenuTextColor">#FF3700B3</item>
     </style>
+
+    <style name="Theme.BSSApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BSSApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BSSApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

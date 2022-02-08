@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BSSApp">
         <activity
+            android:name=".MenuActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/Theme.BSSApp.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

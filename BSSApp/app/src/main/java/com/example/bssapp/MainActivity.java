@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    //Intent k = new Intent(MainActivity.this, MenuActivity.class);
-                    //startActivity(k);
+                    Intent k = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(k);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
