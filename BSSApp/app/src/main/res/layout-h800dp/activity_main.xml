@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.053"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="80dp"/>
 
     <!--TextView
         android:id="@+id/textView3"
@@ -42,11 +42,11 @@
         android:id="@+id/imageView"
         android:layout_width="298dp"
         android:layout_height="303dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="50dp"
         android:contentDescription="@string/bbsopenimage"
         app:layout_constraintVertical_bias="0.226"
         app:srcCompat="@drawable/bbs_open_image"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="60dp"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.794"
         tools:ignore="HardcodedText"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="50dp"/>
 
     <Button
         android:id="@+id/buttonStart"

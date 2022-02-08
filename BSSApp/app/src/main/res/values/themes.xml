@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#FF3700B3</item>
+        <item name="android:textColorSecondary">#FF3700B3</item>
+        <item name="actionMenuTextColor">#FF3700B3</item>
     </style>
 </resources>

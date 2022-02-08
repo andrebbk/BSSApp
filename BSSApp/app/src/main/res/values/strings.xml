@@ -2,4 +2,18 @@
     <string name="app_name">BSS</string>
     <string name="bbsopenimage">BBSOpenImage</string>
     <string name="barrinha_surf_school">Barrinha Surf School</string>
+    <string name="navigation_drawer_open">open navigation drawer</string>
+    <string name="navigation_drawer_close">close navigation drawer</string>
+    <string name="Start_Button_Label">Começar</string>
+    <string name="students_Label">Alunos</string>
+    <string name="classes_Label">Aulas</string>
+    <string name="calendar_Label">Calendário</string>
+    <string name="professors_Label">Instrutores</string>
+    <string name="background_Label">background</string>
+
+    <!--Navigation-->
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_students">Students</string>
+    <string name="menu_classes">Classes</string>
+    <string name="menu_professors">Professors</string>
 </resources>
