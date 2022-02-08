@@ -29,8 +29,8 @@ public class StudentsFragment extends Fragment {
 
         LoadControllers(root);
 
-        final TextView textView = binding.textGallery;
-        studentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //final TextView textView = binding.textGallery;
+        //studentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
@@ -41,8 +41,8 @@ public class StudentsFragment extends Fragment {
     }
 
     private void LoadControllers(View root){
-        Button buttonTest = root.findViewById(R.id.buttonTest);
+        //Button buttonTest = root.findViewById(R.id.buttonTest);
 
-        buttonTest.setOnClickListener(view -> Toast.makeText(getContext(), "Teste ok", Toast.LENGTH_LONG).show());
+        //buttonTest.setOnClickListener(view -> Toast.makeText(getContext(), "Teste ok", Toast.LENGTH_LONG).show());
     }
 }
