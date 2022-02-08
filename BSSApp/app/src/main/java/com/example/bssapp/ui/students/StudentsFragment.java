@@ -1,5 +1,7 @@
 package com.example.bssapp.ui.students;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.databinding.FragmentStudentsBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class StudentsFragment extends Fragment {
 
@@ -28,9 +33,6 @@ public class StudentsFragment extends Fragment {
         View root = binding.getRoot();
 
         LoadControllers(root);
-
-        //final TextView textView = binding.textGallery;
-        //studentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
@@ -41,8 +43,7 @@ public class StudentsFragment extends Fragment {
     }
 
     private void LoadControllers(View root){
-        //Button buttonTest = root.findViewById(R.id.buttonTest);
-
-        //buttonTest.setOnClickListener(view -> Toast.makeText(getContext(), "Teste ok", Toast.LENGTH_LONG).show());
+        FloatingActionButton fabAddStudent = (FloatingActionButton) root.findViewById(R.id.fabAddStudent);
+        fabAddStudent.setOnClickListener(v -> { ((MenuActivity) getActivity()).changeFragment(); });
     }
 }

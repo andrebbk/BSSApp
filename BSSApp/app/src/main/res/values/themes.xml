@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.BSSApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.BSSApp" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#F2F23A</item>
         <item name="colorPrimaryVariant">#F2F23A</item>
