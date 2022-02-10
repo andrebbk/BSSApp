@@ -17,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bssapp.databinding.ActivityMenuBinding;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
-
 public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -69,12 +67,19 @@ public class MenuActivity extends AppCompatActivity {
 
     public void changeToEditStudentFragment(StudentListItem student) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("SelectedStudent", (Serializable) student);
+        bundle.putSerializable("SelectedStudent", student);
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
         navController.popBackStack(R.id.nav_students, true);
         navController.navigate(R.id.nav_editStudent, bundle);
+    }
+
+    public void changeToStudentsFromEditFragment() {
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_editStudent, true);
+        navController.navigate(R.id.nav_students);
     }
 
     public void ShowSnackBar(String msg)
