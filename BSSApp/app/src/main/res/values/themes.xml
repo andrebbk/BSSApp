@@ -30,4 +30,17 @@
     <style name="Theme.BSSApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BSSApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <!-- Text Size -->
+        <item name="android:textSize">20dp</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/purple_700</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@color/purple_700</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@color/purple_700</item>
+
+        <item name="android:background">@drawable/search_view_background</item>
+    </style>
 </resources>

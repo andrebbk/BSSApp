@@ -25,5 +25,10 @@
             android:id="@+id/nav_newStudent"
             android:title="Novo aluno"
             android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_editStudent"
+            android:title="Editar aluno"
+            android:visible="false"/>
     </group>
 </menu>

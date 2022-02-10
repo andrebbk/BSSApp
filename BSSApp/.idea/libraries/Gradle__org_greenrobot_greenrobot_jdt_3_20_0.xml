@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.greenrobot:greenrobot-jdt:3.20.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greenrobot-jdt/3.20.0/23ecc747ae25146b06764adaaee6f92ee93370ad/greenrobot-jdt-3.20.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greenrobot-jdt/3.20.0/2060e628604c29dfa64ecb4e6ddfb44e79626bd3/greenrobot-jdt-3.20.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greenrobot-jdt/3.20.0/9acad66d1aef8a009b0da977a216682562074b34/greenrobot-jdt-3.20.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

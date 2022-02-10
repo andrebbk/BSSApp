@@ -1,7 +1,6 @@
 package com.example.bssapp.ui.students;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.example.bssapp.DaoSession;
+import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentNewStudentBinding;
+import com.example.bssapp.db.models.StudentItem;
+
+import java.util.Calendar;
 
 public class NewStudentFragment extends Fragment {
 
@@ -29,10 +33,12 @@ public class NewStudentFragment extends Fragment {
     private CheckBox checkAdult;
     private CheckBox checkChild;
 
+    //Db
+    private DaoSession daoSession;
+    private StudentItemDao studentItemDao;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        //StudentsViewModel studentsViewModel = new ViewModelProvider(this).get(StudentsViewModel.class);
 
         binding = FragmentNewStudentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -56,40 +62,26 @@ public class NewStudentFragment extends Fragment {
         checkChild = (CheckBox) view.findViewById(R.id.checkBoxChild);
         Button buttonCreateStudent = (Button) view.findViewById(R.id.buttonCreateStudent);
 
-        checkAdult.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                checkChild.setChecked(!isChecked);
+        checkAdult.setOnCheckedChangeListener((buttonView, isChecked) -> checkChild.setChecked(!isChecked));
+
+        checkChild.setOnCheckedChangeListener((compoundButton, b) -> checkAdult.setChecked(!b));
+
+        buttonCreateStudent.setOnClickListener(view1 -> {
+            if(ValidateFormCreateStudent(textFirstName.getText().toString())){
+                RegisterStudent(textFirstName.getText().toString(), textLastName.getText().toString(), checkAdult.isChecked());
             }
         });
 
-        checkChild.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-            {
-                checkAdult.setChecked(!b);
-            }
-        });
-
-        buttonCreateStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ValidateFormCreateStudent(view, textFirstName.getText().toString(), textLastName.getText().toString(), checkAdult.isChecked())){
-                    RegisterStudent(textFirstName.getText().toString(), textLastName.getText().toString(), checkAdult.isChecked());
-                }
-            }
-        });
-
+        daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+        studentItemDao = daoSession.getStudentItemDao();
     }
 
-    private boolean ValidateFormCreateStudent(View view, String firstName, String lastName, boolean isAdult)
+    private boolean ValidateFormCreateStudent(String firstName)
     {
         boolean isValid = true;
 
         if(TextUtils.isEmpty(firstName)){
-            ((MenuActivity) getActivity()).ShowSnackBar("O primeiro nome é obrigatório!");
+            ((MenuActivity) requireActivity()).ShowSnackBar("O primeiro nome é obrigatório!");
             isValid = false;
         }
 
@@ -98,13 +90,21 @@ public class NewStudentFragment extends Fragment {
 
     private void RegisterStudent(String firstName, String lastName, boolean isAdult)
     {
+        //create new student
+        StudentItem newStudent = new StudentItem();
+        newStudent.setFirstName(firstName);
+        newStudent.setLastName(lastName);
+        newStudent.setIsAdult(isAdult);
+        newStudent.setCreateDate(Calendar.getInstance().getTime());
+        newStudent.setDeleted(false);
+
+        studentItemDao.save(newStudent);
+
         ClearFormCreateStudent();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("O(a) aluno(a) foi registado(a) com sucesso!")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setPositiveButton("Ok", (dialog, id) -> {
                 });
                 /*.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

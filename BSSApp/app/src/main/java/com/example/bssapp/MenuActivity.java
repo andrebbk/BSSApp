@@ -1,12 +1,10 @@
 package com.example.bssapp;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -18,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bssapp.databinding.ActivityMenuBinding;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.Serializable;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent)
+                R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
@@ -65,6 +65,16 @@ public class MenuActivity extends AppCompatActivity {
         //Use this first line to clear the stack and then navigate to destination view
         navController.popBackStack(R.id.nav_students, true);
         navController.navigate(R.id.nav_newStudent);
+    }
+
+    public void changeToEditStudentFragment(StudentListItem student) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("SelectedStudent", (Serializable) student);
+
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_students, true);
+        navController.navigate(R.id.nav_editStudent, bundle);
     }
 
     public void ShowSnackBar(String msg)

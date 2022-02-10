@@ -6,22 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ui.students.StudentsFragment">
 
+   <androidx.appcompat.widget.SearchView
+       android:id="@+id/searchViewStudents"
+       android:layout_width="359dp"
+       android:layout_height="48dp"
+       android:layout_marginStart="24dp"
+       android:layout_marginTop="67dp"
+       android:layout_marginEnd="24dp"
+       android:layout_marginBottom="2dp"
+       android:theme="@style/AppSearchView"
+       app:layout_constraintBottom_toTopOf="@+id/listViewStudents"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
+
+   <ListView
+       android:id="@+id/listViewStudents"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:layout_marginBottom="2dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/searchViewStudents" />
+
    <com.google.android.material.floatingactionbutton.FloatingActionButton
        android:id="@+id/fabAddStudent"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="bottom|end"
-       android:layout_margin="16dp"
+       android:layout_marginEnd="26dp"
+       android:layout_marginBottom="14dp"
        android:backgroundTint="@color/theme_primary_color"
        android:contentDescription="Adicionar aluno"
        android:src="@android:drawable/ic_input_add"
        app:borderWidth="0sp"
-       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintBottom_toBottomOf="@+id/listViewStudents"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.962"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintVertical_bias="0.978"
        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

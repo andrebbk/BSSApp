@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.greenrobot.greendao'
 }
 
 android {
@@ -30,6 +31,12 @@ android {
     }
 }
 
+greendao{
+    schemaVersion 1
+    daoPackage 'com.example.bssapp'
+    targetGenDir 'src/main/java/com/example/bssapp/db'
+}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -46,4 +53,7 @@ dependencies {
 
     def lottieVersion = "4.2.2"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    implementation 'org.greenrobot:greendao:3.3.0'
+    implementation 'org.greenrobot:greendao-gradle-plugin:3.3.0'
 }
