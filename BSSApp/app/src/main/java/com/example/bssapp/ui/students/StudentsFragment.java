@@ -52,7 +52,10 @@ public class StudentsFragment extends Fragment {
         //Db
         DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
         StudentItemDao studentItemDao = daoSession.getStudentItemDao();
-        List<StudentItem> studentsData = studentItemDao.queryBuilder().orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName).list();
+        List<StudentItem> studentsData = studentItemDao.queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false))
+                .orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName)
+                .list();
 
         listViewStudents = root.findViewById(R.id.listViewStudents);
 

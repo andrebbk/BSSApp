@@ -59,6 +59,7 @@ public class EditStudentFragment extends Fragment {
     public void LoadControllers(View view)
     {
         Button buttonEditStudent = view.findViewById(R.id.buttonEditStudent);
+        Button buttonRemoveStudent = view.findViewById(R.id.buttonDeleteStudent);
 
         if(student != null)
         {
@@ -90,6 +91,15 @@ public class EditStudentFragment extends Fragment {
                     checkChild.setChecked(true);
             }
 
+            buttonRemoveStudent.setOnClickListener(view1 -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(getResources().getString(R.string.remove_student_validation))
+                        .setPositiveButton("Sim", (dialog, id) -> DeleteStudent())
+                        .setNegativeButton("Não", (dialog, id) -> {});
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            });
         }else{
             buttonEditStudent.setVisibility(View.INVISIBLE);
             ((MenuActivity) requireActivity()).ShowSnackBar("Ocorreu um erro! Contactar administrador");
@@ -120,6 +130,23 @@ public class EditStudentFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("O(a) aluno(a) foi editado(a) com sucesso!")
+                .setPositiveButton("Ok", (dialog, id) -> {
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        ((MenuActivity) requireActivity()).changeToStudentsFromEditFragment();
+    }
+
+    private void DeleteStudent()
+    {
+        //edit student
+        studentItem.setDeleted(true);
+        daoSession.getStudentItemDao().update(studentItem);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("O(a) aluno(a) foi removido(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
                 });
 
