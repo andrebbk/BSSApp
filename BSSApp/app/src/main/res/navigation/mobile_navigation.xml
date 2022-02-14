@@ -40,4 +40,10 @@
         android:name="com.example.bssapp.ui.students.EditStudentFragment"
         android:label="Editar aluno"
         tools:layout="@layout/fragment_edit_student" />
+
+    <fragment
+        android:id="@+id/nav_newProfessor"
+        android:name="com.example.bssapp.ui.professors.NewProfessorFragment"
+        android:label="Novo instrutor"
+        tools:layout="@layout/fragment_new_professor" />
 </navigation>
