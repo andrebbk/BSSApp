@@ -27,6 +27,4 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="remove_student_validation">O(a) aluno(a) será removido(a) do sistema. Deseja continuar?</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

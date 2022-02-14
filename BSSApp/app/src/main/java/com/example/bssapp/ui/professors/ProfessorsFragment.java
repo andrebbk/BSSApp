@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
+import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.R;
 import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentProfessorsBinding;
+import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.StudentItem;
 import com.example.bssapp.ui.students.StudentAdapter;
 import com.example.bssapp.ui.students.StudentListItem;
@@ -28,6 +31,9 @@ import java.util.List;
 public class ProfessorsFragment extends Fragment {
 
     private FragmentProfessorsBinding binding;
+
+    private ListView listViewProfessors;
+    private SearchView searchViewProfessors;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,32 +57,32 @@ public class ProfessorsFragment extends Fragment {
 
         //Db
         DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
-        StudentItemDao studentItemDao = daoSession.getStudentItemDao();
-        List<StudentItem> studentsData = studentItemDao.queryBuilder()
-                .where(StudentItemDao.Properties.Deleted.eq(false))
-                .orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName)
+        ProfessorItemDao professorItemDao = daoSession.getProfessorItemDao();
+        List<ProfessorItem> professorsData = professorItemDao.queryBuilder()
+                .where(ProfessorItemDao.Properties.Deleted.eq(false))
+                .orderAsc(ProfessorItemDao.Properties.FirstName, ProfessorItemDao.Properties.LastName)
                 .list();
 
-        /*listViewStudents = root.findViewById(R.id.listViewStudents);
+        listViewProfessors = root.findViewById(R.id.listViewProfessors);
 
-        ArrayList<StudentListItem> studentsList = new ArrayList<>();
+        ArrayList<ProfessorListItem> professorsList = new ArrayList<>();
 
-        for (StudentItem object : studentsData) {
-            studentsList.add(new StudentListItem(object.getStudentId(), object.getFirstName() + " " + object.getLastName(),
-                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby)));
+        for (ProfessorItem object : professorsData) {
+            professorsList.add(new ProfessorListItem(object.getProfessorId(), object.getFirstName() + " " + object.getLastName(),
+                    R.drawable.professor_icon));
         }
 
         //Costume adapter
-        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList);
-        listViewStudents.setAdapter(adapter);
+        ProfessorAdapter adapter = new ProfessorAdapter(this.requireActivity(), R.layout.list_student_row, professorsList);
+        listViewProfessors.setAdapter(adapter);
 
-        searchViewStudents = root.findViewById(R.id.searchViewStudents);
-        searchViewStudents.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchViewProfessors = root.findViewById(R.id.searchViewProfessors);
+        searchViewProfessors.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextChange(String text) {
 
-                ((StudentAdapter) listViewStudents.getAdapter()).getFilter().filter(text);
+                ((ProfessorAdapter) listViewProfessors.getAdapter()).getFilter().filter(text);
                 return false;
             }
 
@@ -88,33 +94,33 @@ public class ProfessorsFragment extends Fragment {
 
         });
 
-        searchViewStudents.setOnCloseListener(() -> {
-            ((StudentAdapter) listViewStudents.getAdapter()).getFilter().filter("");
-            searchViewStudents.onActionViewCollapsed();
+        searchViewProfessors.setOnCloseListener(() -> {
+            ((StudentAdapter) listViewProfessors.getAdapter()).getFilter().filter("");
+            searchViewProfessors.onActionViewCollapsed();
             return false;
         });
 
-        searchViewStudents.setOnClickListener(v -> searchViewStudents.onActionViewExpanded());
+        searchViewProfessors.setOnClickListener(v -> searchViewProfessors.onActionViewExpanded());
 
-        searchViewStudents.setOnQueryTextFocusChangeListener((view, b) -> {
+        searchViewProfessors.setOnQueryTextFocusChangeListener((view, b) -> {
             if(!b)
             {
-                if(searchViewStudents.getQuery().toString().length() < 1)
+                if(searchViewProfessors.getQuery().toString().length() < 1)
                 {
-                    searchViewStudents.onActionViewCollapsed();
+                    searchViewProfessors.onActionViewCollapsed();
                 }
 
-                searchViewStudents.clearFocus();
+                searchViewProfessors.clearFocus();
 
             }
         });
 
-        listViewStudents.setOnItemClickListener((parent, view, position, id) -> {
-            StudentListItem selectedStudent = (StudentListItem) parent.getItemAtPosition(position);
+        listViewProfessors.setOnItemClickListener((parent, view, position, id) -> {
+            ProfessorListItem selectedStudent = (ProfessorListItem) parent.getItemAtPosition(position);
 
             if(selectedStudent != null){
-                ((MenuActivity) requireActivity()).changeToEditStudentFragment(selectedStudent);
+                //((MenuActivity) requireActivity()).changeToEditStudentFragment(selectedStudent);
             }
-        });*/
+        });
     }
 }
