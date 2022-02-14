@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2405" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/background_dropdown.xml" value="0.353" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/background_line_item.xml" value="0.196" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/backgroundcolor.xml" value="0.3045" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/button_round_background.xml" value="0.2215" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.2405" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/list_student_row.xml" value="0.2215" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/nav_item_drawable.xml" value="0.2165" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/options_sport_item.xml" value="0.269" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/search_costum_background.xml" value="0.2445" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/search_view_background.xml" value="0.2445" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/side_nav_bar.xml" value="0.1835" />
@@ -42,6 +44,7 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_home.xml" value="0.67" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_main.xml" value="0.7225" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_menu.xml" value="0.5025" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_add_class.xml" value="0.22" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_calendar.xml" value="0.7225" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_classes.xml" value="0.5100286532951289" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_professor.xml" value="0.19233687405159333" />
@@ -55,6 +58,7 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/layout.xml" value="1.1" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/list_student_row.xml" value="1.0" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/nav_header_menu.xml" value="0.44168734491315137" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/options_sports_item.xml" value="0.19233687405159333" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/professors_fragment.xml" value="0.7225" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/students_fragment.xml" value="0.7225" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/toolbar.xml" value="0.30104166666666665" />

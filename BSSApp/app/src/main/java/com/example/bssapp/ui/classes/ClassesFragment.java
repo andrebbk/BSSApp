@@ -10,7 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bssapp.MenuActivity;
+import com.example.bssapp.R;
 import com.example.bssapp.databinding.FragmentClassesBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ClassesFragment extends Fragment {
 
@@ -24,8 +27,7 @@ public class ClassesFragment extends Fragment {
         binding = FragmentClassesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        classesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        LoadControllers(root);
         return root;
     }
 
@@ -34,4 +36,10 @@ public class ClassesFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    private void LoadControllers(View root) {
+        FloatingActionButton fabAddClass = root.findViewById(R.id.fabAddClass);
+        fabAddClass.setOnClickListener(v -> ((MenuActivity) requireActivity()).changeToAddClass());
+    }
+
 }

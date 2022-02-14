@@ -28,4 +28,5 @@
 
     <string name="remove_student_validation">O(a) aluno(a) será removido(a) do sistema. Deseja continuar?</string>
     <string name="remove_professor_validation">O(a) instrutor(a) será removido(a) do sistema. Deseja continuar?</string>
+
 </resources>

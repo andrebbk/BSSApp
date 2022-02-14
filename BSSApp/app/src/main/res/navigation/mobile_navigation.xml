@@ -51,4 +51,12 @@
         android:id="@+id/nav_editProfessor"
         android:name="com.example.bssapp.ui.professors.EditProfessorFragment"
         android:label="Editar instrutor"
-        tools:layout="@layout/fragment_edit_professor" /></navigation>
+        tools:layout="@layout/fragment_edit_professor" />
+
+    <fragment
+        android:id="@+id/nav_addClass"
+        android:name="com.example.bssapp.ui.classes.AddClassFragment"
+        android:label="Nova aula"
+        tools:layout="@layout/fragment_add_class" />
+
+</navigation>

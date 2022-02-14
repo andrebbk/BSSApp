@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent, R.id.nav_newProfessor,
-                R.id.nav_editProfessor)
+                R.id.nav_editProfessor, R.id.nav_addClass)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
@@ -106,6 +106,13 @@ public class MenuActivity extends AppCompatActivity {
         //Use this first line to clear the stack and then navigate to destination view
         navController.popBackStack(R.id.nav_editProfessor, true);
         navController.navigate(R.id.nav_professors);
+    }
+
+    public void changeToAddClass() {
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_classes, true);
+        navController.navigate(R.id.nav_addClass);
     }
 
     public void ShowSnackBar(String msg)
