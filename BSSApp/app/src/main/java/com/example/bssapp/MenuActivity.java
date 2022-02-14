@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,7 +37,8 @@ public class MenuActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent, R.id.nav_newProfessor)
+                R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent, R.id.nav_newProfessor,
+                R.id.nav_editProfessor)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
@@ -87,6 +89,23 @@ public class MenuActivity extends AppCompatActivity {
         //Use this first line to clear the stack and then navigate to destination view
         navController.popBackStack(R.id.nav_professors, true);
         navController.navigate(R.id.nav_newProfessor);
+    }
+
+    public void changeToEditProfessorFragment(ProfessorListItem professor) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("SelectedProfessor", professor);
+
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_professors, true);
+        navController.navigate(R.id.nav_editProfessor, bundle);
+    }
+
+    public void changeToProfessorsFromEditFragment() {
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_editProfessor, true);
+        navController.navigate(R.id.nav_professors);
     }
 
     public void ShowSnackBar(String msg)

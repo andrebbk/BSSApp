@@ -38,5 +38,11 @@
             android:title="Novo instrutor"
             android:visible="false"
             tools:ignore="HardcodedText"/>
+
+        <item
+            android:id="@+id/nav_editProfessor"
+            android:title="Editar instrutor"
+            android:visible="false"
+            tools:ignore="HardcodedText"/>
     </group>
 </menu>

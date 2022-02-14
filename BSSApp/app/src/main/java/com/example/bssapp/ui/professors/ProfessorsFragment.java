@@ -116,10 +116,10 @@ public class ProfessorsFragment extends Fragment {
         });
 
         listViewProfessors.setOnItemClickListener((parent, view, position, id) -> {
-            ProfessorListItem selectedStudent = (ProfessorListItem) parent.getItemAtPosition(position);
+            ProfessorListItem selectedProfessor = (ProfessorListItem) parent.getItemAtPosition(position);
 
-            if(selectedStudent != null){
-                //((MenuActivity) requireActivity()).changeToEditStudentFragment(selectedStudent);
+            if(selectedProfessor != null){
+                ((MenuActivity) requireActivity()).changeToEditProfessorFragment(selectedProfessor);
             }
         });
     }
