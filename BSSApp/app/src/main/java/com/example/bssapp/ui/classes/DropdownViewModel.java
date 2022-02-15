@@ -29,7 +29,7 @@ public class DropdownViewModel implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
-    
+
     @NonNull
     @Override
     public String toString() {

@@ -6,35 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".ui.classes.AddClassFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        style="@style/TextInputLayoutStyle"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="51dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText"
-        android:theme="@style/AutoCompleteTheme"
-        app:endIconTint="@color/purple_700">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="100sp"
+        android:paddingStart="20sp"
+        android:paddingEnd="10sp">
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteSport"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:inputType="none"
-            android:minHeight="48dp"
-            android:hint="Selecionar modalidade"
-            android:paddingStart="15sp"
-            android:paddingEnd="10sp"
-            android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            android:theme="@style/AutoCompleteTheme"
+            app:endIconTint="@color/purple_700"
+            tools:ignore="HardcodedText">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteSport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Selecionar modalidade"
+                android:inputType="none"
+                android:minHeight="48dp"
+                android:paddingStart="15sp"
+                android:paddingEnd="10sp"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="63sp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20sp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_text_input"
+                style="@style/TextInputStyle"
+                android:layout_width="248dp"
+                android:layout_height="63dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/calendarEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:hint="Data/Hora"
+                    android:textColor="@color/purple_700"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageViewCalendar"
+                android:layout_width="57dp"
+                android:layout_height="63dp"
+                android:src="@drawable/calendar_icon"
+                tools:ignore="ContentDescription"
+                android:layout_marginStart="5sp"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

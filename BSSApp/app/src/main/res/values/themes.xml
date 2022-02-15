@@ -58,4 +58,20 @@
         <item name="android:textColorHint">@color/purple_700</item>
         <item name="boxStrokeWidth">1.5dp</item>
     </style>
+
+    <style name="TimePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/theme_primary_color</item>
+        <item name="colorPrimary">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/purple_700</item>
+
+        <item name="android:textColorPrimaryInverse">@color/purple_700</item>
+        <item name="android:textColorSecondaryInverse">@color/purple_700</item>
+    </style>
+
+    <style name="TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/purple_700</item>
+        <item name="android:textColorHint">@color/purple_700</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="colorControlActivated">@color/purple_700</item>
+    </style>
 </resources>
