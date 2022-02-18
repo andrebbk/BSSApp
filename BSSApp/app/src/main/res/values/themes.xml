@@ -74,4 +74,20 @@
         <item name="boxStrokeWidth">1.5dp</item>
         <item name="colorControlActivated">@color/purple_700</item>
     </style>
+
+    <style name="MyAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/purple_700</item>
+        <item name="android:colorAccent">@color/purple_700</item>
+        <item name="android:textColorPrimary">@color/purple_700</item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/buttonStyle.textColor</item>
+        <item name="buttonBarNegativeButtonStyle">@style/buttonStyle.textColor</item>
+        <item name="buttonBarNeutralButtonStyle">@style/buttonStyle.textColor</item>
+
+        <item name="colorAccent">@color/purple_700</item>
+    </style>
+
+    <style name="buttonStyle.textColor" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/purple_700</item>
+    </style>
 </resources>

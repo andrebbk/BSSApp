@@ -20,10 +20,6 @@ public class CalendarFragment extends Fragment {
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        AskPermission();
-
-        LoadMap(root);
-
         return root;
     }
 
@@ -44,10 +40,5 @@ public class CalendarFragment extends Fragment {
             EasyPermissions.requestPermissions(this, "We need permissions because this and that",
                     123, perms);
         }
-    }
-
-    private void LoadMap(View view)
-    {
-
     }
 }

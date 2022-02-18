@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:enabled="false"
-                android:hint="Selecionar modalidade"
+                android:hint="Modalidade"
                 android:inputType="none"
                 android:minHeight="48dp"
                 android:paddingStart="15sp"
@@ -42,20 +42,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="63sp"
+            android:layout_height="70sp"
             android:orientation="horizontal"
             android:layout_marginTop="20sp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name_text_input"
                 style="@style/TextInputStyle"
-                android:layout_width="248dp"
-                android:layout_height="63dp">
+                android:layout_width="247dp"
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/calendarEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="63dp"
                     android:enabled="false"
                     android:hint="Data/Hora"
                     android:textColor="@color/purple_700"
@@ -80,14 +80,15 @@
             android:theme="@style/AutoCompleteTheme"
             app:endIconTint="@color/purple_700"
             tools:ignore="HardcodedText"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="18sp"
+            android:layout_marginBottom="20sp">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteLocal"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:enabled="false"
-                android:hint="Selecionar local"
+                android:hint="Local"
                 android:inputType="none"
                 android:minHeight="48dp"
                 android:paddingStart="15sp"
@@ -98,7 +99,26 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_text_input3"
+            style="@style/TextInputStyle"
+            android:layout_width="316dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="20sp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:drawableEnd="@drawable/arrow_down_layout"
+                android:hint="Instrutores"
+                android:inputType="none"
+                android:maxLines="4"
+                android:text=" "
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2405" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/arrow_down_layout.xml" value="0.196" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/background_dropdown.xml" value="0.353" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/background_line_item.xml" value="0.196" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/drawable/backgroundcolor.xml" value="0.3045" />
@@ -45,7 +46,7 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_home.xml" value="0.67" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_main.xml" value="0.7225" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/content_menu.xml" value="0.5025" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_add_class.xml" value="0.22" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_add_class.xml" value="0.3843821076573162" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_calendar.xml" value="0.22" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_classes.xml" value="0.5100286532951289" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_professor.xml" value="0.19233687405159333" />
