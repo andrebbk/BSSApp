@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    tools:ignore="UseCompoundDrawables"
+    android:background="@drawable/background_line_item"
+    android:paddingStart="30sp"
+    android:paddingEnd="1sp">
+
+    <ImageView
+        android:id="@+id/imageClearItem"
+        android:layout_width="29dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/trash_can_icon"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textColor="@color/purple_700"
+        android:textSize="17sp"
+        tools:ignore="HardcodedText"
+        android:layout_marginEnd="10sp"/>
+
+
+
+
+</LinearLayout>

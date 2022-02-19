@@ -22,6 +22,11 @@
             android:title="@string/professors_Label" />
 
         <item
+            android:id="@+id/nav_data_managment"
+            android:icon="@drawable/data_bd"
+            android:title="@string/menu_data" />
+
+        <item
             android:id="@+id/nav_newStudent"
             android:title="Novo aluno"
             android:visible="false"

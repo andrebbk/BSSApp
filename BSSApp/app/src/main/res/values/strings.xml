@@ -16,6 +16,7 @@
     <string name="menu_students">Students</string>
     <string name="menu_classes">Classes</string>
     <string name="menu_professors">Professors</string>
+    <string name="menu_data">Gestão/Outros</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>

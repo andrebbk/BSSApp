@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_professors" />
 
     <fragment
+        android:id="@+id/nav_data_managment"
+        android:name="com.example.bssapp.ui.datamanagement.DataManagementFragment"
+        android:label="@string/menu_data"
+        tools:layout="@layout/fragment_data_management" />
+
+    <fragment
         android:id="@+id/nav_newStudent"
         android:name="com.example.bssapp.ui.students.NewStudentFragment"
         android:label="Novo aluno"
