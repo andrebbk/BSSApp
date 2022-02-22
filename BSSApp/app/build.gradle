@@ -31,7 +31,9 @@ android {
     }
 }
 
-greendao{
+apply plugin: 'org.greenrobot.greendao'
+
+greendao {
     schemaVersion 1
     daoPackage 'com.example.bssapp'
     targetGenDir 'src/main/java/com/example/bssapp/db'

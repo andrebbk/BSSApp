@@ -9,11 +9,42 @@
     android:paddingEnd="10sp"
     tools:context=".ui.datamanagement.DataManagementFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="@color/theme_primary_color"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Modalidades"
+        android:textColor="@color/purple_700"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="4dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewAddSport"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:src="@drawable/add_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049"
+        tools:ignore="ContentDescription" />
+
     <ListView
         android:id="@+id/listViewSports"
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

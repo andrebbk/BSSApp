@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imageClearItem"
-        android:layout_width="29dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="40dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
