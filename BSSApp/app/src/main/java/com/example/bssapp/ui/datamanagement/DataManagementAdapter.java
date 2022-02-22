@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.bssapp.R;
-import com.example.bssapp.UtilsClass;
-import com.example.bssapp.ui.professors.ProfessorListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class DataManagementAdapter extends ArrayAdapter<DataManagementItem> {
     private final int mResource;
 
     private final List<DataManagementItem> itemsModelsl;
-    private List<DataManagementItem> itemsModelListFiltered;
+    private final List<DataManagementItem> itemsModelListFiltered;
 
     public DataManagementAdapter(@NonNull Context context, int resource, @NonNull ArrayList<DataManagementItem> objects) {
         super(context, resource, objects);
@@ -63,7 +60,18 @@ public class DataManagementAdapter extends ArrayAdapter<DataManagementItem> {
         TextView textView = convertView.findViewById(R.id.textItem);
         textView.setText(getItem(position).getOptionName());
 
+        ImageView imageViewClear = convertView.findViewById(R.id.imageClearItem);
+        imageViewClear.setOnClickListener(view -> {
+            DataManagementItem selectedToDelete = getItem(position);
+            if(selectedToDelete != null) DataManagementFragment.DeleteSport(mContext, selectedToDelete, this, position);
+        });
+
         return convertView;
+    }
+
+    public void RemoveItem(int position){
+        itemsModelsl.remove(position);
+        this.notifyDataSetChanged();
     }
 
 }

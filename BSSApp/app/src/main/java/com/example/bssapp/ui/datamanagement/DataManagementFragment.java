@@ -1,6 +1,7 @@
 package com.example.bssapp.ui.datamanagement;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,5 +138,36 @@ public class DataManagementFragment extends Fragment {
 
         dialog.dismiss();
         ((MenuActivity) requireActivity()).ShowSnackBar("Nova modalidade criada com sucesso!");
+    }
+
+    public static void DeleteSport(@NonNull Context context, DataManagementItem toDelete, DataManagementAdapter adapter, int position)
+    {
+        if(toDelete == null) return;
+
+        try{
+            //Db
+            DaoSession daoSession = ((MainApplication) context.getApplicationContext()).getDaoSession();
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+            builder.setMessage("Tem a certeza que pretende remover a modalidade " + toDelete.getOptionName() + "?")
+                    .setPositiveButton("Sim", (dialog, id) -> {
+                        SportItem sportItem = daoSession.getSportItemDao().load(toDelete.getItemId());
+                        if(sportItem != null)
+                        {
+                            sportItem.setDeleted(true);
+                            daoSession.getSportItemDao().update(sportItem);
+
+                            adapter.RemoveItem(position);
+                            ((MenuActivity) context).ShowSnackBar("A modalidade "  + toDelete.getOptionName() + " foi removida com sucesso!");
+                        }
+                    })
+                    .setNegativeButton("Não", (dialog, id) -> {});
+
+            android.app.AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        catch (Exception ex){
+            Log.i("Error", ex.toString());
+        }
     }
 }
