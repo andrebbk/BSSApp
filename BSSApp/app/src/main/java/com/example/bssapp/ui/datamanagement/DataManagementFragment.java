@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -122,6 +123,50 @@ public class DataManagementFragment extends Fragment {
         //Costume adapter
         DataManagementAdapter adapter = new DataManagementAdapter(this.requireActivity(), R.layout.list_data_option_row, sportsList);
         listViewSports.setAdapter(adapter);
+
+        listViewSports.setClickable(true);
+        listViewSports.setOnItemClickListener((arg0, arg1, position, arg3) -> {
+            DataManagementItem selectedSport = (DataManagementItem) adapter.getItem(position);
+
+            if(selectedSport != null){
+                View sportsDialog = LayoutInflater.from(requireActivity()).inflate(R.layout.costum_insert_dialog,null);
+
+                //initialize alert builder.
+                AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
+
+                //set our custom alert dialog to tha alertdialog builder
+                alert.setView(sportsDialog);
+
+                TextView titleText = sportsDialog.findViewById(R.id.textViewTitle);
+                if(titleText != null) titleText.setText(getResources().getString(R.string.edit_sport_label));
+
+                EditText editSport = sportsDialog.findViewById(R.id.editTextData);
+                editSport.setText(selectedSport.getOptionName());
+
+                Button saveButton = sportsDialog.findViewById(R.id.buttonSave);
+                Button cancelButton = sportsDialog.findViewById(R.id.buttonCancel);
+
+                final AlertDialog dialog = alert.create();
+
+                //this line removed app bar from dialog and make it transparent and you see the image is like floating outside dialog box.
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+
+                cancelButton.setOnClickListener(view2 -> dialog.dismiss());
+
+                saveButton.setOnClickListener(view22 -> {
+                    if(TextUtils.isEmpty(editSport.getText())){
+                        dialog.dismiss();
+                        ((MenuActivity) requireActivity()).ShowSnackBar("A designação da modalidade é obrigatória!");
+                        return;
+                    }
+
+                    EditSport(view, dialog, selectedSport.getItemId(), editSport.getText().toString().trim());
+                });
+
+            }
+        });
     }
 
     private void SaveNewSport(View view, AlertDialog dialog, String newSport)
@@ -138,6 +183,21 @@ public class DataManagementFragment extends Fragment {
 
         dialog.dismiss();
         ((MenuActivity) requireActivity()).ShowSnackBar("Nova modalidade criada com sucesso!");
+    }
+
+    private void EditSport(View view, AlertDialog dialog, Long sportId, String editSport)
+    {
+        SportItem sportItem = sportItemDao.load(sportId);
+        if(sportItem != null)
+        {
+            sportItem.setSportName(editSport);
+            sportItemDao.update(sportItem);
+
+            LoadSports(view);
+
+            dialog.dismiss();
+            ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade "  + sportItem.getSportName() + " foi editada com sucesso!");
+        }
     }
 
     public static void DeleteSport(@NonNull Context context, DataManagementItem toDelete, DataManagementAdapter adapter, int position)

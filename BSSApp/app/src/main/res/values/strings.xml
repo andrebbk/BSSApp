@@ -16,7 +16,7 @@
     <string name="menu_students">Students</string>
     <string name="menu_classes">Classes</string>
     <string name="menu_professors">Professors</string>
-    <string name="menu_data">Gestão/Outros</string>
+    <string name="menu_data">Modalidades/Locais</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
@@ -30,5 +30,7 @@
     <string name="remove_student_validation">O(a) aluno(a) será removido(a) do sistema. Deseja continuar?</string>
     <string name="remove_professor_validation">O(a) instrutor(a) será removido(a) do sistema. Deseja continuar?</string>
     <string name="multi_selection_label">multiselection</string>
+
+    <string name="edit_sport_label">Editar modalidade</string>
 
 </resources>
