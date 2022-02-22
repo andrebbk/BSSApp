@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/nav_data_managment"
-            android:icon="@drawable/data_bd"
+            android:icon="@drawable/surf_spot"
             android:title="@string/menu_data" />
 
         <item
