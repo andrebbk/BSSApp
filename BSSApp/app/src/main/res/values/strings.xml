@@ -32,5 +32,5 @@
     <string name="multi_selection_label">multiselection</string>
 
     <string name="edit_sport_label">Editar modalidade</string>
-
+    <string name="edit_spot_label">Editar local</string>
 </resources>

@@ -325,7 +325,7 @@ public class DataManagementFragment extends Fragment {
                 alert.setView(spotsDialog);
 
                 TextView titleText = spotsDialog.findViewById(R.id.textViewTitle);
-                if(titleText != null) titleText.setText(getResources().getString(R.string.edit_sport_label));
+                if(titleText != null) titleText.setText(getResources().getString(R.string.edit_spot_label));
 
                 EditText editSpot = spotsDialog.findViewById(R.id.editTextData);
                 editSpot.setText(selectedSpot.getOptionName());
