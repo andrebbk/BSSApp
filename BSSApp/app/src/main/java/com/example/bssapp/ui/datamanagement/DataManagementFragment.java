@@ -103,6 +103,12 @@ public class DataManagementFragment extends Fragment {
                     ((MenuActivity) requireActivity()).ShowSnackBar("A designação da modalidade é obrigatória!");
                     return;
                 }
+                else if(CheckForDuplicatedData(true, newSport.getText().toString().trim(), 0L))
+                {
+                    dialog.dismiss();
+                    ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade já existe!");
+                    return;
+                }
 
                 SaveNewSport(view, dialog, newSport.getText().toString().trim());
             });
@@ -140,6 +146,12 @@ public class DataManagementFragment extends Fragment {
                 if(TextUtils.isEmpty(newSpot.getText())){
                     dialog.dismiss();
                     ((MenuActivity) requireActivity()).ShowSnackBar("A designação do local é obrigatória!");
+                    return;
+                }
+                else if(CheckForDuplicatedData(false, newSpot.getText().toString().trim(), 0L))
+                {
+                    dialog.dismiss();
+                    ((MenuActivity) requireActivity()).ShowSnackBar("O local já existe!");
                     return;
                 }
 
@@ -202,6 +214,12 @@ public class DataManagementFragment extends Fragment {
                     if(TextUtils.isEmpty(editSport.getText())){
                         dialog.dismiss();
                         ((MenuActivity) requireActivity()).ShowSnackBar("A designação da modalidade é obrigatória!");
+                        return;
+                    }
+                    else if(CheckForDuplicatedData(true, editSport.getText().toString().trim(), selectedSport.getItemId()))
+                    {
+                        dialog.dismiss();
+                        ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade já existe!");
                         return;
                     }
 
@@ -330,6 +348,12 @@ public class DataManagementFragment extends Fragment {
                         ((MenuActivity) requireActivity()).ShowSnackBar("A designação do local é obrigatória!");
                         return;
                     }
+                    else if(CheckForDuplicatedData(false, editSpot.getText().toString().trim(), selectedSpot.getItemId()))
+                    {
+                        dialog.dismiss();
+                        ((MenuActivity) requireActivity()).ShowSnackBar("O local já existe!");
+                        return;
+                    }
 
                     EditSpot(view, dialog, selectedSpot.getItemId(), editSpot.getText().toString().trim());
                 });
@@ -398,5 +422,21 @@ public class DataManagementFragment extends Fragment {
         catch (Exception ex){
             Log.i("Error", ex.toString());
         }
+    }
+
+    private boolean CheckForDuplicatedData(boolean isSport, String dataValue, Long dataId)
+    {
+        boolean output;
+
+        if(isSport){
+            output = sportItemDao.queryBuilder()
+                    .where(SportItemDao.Properties.SportName.in(dataValue), SportItemDao.Properties.SportId.notEq(dataId)).count() > 0;
+        }
+        else{
+            output = spotItemDao.queryBuilder()
+                    .where(SpotItemDao.Properties.SpotName.in(dataValue), SpotItemDao.Properties.SpotId.notEq(dataId)).count() > 0;
+        }
+
+        return  output;
     }
 }
