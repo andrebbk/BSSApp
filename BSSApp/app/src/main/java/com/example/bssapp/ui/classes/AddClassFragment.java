@@ -20,9 +20,12 @@ import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.R;
+import com.example.bssapp.SportItemDao;
+import com.example.bssapp.SpotItemDao;
 import com.example.bssapp.databinding.FragmentAddClassBinding;
 import com.example.bssapp.db.models.ProfessorItem;
-import com.example.bssapp.ui.professors.ProfessorListItem;
+import com.example.bssapp.db.models.SportItem;
+import com.example.bssapp.db.models.SpotItem;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -70,20 +73,29 @@ public class AddClassFragment extends Fragment {
     private void LoadControllers(View view)
     {
         autoCompleteTextView = view.findViewById(R.id.autoCompleteSport);
-
+        SportItemDao sportItemDao = daoSession.getSportItemDao();
         ArrayList<DropdownViewModel> sportsList = new ArrayList<>();
-        sportsList.add(new DropdownViewModel(1, "Surf"));
-        sportsList.add(new DropdownViewModel(2, "Yoga"));
-        sportsList.add(new DropdownViewModel(3, "Paddle"));
-        sportsList.add(new DropdownViewModel(4, "Canoagem"));
+
+        List<SportItem> sportsData = sportItemDao.queryBuilder()
+                .where(SportItemDao.Properties.Deleted.eq(false))
+                .orderAsc(SportItemDao.Properties.SportName)
+                .list();
+
+        int p = 0, surfPos = 0;
+        for (SportItem object : sportsData) {
+            sportsList.add(new DropdownViewModel(object.getSportId(), object.getSportName()));
+
+            if(object.getSportName().contains("Surf")) surfPos = p;
+            p++;
+        }
 
         ArrayAdapter<DropdownViewModel> arrayAdapter = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, sportsList);
-        autoCompleteTextView.setText(arrayAdapter.getItem(0).toString(), false);
+        autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
         autoCompleteTextView.setAdapter(arrayAdapter);
         autoCompleteTextView.setOnItemClickListener((parent, view1, position, id) -> {
             DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
             String name = m.getText();
-            int _id = m.getId();
+            Long _id = m.getId();
         });
 
         calendarText = view.findViewById(R.id.calendarEditText);
@@ -96,14 +108,17 @@ public class AddClassFragment extends Fragment {
         calendarIcon.setOnClickListener(view1 -> showDateTimePicker(sdFormat));
 
         autoCompleteLocal = view.findViewById(R.id.autoCompleteLocal);
-
+        SpotItemDao spotItemDao = daoSession.getSpotItemDao();
         ArrayList<DropdownViewModel> localizationsList = new ArrayList<>();
-        localizationsList.add(new DropdownViewModel(1, "Barrinha"));
-        localizationsList.add(new DropdownViewModel(2, "Praia Velha"));
-        localizationsList.add(new DropdownViewModel(3, "Esmoriz"));
-        localizationsList.add(new DropdownViewModel(4, "Cangas"));
-        localizationsList.add(new DropdownViewModel(5, "Douro"));
-        localizationsList.add(new DropdownViewModel(6, "Maceda"));
+
+        List<SpotItem> spotsData = spotItemDao.queryBuilder()
+                .where(SpotItemDao.Properties.Deleted.eq(false))
+                .orderAsc(SpotItemDao.Properties.SpotName)
+                .list();
+
+        for (SpotItem object : spotsData) {
+            localizationsList.add(new DropdownViewModel(object.getSpotId(), object.getSpotName()));
+        }
 
         ArrayAdapter<DropdownViewModel> arrayAdapterLocal = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, localizationsList);
         autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
@@ -111,7 +126,7 @@ public class AddClassFragment extends Fragment {
         autoCompleteLocal.setOnItemClickListener((parent, view1, position, id) -> {
             DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
             String name = m.getText();
-            int _id = m.getId();
+            Long _id = m.getId();
         });
 
         // assign variable

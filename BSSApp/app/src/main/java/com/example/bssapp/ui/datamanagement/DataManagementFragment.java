@@ -430,11 +430,13 @@ public class DataManagementFragment extends Fragment {
 
         if(isSport){
             output = sportItemDao.queryBuilder()
-                    .where(SportItemDao.Properties.SportName.in(dataValue), SportItemDao.Properties.SportId.notEq(dataId)).count() > 0;
+                    .where(SportItemDao.Properties.SportName.in(dataValue), SportItemDao.Properties.SportId.notEq(dataId),
+                            SportItemDao.Properties.Deleted.notEq(1)).count() > 0;
         }
         else{
             output = spotItemDao.queryBuilder()
-                    .where(SpotItemDao.Properties.SpotName.in(dataValue), SpotItemDao.Properties.SpotId.notEq(dataId)).count() > 0;
+                    .where(SpotItemDao.Properties.SpotName.in(dataValue), SpotItemDao.Properties.SpotId.notEq(dataId),
+                            SpotItemDao.Properties.Deleted.notEq(1)).count() > 0;
         }
 
         return  output;

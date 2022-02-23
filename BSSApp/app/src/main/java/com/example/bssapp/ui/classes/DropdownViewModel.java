@@ -6,19 +6,19 @@ import java.io.Serializable;
 
 public class DropdownViewModel implements Serializable {
 
-    private int id;
+    private Long id;
     private String text;
 
-    public DropdownViewModel(int _id, String _text){
+    public DropdownViewModel(Long _id, String _text){
         this.id = _id;
         this.text = _text;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
