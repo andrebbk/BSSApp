@@ -9,15 +9,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
+import com.example.bssapp.MenuActivity;
 import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
@@ -34,6 +37,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AddClassFragment extends Fragment {
 
@@ -50,6 +54,7 @@ public class AddClassFragment extends Fragment {
     TextInputEditText textViewProfs;
     boolean[] selectedProf;
     ArrayList<Integer> profsList = new ArrayList<>();
+    Long[] profIdsList = new Long[] {};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +77,9 @@ public class AddClassFragment extends Fragment {
 
     private void LoadControllers(View view)
     {
+        AtomicReference<Long> sportIdValue = new AtomicReference<Long>();
+        AtomicReference<Long> spotIdValue = new AtomicReference<Long>();
+
         autoCompleteTextView = view.findViewById(R.id.autoCompleteSport);
         SportItemDao sportItemDao = daoSession.getSportItemDao();
         ArrayList<DropdownViewModel> sportsList = new ArrayList<>();
@@ -91,11 +99,11 @@ public class AddClassFragment extends Fragment {
 
         ArrayAdapter<DropdownViewModel> arrayAdapter = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, sportsList);
         autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
+        sportIdValue.set(arrayAdapter.getItem(surfPos).getId());
         autoCompleteTextView.setAdapter(arrayAdapter);
         autoCompleteTextView.setOnItemClickListener((parent, view1, position, id) -> {
             DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
-            String name = m.getText();
-            Long _id = m.getId();
+            sportIdValue.set(m.getId());
         });
 
         calendarText = view.findViewById(R.id.calendarEditText);
@@ -122,11 +130,11 @@ public class AddClassFragment extends Fragment {
 
         ArrayAdapter<DropdownViewModel> arrayAdapterLocal = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, localizationsList);
         autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
+        spotIdValue.set(arrayAdapterLocal.getItem(0).getId());
         autoCompleteLocal.setAdapter(arrayAdapterLocal);
         autoCompleteLocal.setOnItemClickListener((parent, view1, position, id) -> {
             DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
-            String name = m.getText();
-            Long _id = m.getId();
+            spotIdValue.set(m.getId());
         });
 
         // assign variable
@@ -203,6 +211,17 @@ public class AddClassFragment extends Fragment {
             // show dialog
             builder.show();
         });
+
+        Button addClassBtn = view.findViewById(R.id.buttonAddClass);
+        addClassBtn.setOnClickListener(view13 -> {
+
+            //ProfsIds
+            ArrayList<Long> prodIds = new ArrayList<>();
+            for (int j = 0; j < profsList.size(); j++) {
+                prodIds.add(profIdsList[profsList.get(j)]);
+            }
+            SaveNewClass(sportIdValue, spotIdValue, prodIds);
+        });
     }
 
     private void showDateTimePicker(SimpleDateFormat sdFormat) {
@@ -232,17 +251,57 @@ public class AddClassFragment extends Fragment {
                 .orderAsc(ProfessorItemDao.Properties.FirstName, ProfessorItemDao.Properties.LastName)
                 .list();
 
+
         if(professorsData != null)
         {
             String[] arrayOutput = new String[professorsData.size()];
+            Long[] arrayIds = new Long[professorsData.size()];
 
             for (int i = 0; i < professorsData.size(); i++) {
+                arrayIds[i] = professorsData.get(i).getProfessorId();
                 arrayOutput[i] = professorsData.get(i).getFirstName() + " " + professorsData.get(i).getLastName();
             }
+
+            profIdsList = arrayIds;
             return arrayOutput;
         }
-
         return new String[]{ };
+    }
+
+    private void SaveNewClass(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
+    {
+        if(isNewClassValid(sportIdValue, spotIdValue, profIds))
+        {
+
+        }
+    }
+
+    private boolean isNewClassValid(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
+    {
+        boolean isValid = true;
+
+        if(sportIdValue == null || (sportIdValue != null && sportIdValue.get() == null))
+        {
+            ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade é obrigatória!");
+            isValid = false;
+        }
+        else if(calendarText.getText() == null || TextUtils.isEmpty(calendarText.getText()))
+        {
+            ((MenuActivity) requireActivity()).ShowSnackBar("A data/hora é obrigatória!");
+            isValid = false;
+        }
+        else if(spotIdValue == null || (spotIdValue != null && spotIdValue.get() == null))
+        {
+            ((MenuActivity) requireActivity()).ShowSnackBar("O local é obrigatório!");
+            isValid = false;
+        }
+        else if(profIds.size() < 1)
+        {
+            ((MenuActivity) requireActivity()).ShowSnackBar("Pelo menos 1 instrutor é obrigatório!");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
 }

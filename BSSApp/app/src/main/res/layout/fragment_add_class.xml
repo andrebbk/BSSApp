@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.classes.AddClassFragment">
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="231dp"
+        android:src="@drawable/surf_boards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:layout_editor_absoluteX="0dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -119,6 +130,23 @@
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonAddClass"
+            android:layout_width="252dp"
+            android:layout_height="61dp"
+            android:backgroundTint="@color/purple_700"
+            android:text="Criar aula"
+            android:textColor="@color/theme_primary_color"
+            android:textSize="12sp"
+            android:layout_marginTop="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.305"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.447"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
