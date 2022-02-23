@@ -6,16 +6,18 @@ public class DataManagementItem implements Serializable {
 
     Long ItemId;
     String OptionName;
+    boolean IsSport;
 
     public DataManagementItem()
     {
 
     }
 
-    public DataManagementItem(Long id, String name)
+    public DataManagementItem(Long id, String name, boolean isSport)
     {
         this.ItemId = id;
         this.OptionName = name;
+        this.IsSport = isSport;
     }
 
     public Long getItemId() {
@@ -33,5 +35,11 @@ public class DataManagementItem implements Serializable {
     public void setOptionName(String optionName) {
         OptionName = optionName;
     }
+
+    public boolean getIsSport() {
+        return IsSport;
+    }
+
+    public void setIsSport(boolean isSport) { IsSport = isSport; }
 
 }

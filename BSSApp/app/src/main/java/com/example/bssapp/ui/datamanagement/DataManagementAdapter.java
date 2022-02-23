@@ -63,7 +63,10 @@ public class DataManagementAdapter extends ArrayAdapter<DataManagementItem> {
         ImageView imageViewClear = convertView.findViewById(R.id.imageClearItem);
         imageViewClear.setOnClickListener(view -> {
             DataManagementItem selectedToDelete = getItem(position);
-            if(selectedToDelete != null) DataManagementFragment.DeleteSport(mContext, selectedToDelete, this, position);
+            if(selectedToDelete != null){
+                if(selectedToDelete.getIsSport()) DataManagementFragment.DeleteSport(mContext, selectedToDelete, this, position);
+                else DataManagementFragment.DeleteSpot(mContext, selectedToDelete, this, position);
+            }
         });
 
         return convertView;
