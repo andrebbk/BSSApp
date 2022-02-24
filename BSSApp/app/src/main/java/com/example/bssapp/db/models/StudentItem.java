@@ -41,6 +41,14 @@ public class StudentItem {
     public StudentItem() {
     }
 
+    public StudentItem(String firstName, String lastName, boolean isAdult, Date createDate, boolean deleted) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isAdult = isAdult;
+        this.createDate = createDate;
+        this.deleted = deleted;
+    }
+
     public String getFirstName() {
         return firstName;
     }

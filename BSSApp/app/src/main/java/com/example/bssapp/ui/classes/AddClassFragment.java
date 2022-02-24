@@ -18,6 +18,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.bssapp.ClassItemDao;
+import com.example.bssapp.ClassProfessorItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
@@ -26,6 +28,8 @@ import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
 import com.example.bssapp.SpotItemDao;
 import com.example.bssapp.databinding.FragmentAddClassBinding;
+import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassProfessorItem;
 import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
@@ -37,6 +41,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AddClassFragment extends Fragment {
@@ -44,11 +49,20 @@ public class AddClassFragment extends Fragment {
     private FragmentAddClassBinding binding;
 
     private DaoSession daoSession;
+    private ClassItemDao classItemDao;
+    private ClassProfessorItemDao classProfessorItemDao;
 
     AutoCompleteTextView autoCompleteTextView;
     AutoCompleteTextView autoCompleteLocal;
     Calendar date;
     TextInputEditText calendarText;
+    TextInputEditText obsText;
+
+    //reset form
+    ArrayAdapter<DropdownViewModel> arrayAdapter;
+    ArrayAdapter<DropdownViewModel> arrayAdapterLocal;
+    int surfPos = 0;
+    String sportName = "";
 
     // initialize variables to instructors controller
     TextInputEditText textViewProfs;
@@ -64,6 +78,8 @@ public class AddClassFragment extends Fragment {
 
         //Db
         daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+        classItemDao = daoSession.getClassItemDao();
+        classProfessorItemDao = daoSession.getClassProfessorItemDao();
 
         LoadControllers(root);
         return root;
@@ -77,8 +93,8 @@ public class AddClassFragment extends Fragment {
 
     private void LoadControllers(View view)
     {
-        AtomicReference<Long> sportIdValue = new AtomicReference<Long>();
-        AtomicReference<Long> spotIdValue = new AtomicReference<Long>();
+        AtomicReference<Long> sportIdValue = new AtomicReference<>();
+        AtomicReference<Long> spotIdValue = new AtomicReference<>();
 
         autoCompleteTextView = view.findViewById(R.id.autoCompleteSport);
         SportItemDao sportItemDao = daoSession.getSportItemDao();
@@ -89,7 +105,7 @@ public class AddClassFragment extends Fragment {
                 .orderAsc(SportItemDao.Properties.SportName)
                 .list();
 
-        int p = 0, surfPos = 0;
+        int p = 0;
         for (SportItem object : sportsData) {
             sportsList.add(new DropdownViewModel(object.getSportId(), object.getSportName()));
 
@@ -97,13 +113,15 @@ public class AddClassFragment extends Fragment {
             p++;
         }
 
-        ArrayAdapter<DropdownViewModel> arrayAdapter = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, sportsList);
+        arrayAdapter = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, sportsList);
         autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
+        sportName = arrayAdapter.getItem(surfPos).toString();
         sportIdValue.set(arrayAdapter.getItem(surfPos).getId());
         autoCompleteTextView.setAdapter(arrayAdapter);
         autoCompleteTextView.setOnItemClickListener((parent, view1, position, id) -> {
             DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
             sportIdValue.set(m.getId());
+            sportName = m.getText();
         });
 
         calendarText = view.findViewById(R.id.calendarEditText);
@@ -128,7 +146,7 @@ public class AddClassFragment extends Fragment {
             localizationsList.add(new DropdownViewModel(object.getSpotId(), object.getSpotName()));
         }
 
-        ArrayAdapter<DropdownViewModel> arrayAdapterLocal = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, localizationsList);
+        arrayAdapterLocal = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, localizationsList);
         autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
         spotIdValue.set(arrayAdapterLocal.getItem(0).getId());
         autoCompleteLocal.setAdapter(arrayAdapterLocal);
@@ -212,6 +230,8 @@ public class AddClassFragment extends Fragment {
             builder.show();
         });
 
+        obsText = view.findViewById(R.id.obsEditText);
+
         Button addClassBtn = view.findViewById(R.id.buttonAddClass);
         addClassBtn.setOnClickListener(view13 -> {
 
@@ -272,7 +292,36 @@ public class AddClassFragment extends Fragment {
     {
         if(isNewClassValid(sportIdValue, spotIdValue, profIds))
         {
+            //create new class
+            ClassItem newClass = new ClassItem();
+            newClass.setSportId(sportIdValue.get());
+            newClass.setClassDateTime(date.getTime());
+            newClass.setSpotId(spotIdValue.get());
+            newClass.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
+            newClass.setCreateDate(Calendar.getInstance().getTime());
+            newClass.setDeleted(false);
 
+            long newClassId = classItemDao.insert(newClass);
+
+            //associate instructors
+            for (Long profId : profIds) {
+                ClassProfessorItem newInstructor = new ClassProfessorItem();
+                newInstructor.setClassId(newClassId);
+                newInstructor.setProfessorId(profId);
+                newInstructor.setCreateDate(Calendar.getInstance().getTime());
+
+                classProfessorItemDao.save(newInstructor);
+            }
+
+            ClearFromAddClass();
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+            builder.setMessage("A aula de " + sportName + " foi registada com sucesso!")
+                    .setPositiveButton("Ok", (dialog, id) -> {
+                    });
+
+            android.app.AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 
@@ -280,7 +329,7 @@ public class AddClassFragment extends Fragment {
     {
         boolean isValid = true;
 
-        if(sportIdValue == null || (sportIdValue != null && sportIdValue.get() == null))
+        if(sportIdValue.get() == null)
         {
             ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade é obrigatória!");
             isValid = false;
@@ -290,7 +339,7 @@ public class AddClassFragment extends Fragment {
             ((MenuActivity) requireActivity()).ShowSnackBar("A data/hora é obrigatória!");
             isValid = false;
         }
-        else if(spotIdValue == null || (spotIdValue != null && spotIdValue.get() == null))
+        else if(spotIdValue.get() == null)
         {
             ((MenuActivity) requireActivity()).ShowSnackBar("O local é obrigatório!");
             isValid = false;
@@ -302,6 +351,34 @@ public class AddClassFragment extends Fragment {
         }
 
         return isValid;
+    }
+
+    private void ClearFromAddClass()
+    {
+        //Modalidade
+        autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
+
+        //Data & Hora
+        date = Calendar.getInstance();
+        SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
+        calendarText.setText(sdFormat.format(date.getTime()));
+
+        //Local
+        autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
+
+        //Instrutores
+        for (int j = 0; j < selectedProf.length; j++) {
+            // remove all selection
+            selectedProf[j] = false;
+            // clear profs list
+            profsList.clear();
+            // clear text view value
+            textViewProfs.setText("  ");
+        }
+
+        //Obs
+        obsText.clearFocus();
+        obsText.setText(" ");
     }
 
 }

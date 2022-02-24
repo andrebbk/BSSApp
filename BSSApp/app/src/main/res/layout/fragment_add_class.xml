@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="100sp"
+        android:paddingTop="70sp"
         android:paddingStart="20sp"
         android:paddingEnd="10sp">
 
@@ -129,6 +129,30 @@
                 android:textColor="@color/purple_700"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/obs_text_input"
+            style="@style/TextInputStyle"
+            android:layout_width="320dp"
+            android:layout_height="107dp"
+            app:helperTextTextAppearance="@style/HelperTextAppearance"
+            android:textColorHint="@color/purple_700"
+            app:hintTextColor="@color/purple_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/obsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:hint="Observações"
+                android:text=" "
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText"
+                android:theme="@style/TextInputEditTextStyle"
+                app:hintTextColor="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

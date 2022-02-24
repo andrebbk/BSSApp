@@ -37,7 +37,13 @@ public class ProfessorItem {
     @Generated(hash = 628833183)
     public ProfessorItem() {
     }
-    
+
+    public ProfessorItem(String firstName, String lastName, Date createDate, boolean deleted) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.createDate = createDate;
+        this.deleted = deleted;
+    }
 
     public String getFirstName() {
         return firstName;
