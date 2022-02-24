@@ -10,6 +10,7 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.ClassProfessorItem;
+import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
@@ -17,6 +18,7 @@ import com.example.bssapp.db.models.StudentItem;
 
 import com.example.bssapp.ClassItemDao;
 import com.example.bssapp.ClassProfessorItemDao;
+import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.SportItemDao;
 import com.example.bssapp.SpotItemDao;
@@ -33,6 +35,7 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig classItemDaoConfig;
     private final DaoConfig classProfessorItemDaoConfig;
+    private final DaoConfig classStudentItemDaoConfig;
     private final DaoConfig professorItemDaoConfig;
     private final DaoConfig sportItemDaoConfig;
     private final DaoConfig spotItemDaoConfig;
@@ -40,6 +43,7 @@ public class DaoSession extends AbstractDaoSession {
 
     private final ClassItemDao classItemDao;
     private final ClassProfessorItemDao classProfessorItemDao;
+    private final ClassStudentItemDao classStudentItemDao;
     private final ProfessorItemDao professorItemDao;
     private final SportItemDao sportItemDao;
     private final SpotItemDao spotItemDao;
@@ -55,6 +59,9 @@ public class DaoSession extends AbstractDaoSession {
         classProfessorItemDaoConfig = daoConfigMap.get(ClassProfessorItemDao.class).clone();
         classProfessorItemDaoConfig.initIdentityScope(type);
 
+        classStudentItemDaoConfig = daoConfigMap.get(ClassStudentItemDao.class).clone();
+        classStudentItemDaoConfig.initIdentityScope(type);
+
         professorItemDaoConfig = daoConfigMap.get(ProfessorItemDao.class).clone();
         professorItemDaoConfig.initIdentityScope(type);
 
@@ -69,6 +76,7 @@ public class DaoSession extends AbstractDaoSession {
 
         classItemDao = new ClassItemDao(classItemDaoConfig, this);
         classProfessorItemDao = new ClassProfessorItemDao(classProfessorItemDaoConfig, this);
+        classStudentItemDao = new ClassStudentItemDao(classStudentItemDaoConfig, this);
         professorItemDao = new ProfessorItemDao(professorItemDaoConfig, this);
         sportItemDao = new SportItemDao(sportItemDaoConfig, this);
         spotItemDao = new SpotItemDao(spotItemDaoConfig, this);
@@ -76,6 +84,7 @@ public class DaoSession extends AbstractDaoSession {
 
         registerDao(ClassItem.class, classItemDao);
         registerDao(ClassProfessorItem.class, classProfessorItemDao);
+        registerDao(ClassStudentItem.class, classStudentItemDao);
         registerDao(ProfessorItem.class, professorItemDao);
         registerDao(SportItem.class, sportItemDao);
         registerDao(SpotItem.class, spotItemDao);
@@ -85,6 +94,7 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         classItemDaoConfig.clearIdentityScope();
         classProfessorItemDaoConfig.clearIdentityScope();
+        classStudentItemDaoConfig.clearIdentityScope();
         professorItemDaoConfig.clearIdentityScope();
         sportItemDaoConfig.clearIdentityScope();
         spotItemDaoConfig.clearIdentityScope();
@@ -97,6 +107,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public ClassProfessorItemDao getClassProfessorItemDao() {
         return classProfessorItemDao;
+    }
+
+    public ClassStudentItemDao getClassStudentItemDao() {
+        return classStudentItemDao;
     }
 
     public ProfessorItemDao getProfessorItemDao() {

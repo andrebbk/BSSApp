@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/theme_primary_color"
+        android:orientation="horizontal"
+        android:paddingTop="10sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp">
+
+        <ImageView
+            android:id="@+id/imageSport"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            tools:ignore="ContentDescription,RtlHardcoded"
+            android:layout_marginLeft="10sp"
+            android:src="@drawable/bss_transparent"
+            android:layout_marginRight="20sp"/>
+
+        <LinearLayout
+            android:layout_width="150sp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textSport"
+                android:layout_width="140sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text="SURF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText"
+                android:layout_marginBottom="5sp"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/textSpot"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text="Cangas"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText"
+                android:layout_marginBottom="5sp"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="140sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text="10/22/2022 10h30"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="90sp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText"
+                android:layout_marginBottom="5sp"/>
+
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text="Inscritos:"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText"
+                android:layout_marginBottom="5sp"/>
+
+            <TextView
+                android:id="@+id/textRegStudents"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:text="0"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

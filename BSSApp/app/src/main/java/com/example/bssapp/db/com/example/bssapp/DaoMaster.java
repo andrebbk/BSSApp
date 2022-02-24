@@ -23,6 +23,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void createAllTables(Database db, boolean ifNotExists) {
         ClassItemDao.createTable(db, ifNotExists);
         ClassProfessorItemDao.createTable(db, ifNotExists);
+        ClassStudentItemDao.createTable(db, ifNotExists);
         ProfessorItemDao.createTable(db, ifNotExists);
         SportItemDao.createTable(db, ifNotExists);
         SpotItemDao.createTable(db, ifNotExists);
@@ -33,6 +34,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void dropAllTables(Database db, boolean ifExists) {
         ClassItemDao.dropTable(db, ifExists);
         ClassProfessorItemDao.dropTable(db, ifExists);
+        ClassStudentItemDao.dropTable(db, ifExists);
         ProfessorItemDao.dropTable(db, ifExists);
         SportItemDao.dropTable(db, ifExists);
         SpotItemDao.dropTable(db, ifExists);
@@ -57,6 +59,7 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(ClassItemDao.class);
         registerDaoClass(ClassProfessorItemDao.class);
+        registerDaoClass(ClassStudentItemDao.class);
         registerDaoClass(ProfessorItemDao.class);
         registerDaoClass(SportItemDao.class);
         registerDaoClass(SpotItemDao.class);
