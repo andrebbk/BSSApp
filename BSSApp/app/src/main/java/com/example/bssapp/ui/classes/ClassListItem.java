@@ -15,6 +15,7 @@ public class ClassListItem implements Serializable {
     String SpotName;
     String ClassDate;
     String RegisteredNum;
+    boolean isEmptyRow;
 
     public ClassListItem(Long classId, String sportName, Long sportId, String spotName, String classDate, String registeredNum)
     {
@@ -24,6 +25,12 @@ public class ClassListItem implements Serializable {
         this.SpotName = spotName;
         this.ClassDate = classDate;
         this.RegisteredNum = registeredNum;
+        this.isEmptyRow = false;
+    }
+
+    public ClassListItem(boolean isEmpty)
+    {
+        this.isEmptyRow = isEmpty;
     }
 
     public Long getClassId() {
@@ -72,5 +79,13 @@ public class ClassListItem implements Serializable {
 
     public void setRegisteredNum(String registeredNum) {
         this.RegisteredNum = registeredNum;
+    }
+
+    public boolean isDummyRow() {
+        return isEmptyRow;
+    }
+
+    public void setDummyRow(boolean dummyRow) {
+        isEmptyRow = dummyRow;
     }
 }

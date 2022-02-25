@@ -88,6 +88,9 @@ public class ClassesFragment extends Fragment {
                         classDateStr, String.valueOf(nStudents)));
             }
 
+            //Last empty row
+            classesList.add(new ClassListItem(true));
+
             //Costume adapter
             ClassAdapter adapter = new ClassAdapter(this.requireActivity(), R.layout.list_class_row, classesList);
             listViewClasses.setAdapter(adapter);

@@ -57,9 +57,16 @@ public class ClassAdapter extends ArrayAdapter<ClassListItem>
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
 
-        convertView = layoutInflater.inflate(mResource, parent, false);
-
         ClassListItem currentItem = getItem(position);
+
+        //Last empty row
+        if(currentItem.isDummyRow())
+        {
+            convertView = layoutInflater.inflate(R.layout.list_class_row_empty, parent, false);
+            return convertView;
+        }
+
+        convertView = layoutInflater.inflate(mResource, parent, false);
 
         ImageView imageSport = convertView.findViewById(R.id.imageSport);
         String sportName = currentItem.getSportName();
