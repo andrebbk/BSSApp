@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.bssapp.ui.classes.ClassListItem;
 import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
@@ -38,7 +39,7 @@ public class MenuActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent, R.id.nav_newProfessor,
-                R.id.nav_editProfessor, R.id.nav_addClass, R.id.nav_data_managment)
+                R.id.nav_editProfessor, R.id.nav_addClass, R.id.nav_data_managment, R.id.nav_class)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
@@ -122,5 +123,15 @@ public class MenuActivity extends AppCompatActivity {
                 .setBackgroundTint(Color.YELLOW)
                 .setTextColor(Color.BLUE)
                 .show();
+    }
+
+    public void changeToClassFragment(ClassListItem classItem) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("SelectedClass", classItem);
+
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_classes, true);
+        navController.navigate(R.id.nav_class, bundle);
     }
 }

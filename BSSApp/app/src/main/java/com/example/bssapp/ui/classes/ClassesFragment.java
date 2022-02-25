@@ -19,6 +19,7 @@ import com.example.bssapp.databinding.FragmentClassesBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -90,7 +91,16 @@ public class ClassesFragment extends Fragment {
             //Costume adapter
             ClassAdapter adapter = new ClassAdapter(this.requireActivity(), R.layout.list_class_row, classesList);
             listViewClasses.setAdapter(adapter);
+
+            listViewClasses.setOnItemClickListener((parent, view, position, id) -> {
+                ClassListItem selectedClass = (ClassListItem) parent.getItemAtPosition(position);
+
+                if(selectedClass != null){
+                    ((MenuActivity) requireActivity()).changeToClassFragment(selectedClass);
+                }
+            });
         }
+
     }
 
 }

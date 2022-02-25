@@ -65,4 +65,10 @@
         android:label="Nova aula"
         tools:layout="@layout/fragment_add_class" />
 
+    <fragment
+        android:id="@+id/nav_class"
+        android:name="com.example.bssapp.ui.classes.ClassFragment"
+        android:label="Aula"
+        tools:layout="@layout/fragment_class" />
+
 </navigation>
