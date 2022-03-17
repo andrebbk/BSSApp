@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,5 +70,10 @@ public class ClassFragment extends Fragment {
 
         TextView textRegNum = view.findViewById(R.id.textRegStudents);
         textRegNum.setText(currentClass.getRegisteredNum());
+
+        Button btnEditClass = view.findViewById(R.id.buttonEditClass);
+        btnEditClass.setOnClickListener(view1 -> {
+            ((MenuActivity) requireActivity()).changeToEditClassFragment(currentClass);
+        });
     }
 }

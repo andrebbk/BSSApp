@@ -71,4 +71,10 @@
         android:label="Aula"
         tools:layout="@layout/fragment_class" />
 
+    <fragment
+        android:id="@+id/nav_editClass"
+        android:name="com.example.bssapp.ui.classes.EditClassFragment"
+        android:label="Editar aula"
+        tools:layout="@layout/fragment_edit_class" />
+
 </navigation>

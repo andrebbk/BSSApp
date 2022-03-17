@@ -134,4 +134,14 @@ public class MenuActivity extends AppCompatActivity {
         navController.popBackStack(R.id.nav_classes, true);
         navController.navigate(R.id.nav_class, bundle);
     }
+
+    public void changeToEditClassFragment(ClassListItem classItem) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("SelectedClass", classItem);
+
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        navController.popBackStack(R.id.nav_class, true);
+        navController.navigate(R.id.nav_editClass, bundle);
+    }
 }

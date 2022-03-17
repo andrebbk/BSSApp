@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.classes.EditClassFragment">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="231dp"
+        android:src="@drawable/surf_boards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="65sp"
+        android:paddingStart="20sp"
+        android:paddingEnd="10sp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/AutoCompleteTheme"
+            app:endIconTint="@color/purple_700"
+            tools:ignore="HardcodedText">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteSport"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:enabled="false"
+                android:hint="Modalidade"
+                android:inputType="none"
+                android:minHeight="48dp"
+                android:paddingStart="15sp"
+                android:paddingEnd="10sp"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70sp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20sp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_text_input"
+                style="@style/TextInputStyle"
+                android:layout_width="247dp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/calendarEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:enabled="false"
+                    android:hint="Data/Hora"
+                    android:textColor="@color/purple_700"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageViewCalendar"
+                android:layout_width="57dp"
+                android:layout_height="63dp"
+                android:src="@drawable/calendar_icon"
+                tools:ignore="ContentDescription"
+                android:layout_marginStart="5sp"/>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18sp"
+            android:layout_marginBottom="20sp"
+            android:theme="@style/AutoCompleteTheme"
+            app:endIconTint="@color/purple_700"
+            tools:ignore="HardcodedText">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteLocal"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:enabled="false"
+                android:hint="Local"
+                android:inputType="none"
+                android:minHeight="48dp"
+                android:paddingStart="15sp"
+                android:paddingEnd="10sp"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_text_input3"
+            style="@style/TextInputStyle"
+            android:layout_width="316dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="20sp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:drawableEnd="@drawable/arrow_down_layout"
+                android:hint="Instrutores"
+                android:inputType="none"
+                android:maxLines="4"
+                android:text=" "
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/obs_text_input"
+            style="@style/TextInputStyle"
+            android:layout_width="320dp"
+            android:layout_height="107dp"
+            app:helperTextTextAppearance="@style/HelperTextAppearance"
+            android:textColorHint="@color/purple_700"
+            app:hintTextColor="@color/purple_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/obsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:hint="Observações"
+                android:text=" "
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText"
+                android:theme="@style/TextInputEditTextStyle"
+                app:hintTextColor="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10sp">
+
+            <Button
+                android:id="@+id/buttonEditSaveClass"
+                android:layout_width="165dp"
+                android:layout_height="61dp"
+                android:backgroundTint="@color/purple_700"
+                android:text="Editar aula"
+                android:textColor="@color/theme_primary_color"
+                android:textSize="12sp"
+                android:layout_marginEnd="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.305"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.447"
+                tools:ignore="HardcodedText"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/buttonRemoveClass"
+                android:layout_width="165dp"
+                android:layout_height="61dp"
+                android:backgroundTint="@color/purple_700"
+                android:text="Remover aula"
+                android:textColor="@color/theme_primary_color"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.305"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.447"
+                tools:ignore="HardcodedText"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
