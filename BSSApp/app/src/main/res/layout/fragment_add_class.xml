@@ -14,8 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:ignore="ContentDescription,ImageContrastCheck"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:ignore="ContentDescription,ImageContrastCheck, UselessParent"
+        tools:layout_editor_absoluteX="0dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
