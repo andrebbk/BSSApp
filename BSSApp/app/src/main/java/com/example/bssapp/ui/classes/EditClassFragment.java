@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.example.bssapp.ClassItemDao;
 import com.example.bssapp.ClassProfessorItemDao;
+import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
@@ -29,12 +30,15 @@ import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
 import com.example.bssapp.SpotItemDao;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentEditClassBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.ClassProfessorItem;
+import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.db.models.StudentItem;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -57,6 +61,7 @@ public class EditClassFragment extends Fragment {
     private ClassItemDao classItemDao;
     private ClassProfessorItemDao classProfessorItemDao;
     private ProfessorItemDao professorItemDao;
+    private ClassItem classItem;
 
     AutoCompleteTextView autoCompleteTextView;
     AutoCompleteTextView autoCompleteLocal;
@@ -272,7 +277,7 @@ public class EditClassFragment extends Fragment {
             autoCompleteLocal.setText(currentClass.getSpotName(), false);
 
             //Load other data from DB
-            ClassItem classItem = daoSession.getClassItemDao().load(currentClass.getClassId());
+            classItem = daoSession.getClassItemDao().load(currentClass.getClassId());
             if(classItem != null)
             {
                 //Instructors
@@ -366,26 +371,41 @@ public class EditClassFragment extends Fragment {
     {
         if(isClassValid(sportIdValue, spotIdValue, profIds))
         {
-            //create new class
-            /*ClassItem newClass = new ClassItem();
-            newClass.setSportId(sportIdValue.get());
-            newClass.setClassDateTime(date.getTime());
-            newClass.setSpotId(spotIdValue.get());
-            newClass.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
-            newClass.setCreateDate(Calendar.getInstance().getTime());
-            newClass.setDeleted(false);*/
+            //edit class
+            if(classItem != null)
+            {
+                classItem.setSportId(sportIdValue.get());
+                classItem.setClassDateTime(date.getTime());
+                classItem.setSpotId(spotIdValue.get());
+                classItem.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
+                classItem.setDeleted(false);
 
-            //long newClassId = classItemDao.insert(newClass);
+                daoSession.getClassItemDao().update(classItem);
 
-            //associate instructors
-            /*for (Long profId : profIds) {
-                ClassProfessorItem newInstructor = new ClassProfessorItem();
-                newInstructor.setClassId(newClassId);
-                newInstructor.setProfessorId(profId);
-                newInstructor.setCreateDate(Calendar.getInstance().getTime());
+                //Load existing instructors
+                QueryBuilder<ProfessorItem> queryBuilder = professorItemDao.queryBuilder();
+                queryBuilder.join(ClassProfessorItem.class, ClassProfessorItemDao.Properties.ProfessorId)
+                        .where(ClassProfessorItemDao.Properties.ClassId.eq(classItem.getClassId()));
 
-                classProfessorItemDao.save(newInstructor);
-            }*/
+                ClassProfessorItemDao classProfessorItemDao = daoSession.getClassProfessorItemDao();
+                QueryBuilder<ClassProfessorItem> classProfessorsData = classProfessorItemDao.queryBuilder()
+                        .where(ClassProfessorItemDao.Properties.ClassId.eq(classItem.getClassId()));
+
+                //delete current instructors
+                for(ClassProfessorItem classProf : classProfessorsData.list()){
+                    daoSession.getClassProfessorItemDao().delete(classProf);
+                }
+
+                //associate instructors (edit)
+                for (Long profId : profIds) {
+                    ClassProfessorItem newInstructor = new ClassProfessorItem();
+                    newInstructor.setClassId(classItem.getClassId());
+                    newInstructor.setProfessorId(profId);
+                    newInstructor.setCreateDate(Calendar.getInstance().getTime());
+
+                    classProfessorItemDao.save(newInstructor);
+                }
+            }
 
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
             builder.setMessage("A aula de " + sportName + " foi editada com sucesso!")
