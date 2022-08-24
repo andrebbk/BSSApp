@@ -2,7 +2,6 @@ package com.example.bssapp.ui.classes;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,7 +15,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -43,6 +41,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -258,7 +257,7 @@ public class EditClassFragment extends Fragment {
             for (int j = 0; j < profsList.size(); j++) {
                 prodIds.add(profIdsList[profsList.get(j)]);
             }
-            //SaveNewClass(sportIdValue, spotIdValue, prodIds);
+            EditClass(sportIdValue, spotIdValue, prodIds);
         });
 
         if(currentClass != null)
@@ -289,12 +288,18 @@ public class EditClassFragment extends Fragment {
                     String profDesignation = prof.getFirstName() + " " + prof.getLastName();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        profsList.add(Math.toIntExact(prof.getProfessorId()));
+                        //add index of prof not id value
+                        long idProf = prof.getProfessorId();
+                        int index = Arrays.asList(profIdsList).indexOf(idProf);
+                        profsList.add(index);
                     }
 
                     for (int i = 0; i < loadProfsArray.length; i++) {
                         if(loadProfsArray[i].equals(profDesignation))
+                        {
                             selectedProf[i] = true;
+                            break;
+                        }
                     }
 
                     stringBuilder.append(profDesignation);
@@ -357,35 +362,33 @@ public class EditClassFragment extends Fragment {
         return new String[]{ };
     }
 
-    private void SaveNewClass(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
+    private void EditClass(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
     {
-        if(isNewClassValid(sportIdValue, spotIdValue, profIds))
+        if(isClassValid(sportIdValue, spotIdValue, profIds))
         {
             //create new class
-            ClassItem newClass = new ClassItem();
+            /*ClassItem newClass = new ClassItem();
             newClass.setSportId(sportIdValue.get());
             newClass.setClassDateTime(date.getTime());
             newClass.setSpotId(spotIdValue.get());
             newClass.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
             newClass.setCreateDate(Calendar.getInstance().getTime());
-            newClass.setDeleted(false);
+            newClass.setDeleted(false);*/
 
-            long newClassId = classItemDao.insert(newClass);
+            //long newClassId = classItemDao.insert(newClass);
 
             //associate instructors
-            for (Long profId : profIds) {
+            /*for (Long profId : profIds) {
                 ClassProfessorItem newInstructor = new ClassProfessorItem();
                 newInstructor.setClassId(newClassId);
                 newInstructor.setProfessorId(profId);
                 newInstructor.setCreateDate(Calendar.getInstance().getTime());
 
                 classProfessorItemDao.save(newInstructor);
-            }
-
-            ClearFromAddClass();
+            }*/
 
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-            builder.setMessage("A aula de " + sportName + " foi registada com sucesso!")
+            builder.setMessage("A aula de " + sportName + " foi editada com sucesso!")
                     .setPositiveButton("Ok", (dialog, id) -> {
                     });
 
@@ -394,7 +397,7 @@ public class EditClassFragment extends Fragment {
         }
     }
 
-    private boolean isNewClassValid(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
+    private boolean isClassValid(AtomicReference<Long> sportIdValue, AtomicReference<Long> spotIdValue, ArrayList<Long> profIds)
     {
         boolean isValid = true;
 
@@ -420,34 +423,6 @@ public class EditClassFragment extends Fragment {
         }
 
         return isValid;
-    }
-
-    private void ClearFromAddClass()
-    {
-        //Modalidade
-        autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
-
-        //Data & Hora
-        date = Calendar.getInstance();
-        SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
-        calendarText.setText(sdFormat.format(date.getTime()));
-
-        //Local
-        autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
-
-        //Instrutores
-        for (int j = 0; j < selectedProf.length; j++) {
-            // remove all selection
-            selectedProf[j] = false;
-            // clear profs list
-            profsList.clear();
-            // clear text view value
-            textViewProfs.setText("  ");
-        }
-
-        //Obs
-        obsText.clearFocus();
-        obsText.setText(" ");
     }
 
 }
