@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private void AnnounceWeekClassesMsg()
     {
         Calendar startOfWeek = Calendar.getInstance();
-        startOfWeek.setTime(getDayOfWeek(Calendar.MONDAY));
+        /*startOfWeek.setTime(getDayOfWeek(Calendar.MONDAY));
         startOfWeek.set(Calendar.HOUR_OF_DAY, 0);
-        startOfWeek.set(Calendar.MINUTE, 0);
+        startOfWeek.set(Calendar.MINUTE, 0);*/
 
         Calendar endOfWeek = Calendar.getInstance();
         endOfWeek.setTime(getDayOfWeek(Calendar.SUNDAY));
