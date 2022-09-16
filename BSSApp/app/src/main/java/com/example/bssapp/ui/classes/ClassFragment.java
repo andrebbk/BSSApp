@@ -72,8 +72,9 @@ public class ClassFragment extends Fragment {
         textRegNum.setText(currentClass.getRegisteredNum());
 
         Button btnEditClass = view.findViewById(R.id.buttonEditClass);
-        btnEditClass.setOnClickListener(view1 -> {
-            ((MenuActivity) requireActivity()).changeToEditClassFragment(currentClass);
-        });
+        btnEditClass.setOnClickListener(view1 -> ((MenuActivity) requireActivity()).changeToEditClassFragment(currentClass));
+
+        Button btnAddStudents = view.findViewById(R.id.buttonAddStudent);
+        btnAddStudents.setOnClickListener(view1 -> ((MenuActivity) requireActivity()).changeToAddStudentClassFragment(currentClass));
     }
 }
