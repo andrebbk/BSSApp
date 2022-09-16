@@ -10,12 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bssapp.ClassStudentItemDao;
+import com.example.bssapp.DaoSession;
+import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentClassBinding;
+import com.example.bssapp.db.models.ClassStudentItem;
+import com.example.bssapp.db.models.StudentItem;
+import com.example.bssapp.ui.students.StudentAdapter;
+import com.example.bssapp.ui.students.StudentListItem;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -76,5 +88,33 @@ public class ClassFragment extends Fragment {
 
         Button btnAddStudents = view.findViewById(R.id.buttonAddStudent);
         btnAddStudents.setOnClickListener(view1 -> ((MenuActivity) requireActivity()).changeToAddStudentClassFragment(currentClass));
+
+        LoadClassStudentsList(view);
+    }
+
+    private void LoadClassStudentsList(View view){
+
+        //Db
+        DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+        StudentItemDao studentItemDao = daoSession.getStudentItemDao();
+
+        QueryBuilder<StudentItem> classStudentsData = studentItemDao.queryBuilder();
+        classStudentsData.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
+                .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()));
+
+        classStudentsData.orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName);
+
+        ListView listViewClassStudents = view.findViewById(R.id.listViewClassStudents);
+
+        ArrayList<StudentListItem> studentsList = new ArrayList<>();
+
+        for (StudentItem object : classStudentsData.list()) {
+            studentsList.add(new StudentListItem(object.getStudentId(), object.getFirstName() + " " + object.getLastName(),
+                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby)));
+        }
+
+        //Costume adapter
+        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList);
+        listViewClassStudents.setAdapter(adapter);
     }
 }

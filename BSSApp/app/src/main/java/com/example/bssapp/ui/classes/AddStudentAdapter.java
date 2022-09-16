@@ -78,7 +78,7 @@ public class AddStudentAdapter extends ArrayAdapter<AddStudentListItem> implemen
             if(checkBox.isChecked())
             {
                 ((AddStudentFragment) mCurrentActivity).AddClassStudent(getItem(position).getStudentId());
-                builder.setMessage("O aluno " + getItem(position).getStudentName() + " foi adicionado à aula!")
+                builder.setMessage("O(a) aluno(a) " + getItem(position).getStudentName() + " foi adicionado(a) à aula!")
                         .setPositiveButton("Ok", (dialog, id) -> {
                         });
                 android.app.AlertDialog dialog = builder.create();
@@ -87,7 +87,7 @@ public class AddStudentAdapter extends ArrayAdapter<AddStudentListItem> implemen
             else
             {
                 ((AddStudentFragment) mCurrentActivity).RemoveClassStudent(getItem(position).getStudentId());
-                builder.setMessage("O aluno " + getItem(position).getStudentName() + " foi removido da aula!")
+                builder.setMessage("O(a) aluno(a) " + getItem(position).getStudentName() + " foi removido(a) da aula!")
                         .setPositiveButton("Ok", (dialog, id) -> {
                         });
                 android.app.AlertDialog dialog = builder.create();

@@ -7,18 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.classes.ClassFragment">
 
+    <ListView
+        android:id="@+id/listViewClassStudents"
+        android:layout_width="match_parent"
+        android:layout_height="694dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:background="@color/theme_primary_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="5dp"
         android:paddingEnd="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        tools:ignore="UseCompoundDrawables"
-        android:background="@color/theme_primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
+        tools:ignore="UseCompoundDrawables"
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
@@ -41,36 +53,36 @@
                 android:id="@+id/textSport"
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
-                android:text="SURF"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                tools:ignore="HardcodedText"
                 android:layout_marginBottom="5sp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:text="SURF"
+                android:textColor="@color/purple_700"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textSpot"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
-                android:text="Cangas"
-                android:textStyle="normal"
-                android:textSize="15sp"
-                tools:ignore="HardcodedText"
                 android:layout_marginBottom="5sp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:text="Cangas"
+                android:textColor="@color/purple_700"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textDate"
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
+                android:maxLines="1"
                 android:text="10/22/2022 10h30"
-                android:textStyle="normal"
+                android:textColor="@color/purple_700"
                 android:textSize="15sp"
-                tools:ignore="HardcodedText"
-                android:maxLines="1"/>
+                android:textStyle="normal"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,12 +105,12 @@
                     android:id="@+id/textRegStudents"
                     android:layout_width="40sp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/purple_700"
-                    android:text="0"
-                    android:textStyle="bold"
                     android:gravity="start"
-                    android:textSize="15sp"
                     android:paddingTop="1sp"
+                    android:text="0"
+                    android:textColor="@color/purple_700"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -115,27 +127,27 @@
                 android:id="@+id/buttonAddStudent"
                 android:layout_width="110sp"
                 android:layout_height="wrap_content"
-                android:text="Adicionar alunos"
-                android:textStyle="bold"
-                android:textSize="10sp"
-                tools:ignore="HardcodedText,SmallSp"
-                android:backgroundTint="@color/purple_700"
-                android:textColor="@color/theme_primary_color"
                 android:layout_marginTop="5sp"
-                android:layout_marginBottom="4sp"/>
+                android:layout_marginBottom="4sp"
+                android:backgroundTint="@color/purple_700"
+                android:text="Adicionar alunos"
+                android:textColor="@color/theme_primary_color"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,SmallSp" />
 
             <Button
                 android:id="@+id/buttonEditClass"
                 android:layout_width="110sp"
                 android:layout_height="wrap_content"
-                android:text="Editar aula"
-                android:textStyle="bold"
-                android:textSize="10sp"
-                tools:ignore="HardcodedText,SmallSp"
-                android:backgroundTint="@color/purple_700"
-                android:textColor="@color/theme_primary_color"
                 android:layout_marginTop="7sp"
-                android:layout_marginBottom="4sp"/>
+                android:layout_marginBottom="4sp"
+                android:backgroundTint="@color/purple_700"
+                android:text="Editar aula"
+                android:textColor="@color/theme_primary_color"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,SmallSp" />
 
         </LinearLayout>
 
