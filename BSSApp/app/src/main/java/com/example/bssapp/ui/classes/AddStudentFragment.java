@@ -103,7 +103,7 @@ public class AddStudentFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String text) {
 
-                ((StudentAdapter) listViewAddStudents.getAdapter()).getFilter().filter(text);
+                ((AddStudentAdapter) listViewAddStudents.getAdapter()).getFilter().filter(text);
                 return false;
             }
 

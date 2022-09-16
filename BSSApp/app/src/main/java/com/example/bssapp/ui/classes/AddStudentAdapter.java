@@ -74,6 +74,7 @@ public class AddStudentAdapter extends ArrayAdapter<AddStudentListItem> implemen
         checkBox.setOnClickListener(view -> {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
 
+            getItem(position).setIsRegistred(checkBox.isChecked()); //update list data
             if(checkBox.isChecked())
             {
                 ((AddStudentFragment) mCurrentActivity).AddClassStudent(getItem(position).getStudentId());
