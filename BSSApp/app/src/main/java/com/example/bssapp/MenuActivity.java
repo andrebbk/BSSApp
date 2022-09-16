@@ -1,9 +1,11 @@
 package com.example.bssapp;
 
 import android.annotation.SuppressLint;
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -82,7 +85,7 @@ public class MenuActivity extends AppCompatActivity {
     public void changeFragment() {
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_students, true);
+        //navController.popBackStack(R.id.nav_students, true);
         navController.navigate(R.id.nav_newStudent);
     }
 
@@ -92,21 +95,21 @@ public class MenuActivity extends AppCompatActivity {
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_students, true);
+        //navController.popBackStack(R.id.nav_students, true);
         navController.navigate(R.id.nav_editStudent, bundle);
     }
 
     public void changeToStudentsFromEditFragment() {
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_editStudent, true);
+        //navController.popBackStack(R.id.nav_editStudent, true);
         navController.navigate(R.id.nav_students);
     }
 
     public void changeToNewProfessor() {
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_professors, true);
+        //navController.popBackStack(R.id.nav_professors, true);
         navController.navigate(R.id.nav_newProfessor);
     }
 
@@ -116,21 +119,21 @@ public class MenuActivity extends AppCompatActivity {
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_professors, true);
+        //navController.popBackStack(R.id.nav_professors, true);
         navController.navigate(R.id.nav_editProfessor, bundle);
     }
 
     public void changeToProfessorsFromEditFragment() {
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_editProfessor, true);
+        //navController.popBackStack(R.id.nav_editProfessor, true);
         navController.navigate(R.id.nav_professors);
     }
 
     public void changeToAddClass() {
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_classes, true);
+        //navController.popBackStack(R.id.nav_classes, true);
         navController.navigate(R.id.nav_addClass);
     }
 
@@ -149,7 +152,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_classes, true);
+        //navController.popBackStack(R.id.nav_classes, true);
         navController.navigate(R.id.nav_class, bundle);
     }
 
@@ -159,7 +162,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_class, true);
+        //navController.popBackStack(R.id.nav_class, true);
         navController.navigate(R.id.nav_editClass, bundle);
     }
 
@@ -169,7 +172,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
-        navController.popBackStack(R.id.nav_class, true);
+        //navController.popBackStack(R.id.nav_class, true);
         navController.navigate(R.id.nav_AddClassStudent, bundle);
     }
 }
