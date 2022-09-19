@@ -54,6 +54,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //noinspection GradleDependency
+    implementation 'com.applandeo:material-calendar-view:1.5.1'
+
     def lottieVersion = "4.2.2"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 

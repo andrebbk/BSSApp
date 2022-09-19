@@ -6,4 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.calendar.CalendarFragment">
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="231dp"
+        android:src="@drawable/surf_boards"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="70sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:paddingBottom="10sp">
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarBBSView"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            app:headerColor="@color/theme_primary_color"
+            app:headerLabelColor="@color/purple_700"
+            app:previousButtonSrc="@drawable/purple_arrow_left_drw"
+            app:forwardButtonSrc="@drawable/purple_arrow_right_drw"
+            app:type="one_day_picker"
+            app:eventsEnabled="true"
+            app:daysLabelsColor="@color/purple_700"
+            app:todayLabelColor="@color/purple_700"
+            app:selectionColor="@color/purple_700"
+            app:anotherMonthsDaysLabelsColor="@color/purple_200"
+            app:abbreviationsLabelsColor="@color/purple_500"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
