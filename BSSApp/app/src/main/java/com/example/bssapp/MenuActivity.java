@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bssapp.databinding.ActivityMenuBinding;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Calendar;
+
 public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -126,11 +128,14 @@ public class MenuActivity extends AppCompatActivity {
         navController.navigate(R.id.nav_professors);
     }
 
-    public void changeToAddClass() {
+    public void changeToAddClass(Calendar newClassDate) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("newClassDate", newClassDate);
+
         //Drawable menu works with a navigation controller that functions like a stack
         //Use this first line to clear the stack and then navigate to destination view
         //navController.popBackStack(R.id.nav_classes, true);
-        navController.navigate(R.id.nav_addClass);
+        navController.navigate(R.id.nav_addClass, bundle);
     }
 
     public void ShowSnackBar(String msg)
@@ -170,5 +175,9 @@ public class MenuActivity extends AppCompatActivity {
         //Use this first line to clear the stack and then navigate to destination view
         //navController.popBackStack(R.id.nav_class, true);
         navController.navigate(R.id.nav_AddClassStudent, bundle);
+    }
+
+    public void changeToClassesFragment() {
+        navController.navigate(R.id.nav_classes);
     }
 }

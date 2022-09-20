@@ -2,6 +2,7 @@ package com.example.bssapp.ui.classes;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,8 @@ import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
 import com.example.bssapp.db.models.StudentItem;
+import com.example.bssapp.ui.datamanagement.DataManagementAdapter;
+import com.example.bssapp.ui.datamanagement.DataManagementItem;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -321,6 +325,11 @@ public class EditClassFragment extends Fragment {
                 obsText.setText(observationsText);
             }
         }
+
+        Button removeClassBtn = view.findViewById(R.id.buttonRemoveClass);
+        removeClassBtn.setOnClickListener(view14 -> {
+            DeleteClass(arrayAdapter.getItem(surfPos).getText());
+        });
     }
 
     private void showDateTimePicker(SimpleDateFormat sdFormat) {
@@ -443,6 +452,42 @@ public class EditClassFragment extends Fragment {
         }
 
         return isValid;
+    }
+
+    private void DeleteClass(String sportDescr)
+    {
+        try{
+            String eventType = "a aula";
+            if(sportDescr != null && !sportDescr.isEmpty() && sportDescr.contains("Evento")) eventType = "o evento";
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireContext());
+            builder.setMessage("Tem a certeza que pretende remover " + eventType + "?")
+                    .setPositiveButton("Sim", (dialog, id) -> {
+                        if(classItem != null)
+                        {
+                            classItem.setDeleted(true);
+                            daoSession.getClassItemDao().update(classItem);
+
+                            String msgAlert = "A aula foi removida com sucesso!";
+                            if(sportDescr != null && !sportDescr.isEmpty() && sportDescr.contains("Evento")) msgAlert = "O evento foi removido com sucesso!";
+
+                            builder.setMessage(msgAlert)
+                                    .setPositiveButton("Ok", (dialog2, id2) -> {
+                                        ((MenuActivity) requireActivity()).changeToClassesFragment();
+                                    });
+
+                            android.app.AlertDialog dialog2 = builder.create();
+                            dialog2.show();
+                        }
+                    })
+                    .setNegativeButton("Não", (dialog, id) -> {});
+
+            android.app.AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        catch (Exception ex){
+            Log.i("Error", ex.toString());
+        }
     }
 
 }

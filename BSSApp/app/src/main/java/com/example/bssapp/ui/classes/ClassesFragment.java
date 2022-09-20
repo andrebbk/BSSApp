@@ -49,7 +49,7 @@ public class ClassesFragment extends Fragment {
 
     private void LoadControllers(View root) {
         FloatingActionButton fabAddClass = root.findViewById(R.id.fabAddClass);
-        fabAddClass.setOnClickListener(v -> ((MenuActivity) requireActivity()).changeToAddClass());
+        fabAddClass.setOnClickListener(v -> ((MenuActivity) requireActivity()).changeToAddClass(null));
 
         ListView listViewClasses;
 

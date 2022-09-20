@@ -2,7 +2,6 @@ package com.example.bssapp.ui.classes;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -72,6 +70,9 @@ public class AddClassFragment extends Fragment {
     ArrayList<Integer> profsList = new ArrayList<>();
     Long[] profIdsList = new Long[] {};
 
+    //Bundle data
+    private Calendar newClassDate = null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -82,6 +83,10 @@ public class AddClassFragment extends Fragment {
         daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
         classItemDao = daoSession.getClassItemDao();
         classProfessorItemDao = daoSession.getClassProfessorItemDao();
+
+        if (getArguments() != null) {
+            newClassDate = (Calendar) getArguments().getSerializable("newClassDate");
+        }
 
         LoadControllers(root);
         return root;
@@ -126,9 +131,11 @@ public class AddClassFragment extends Fragment {
             sportName = m.getText();
         });
 
-        calendarText = view.findViewById(R.id.calendarEditText);
+        //Calendar date
         date = Calendar.getInstance();
+        if(newClassDate != null) date = newClassDate;
 
+        calendarText = view.findViewById(R.id.calendarEditText);
         SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
         calendarText.setText(sdFormat.format(date.getTime()));
 
@@ -247,8 +254,12 @@ public class AddClassFragment extends Fragment {
     }
 
     private void showDateTimePicker(SimpleDateFormat sdFormat) {
-        final Calendar currentDate = Calendar.getInstance();
-        date = Calendar.getInstance();
+        if(newClassDate != null){
+            date = newClassDate;
+        }
+        else{
+            date = Calendar.getInstance();
+        }
 
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), R.style.TimePickerDialogStyle, (view, year, monthOfYear, dayOfMonth) -> {
             date.set(year, monthOfYear, dayOfMonth);
@@ -257,9 +268,9 @@ public class AddClassFragment extends Fragment {
                 date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 date.set(Calendar.MINUTE, minute);
                 calendarText.setText(sdFormat.format(date.getTime()));
-            }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true)
+            }, date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), true)
                     .show();
-        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE));
+        }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
 
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
@@ -361,7 +372,13 @@ public class AddClassFragment extends Fragment {
         autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
 
         //Data & Hora
-        date = Calendar.getInstance();
+        if(newClassDate != null){
+            date = newClassDate;
+        }
+        else{
+            date = Calendar.getInstance();
+        }
+
         SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
         calendarText.setText(sdFormat.format(date.getTime()));
 

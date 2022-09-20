@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bssapp.ClassItemDao;
 import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
@@ -20,6 +21,7 @@ import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentClassBinding;
+import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.StudentItem;
 import com.example.bssapp.ui.students.StudentAdapter;
@@ -36,7 +38,10 @@ public class ClassFragment extends Fragment {
 
     private FragmentClassBinding binding;
 
-    private ClassListItem currentClass;
+    private ClassListItem currentClass = null;
+
+    //Db
+    DaoSession daoSession;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class ClassFragment extends Fragment {
         binding = FragmentClassBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
         LoadControllers(root);
 
         return root;
@@ -61,6 +67,8 @@ public class ClassFragment extends Fragment {
 
     private void LoadControllers(View view)
     {
+        if(currentClass == null) return;
+
         ImageView imageSport = view.findViewById(R.id.imageSport);
         String sportName = currentClass.getSportName();
 
@@ -80,8 +88,13 @@ public class ClassFragment extends Fragment {
         TextView textDate = view.findViewById(R.id.textDate);
         textDate.setText(currentClass.getClassDate());
 
+        //registered students number
+        long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
+                .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()))
+                .count();
+
         TextView textRegNum = view.findViewById(R.id.textRegStudents);
-        textRegNum.setText(currentClass.getRegisteredNum());
+        textRegNum.setText(String.valueOf(nStudents));
 
         Button btnEditClass = view.findViewById(R.id.buttonEditClass);
         btnEditClass.setOnClickListener(view1 -> ((MenuActivity) requireActivity()).changeToEditClassFragment(currentClass));
@@ -94,10 +107,8 @@ public class ClassFragment extends Fragment {
 
     private void LoadClassStudentsList(View view){
 
-        //Db
-        DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
-        StudentItemDao studentItemDao = daoSession.getStudentItemDao();
 
+        StudentItemDao studentItemDao = daoSession.getStudentItemDao();
         QueryBuilder<StudentItem> classStudentsData = studentItemDao.queryBuilder();
         classStudentsData.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
                 .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()));

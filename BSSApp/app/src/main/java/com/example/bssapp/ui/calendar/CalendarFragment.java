@@ -1,26 +1,44 @@
 package com.example.bssapp.ui.calendar;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.example.bssapp.ClassItemDao;
+import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
+import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
 import com.example.bssapp.databinding.FragmentCalendarBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.SportItem;
+import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.ui.classes.ClassAdapter;
+import com.example.bssapp.ui.classes.ClassListItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class CalendarFragment extends Fragment {
 
@@ -51,13 +69,10 @@ public class CalendarFragment extends Fragment {
     private void LoadControllers(View view){
         daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
 
-        calendarBSSView = (CalendarView) view.findViewById(R.id.calendarBBSView);
+        calendarBSSView = view.findViewById(R.id.calendarBBSView);
         calendarBSSView.setOnDayClickListener(eventDay -> {
             if(eventDay != null){
-
-                //open popup with all the classes form event day
-                Calendar pickedDay = eventDay.getCalendar();
-                System.out.println(pickedDay.getTime());
+                LoadDayClassDialog(eventDay.getCalendar());
             }
         });
 
@@ -121,13 +136,17 @@ public class CalendarFragment extends Fragment {
                 {
                     return R.drawable.class_icon_sup;
                 }
+                else if(sport.contains("Evento"))
+                {
+                    return R.drawable.bss_transparent;
+                }
             }
         }
 
         return R.drawable.person_surfing;
     }
 
-    public SportItem findSportUsingEnhancedForLoop(
+    private SportItem findSportUsingEnhancedForLoop(
             long sportId, List<SportItem> sportsData) {
 
         for (SportItem sport : sportsData) {
@@ -136,6 +155,137 @@ public class CalendarFragment extends Fragment {
             }
         }
         return null;
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void LoadDayClassDialog(Calendar pickedDay){
+        View dayClassesDialog = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_day_classes,null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
+        alert.setView(dayClassesDialog);
+
+        TextView dayText = dayClassesDialog.findViewById(R.id.textViewDay);
+        if(dayText != null) {
+            SimpleDateFormat sdFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            String classDateStr = sdFormat.format(pickedDay.getTime());
+            dayText.setText(classDateStr);
+        }
+
+        final AlertDialog dialog = alert.create();
+
+        FloatingActionButton fabAddClass = dayClassesDialog.findViewById(R.id.dialog_fabAddClass);
+        fabAddClass.setOnClickListener(v -> {
+            //Update current time
+            pickedDay.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+            pickedDay.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
+            pickedDay.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND));
+
+            //SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
+            ((MenuActivity) requireActivity()).changeToAddClass(pickedDay);
+
+            dialog.dismiss();
+        });
+
+        ListView listViewDialogClasses = dayClassesDialog.findViewById(R.id.listViewDayClasses);
+        LoadDialogClasses(listViewDialogClasses, pickedDay, dialog);
+
+        /*Button saveButton = sportsDialog.findViewById(R.id.buttonSave);
+        Button cancelButton = sportsDialog.findViewById(R.id.buttonCancel);
+        EditText newSport = sportsDialog.findViewById(R.id.editTextData);*/
+
+        //this line removed app bar from dialog and make it transparent and you see the image is like floating outside dialog box.
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+        /*cancelButton.setOnClickListener(view2 -> dialog.dismiss());
+
+        saveButton.setOnClickListener(view22 -> {
+            if(TextUtils.isEmpty(newSport.getText())){
+                dialog.dismiss();
+                ((MenuActivity) requireActivity()).ShowSnackBar("A designação da modalidade é obrigatória!");
+                return;
+            }
+            else if(CheckForDuplicatedData(true, newSport.getText().toString().trim(), 0L))
+            {
+                dialog.dismiss();
+                ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade já existe!");
+                return;
+            }
+
+            SaveNewSport(view, dialog, newSport.getText().toString().trim());
+        });*/
+    }
+
+    private void LoadDialogClasses(ListView listViewClasses, Calendar pickedDate, AlertDialog dialog) {
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(Calendar.YEAR, pickedDate.get(Calendar.YEAR));
+        startDate.set(Calendar.MONTH, pickedDate.get(Calendar.MONTH));
+        startDate.set(Calendar.DAY_OF_YEAR, pickedDate.get(Calendar.DAY_OF_YEAR));
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(Calendar.YEAR, pickedDate.get(Calendar.YEAR));
+        endDate.set(Calendar.MONTH, pickedDate.get(Calendar.MONTH));
+        endDate.set(Calendar.DAY_OF_YEAR, pickedDate.get(Calendar.DAY_OF_YEAR));
+        endDate.set(Calendar.HOUR_OF_DAY, 23);
+        endDate.set(Calendar.MINUTE, 59);
+        endDate.set(Calendar.SECOND, 59);
+
+        System.out.println(startDate.getTime());
+        System.out.println(endDate.getTime());
+        ClassItemDao classItemDao = daoSession.getClassItemDao();
+        List<ClassItem> classesData = classItemDao.queryBuilder()
+                .where(ClassItemDao.Properties.Deleted.eq(false),
+                        ClassItemDao.Properties.ClassDateTime.ge(startDate.getTime()),
+                        ClassItemDao.Properties.ClassDateTime.le(endDate.getTime()))
+                .orderDesc(ClassItemDao.Properties.ClassDateTime)
+                .list();
+
+        if(classesData != null && classesData.size() > 0)
+        {
+            ArrayList<ClassListItem> classesList = new ArrayList<>();
+
+            for (ClassItem object : classesData) {
+
+                //sport
+                SportItem sportItem = daoSession.getSportItemDao().load(object.getSportId());
+
+                //spot
+                SpotItem spotItem = daoSession.getSpotItemDao().load(object.getSpotId());
+
+                //date
+                SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
+
+                //registered students number
+                long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
+                        .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()))
+                        .count();
+
+                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
+                        classDateStr, String.valueOf(nStudents)));
+            }
+
+            //Last empty row
+            classesList.add(new ClassListItem(true));
+
+            //Costume adapter
+            ClassAdapter adapter = new ClassAdapter(this.requireActivity(), R.layout.dialog_list_class_row, classesList);
+            listViewClasses.setAdapter(adapter);
+
+            listViewClasses.setOnItemClickListener((parent, view, position, id) -> {
+                ClassListItem selectedClass = (ClassListItem) parent.getItemAtPosition(position);
+
+                if(selectedClass != null){
+                    ((MenuActivity) requireActivity()).changeToClassFragment(selectedClass);
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
     //AskPermissions
