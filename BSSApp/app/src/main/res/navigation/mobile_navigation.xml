@@ -36,6 +36,12 @@
         tools:layout="@layout/fragment_data_management" />
 
     <fragment
+        android:id="@+id/nav_statistic"
+        android:name="com.example.bssapp.ui.statistic.StatisticFragment"
+        android:label="@string/menu_Statistic"
+        tools:layout="@layout/fragment_statistic" />
+
+    <fragment
         android:id="@+id/nav_newStudent"
         android:name="com.example.bssapp.ui.students.NewStudentFragment"
         android:label="Novo aluno"

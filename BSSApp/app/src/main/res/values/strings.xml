@@ -12,20 +12,22 @@
     <string name="background_Label">background</string>
 
     <!--Navigation-->
-    <string name="menu_calendar">Calendar</string>
-    <string name="menu_students">Students</string>
-    <string name="menu_classes">Classes</string>
-    <string name="menu_professors">Professors</string>
-    <string name="menu_data">Modalidades/Locais</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Menu-->
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_students">Students</string>
+    <string name="menu_classes">Classes</string>
+    <string name="menu_professors">Professors</string>
+    <string name="menu_data">Modalidades &amp; Locais</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_Statistic">Estatísticas</string>
 
     <string name="remove_student_validation">O(a) aluno(a) será removido(a) do sistema. Deseja continuar?</string>
     <string name="remove_professor_validation">O(a) instrutor(a) será removido(a) do sistema. Deseja continuar?</string>
@@ -63,4 +65,6 @@
     <string name="material_calendar_negative_button">Cancelar</string>
 
     <string name="NoScheduledClassesMsg">Não existem aulas ou eventos agendados</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

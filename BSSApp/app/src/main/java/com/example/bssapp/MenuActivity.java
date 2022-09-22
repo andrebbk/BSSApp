@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity implements
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_calendar, R.id.nav_students, R.id.nav_classes, R.id.nav_professors, R.id.nav_newStudent, R.id.nav_editStudent, R.id.nav_newProfessor,
-                R.id.nav_editProfessor, R.id.nav_addClass, R.id.nav_data_managment, R.id.nav_class, R.id.nav_AddClassStudent)
+                R.id.nav_editProfessor, R.id.nav_addClass, R.id.nav_data_managment, R.id.nav_class, R.id.nav_AddClassStudent, R.id.nav_statistic)
                 .setOpenableLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);

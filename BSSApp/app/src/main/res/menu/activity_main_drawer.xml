@@ -27,6 +27,11 @@
             android:title="@string/menu_data" />
 
         <item
+            android:id="@+id/nav_statistic"
+            android:icon="@drawable/magnifying_glass"
+            android:title="@string/menu_Statistic" />
+
+        <item
             android:id="@+id/nav_newStudent"
             android:title="Novo aluno"
             android:visible="false"
