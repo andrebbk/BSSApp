@@ -1,5 +1,7 @@
 package com.example.bssapp;
 
+import com.example.bssapp.commons.DaysOfWeekValues;
+
 import java.text.Normalizer;
 import java.util.Calendar;
 
@@ -52,6 +54,27 @@ public class UtilsClass {
         }
 
         return null;
+    }
+
+    public static int GetDayOfWeekValue(DaysOfWeekValues dayOfWeek){
+        switch(dayOfWeek){
+            case SUNDAY:
+                return 1;
+            case MONDAY:
+                return 2;
+            case TUESDAY:
+                return 3;
+            case WEDNESDAY:
+                return 4;
+            case THURSDAY:
+                return 5;
+            case FRIDAY:
+                return 6;
+            case SATURDAY:
+                return 7;
+            default:
+                return 0;
+        }
     }
 
 }

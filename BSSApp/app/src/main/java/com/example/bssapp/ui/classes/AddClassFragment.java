@@ -309,6 +309,7 @@ public class AddClassFragment extends Fragment {
             ClassItem newClass = new ClassItem();
             newClass.setSportId(sportIdValue.get());
             newClass.setClassDateTime(date.getTime());
+            newClass.setClassDayOfWeek(date.get(Calendar.DAY_OF_WEEK));
             newClass.setSpotId(spotIdValue.get());
             newClass.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
             newClass.setCreateDate(Calendar.getInstance().getTime());

@@ -3,6 +3,7 @@ package com.example.bssapp.db.models;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.util.Calendar;
 import java.util.Date;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -18,6 +19,8 @@ public class ClassItem {
 
     private Date classDateTime;
 
+    private int classDayOfWeek;
+
     private Long spotId;
 
     public String observations;
@@ -26,12 +29,14 @@ public class ClassItem {
 
     private boolean deleted;
 
-    @Generated(hash = 579063600)
-    public ClassItem(Long classId, Long sportId, Date classDateTime, Long spotId,
-            String observations, Date createDate, boolean deleted) {
+    @Generated(hash = 1808825472)
+    public ClassItem(Long classId, Long sportId, Date classDateTime,
+            int classDayOfWeek, Long spotId, String observations, Date createDate,
+            boolean deleted) {
         this.classId = classId;
         this.sportId = sportId;
         this.classDateTime = classDateTime;
+        this.classDayOfWeek = classDayOfWeek;
         this.spotId = spotId;
         this.observations = observations;
         this.createDate = createDate;
@@ -96,5 +101,13 @@ public class ClassItem {
 
     public boolean getDeleted() {
         return this.deleted;
+    }
+
+    public int getClassDayOfWeek() {
+        return this.classDayOfWeek;
+    }
+
+    public void setClassDayOfWeek(int classDayOfWeek) {
+        this.classDayOfWeek = classDayOfWeek;
     }
 }

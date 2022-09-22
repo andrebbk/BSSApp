@@ -27,10 +27,11 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
         public final static Property ClassId = new Property(0, Long.class, "classId", true, "_id");
         public final static Property SportId = new Property(1, Long.class, "sportId", false, "SPORT_ID");
         public final static Property ClassDateTime = new Property(2, java.util.Date.class, "classDateTime", false, "CLASS_DATE_TIME");
-        public final static Property SpotId = new Property(3, Long.class, "spotId", false, "SPOT_ID");
-        public final static Property Observations = new Property(4, String.class, "observations", false, "OBSERVATIONS");
-        public final static Property CreateDate = new Property(5, java.util.Date.class, "createDate", false, "CREATE_DATE");
-        public final static Property Deleted = new Property(6, boolean.class, "deleted", false, "DELETED");
+        public final static Property ClassDayOfWeek = new Property(3, int.class, "classDayOfWeek", false, "CLASS_DAY_OF_WEEK");
+        public final static Property SpotId = new Property(4, Long.class, "spotId", false, "SPOT_ID");
+        public final static Property Observations = new Property(5, String.class, "observations", false, "OBSERVATIONS");
+        public final static Property CreateDate = new Property(6, java.util.Date.class, "createDate", false, "CREATE_DATE");
+        public final static Property Deleted = new Property(7, boolean.class, "deleted", false, "DELETED");
     }
 
 
@@ -49,10 +50,11 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: classId
                 "\"SPORT_ID\" INTEGER," + // 1: sportId
                 "\"CLASS_DATE_TIME\" INTEGER," + // 2: classDateTime
-                "\"SPOT_ID\" INTEGER," + // 3: spotId
-                "\"OBSERVATIONS\" TEXT," + // 4: observations
-                "\"CREATE_DATE\" INTEGER," + // 5: createDate
-                "\"DELETED\" INTEGER NOT NULL );"); // 6: deleted
+                "\"CLASS_DAY_OF_WEEK\" INTEGER NOT NULL ," + // 3: classDayOfWeek
+                "\"SPOT_ID\" INTEGER," + // 4: spotId
+                "\"OBSERVATIONS\" TEXT," + // 5: observations
+                "\"CREATE_DATE\" INTEGER," + // 6: createDate
+                "\"DELETED\" INTEGER NOT NULL );"); // 7: deleted
     }
 
     /** Drops the underlying database table. */
@@ -79,22 +81,23 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
         if (classDateTime != null) {
             stmt.bindLong(3, classDateTime.getTime());
         }
+        stmt.bindLong(4, entity.getClassDayOfWeek());
  
         Long spotId = entity.getSpotId();
         if (spotId != null) {
-            stmt.bindLong(4, spotId);
+            stmt.bindLong(5, spotId);
         }
  
         String observations = entity.getObservations();
         if (observations != null) {
-            stmt.bindString(5, observations);
+            stmt.bindString(6, observations);
         }
  
         java.util.Date createDate = entity.getCreateDate();
         if (createDate != null) {
-            stmt.bindLong(6, createDate.getTime());
+            stmt.bindLong(7, createDate.getTime());
         }
-        stmt.bindLong(7, entity.getDeleted() ? 1L: 0L);
+        stmt.bindLong(8, entity.getDeleted() ? 1L: 0L);
     }
 
     @Override
@@ -115,22 +118,23 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
         if (classDateTime != null) {
             stmt.bindLong(3, classDateTime.getTime());
         }
+        stmt.bindLong(4, entity.getClassDayOfWeek());
  
         Long spotId = entity.getSpotId();
         if (spotId != null) {
-            stmt.bindLong(4, spotId);
+            stmt.bindLong(5, spotId);
         }
  
         String observations = entity.getObservations();
         if (observations != null) {
-            stmt.bindString(5, observations);
+            stmt.bindString(6, observations);
         }
  
         java.util.Date createDate = entity.getCreateDate();
         if (createDate != null) {
-            stmt.bindLong(6, createDate.getTime());
+            stmt.bindLong(7, createDate.getTime());
         }
-        stmt.bindLong(7, entity.getDeleted() ? 1L: 0L);
+        stmt.bindLong(8, entity.getDeleted() ? 1L: 0L);
     }
 
     @Override
@@ -144,10 +148,11 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // classId
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // sportId
             cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)), // classDateTime
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // spotId
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // observations
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // createDate
-            cursor.getShort(offset + 6) != 0 // deleted
+            cursor.getInt(offset + 3), // classDayOfWeek
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // spotId
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // observations
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)), // createDate
+            cursor.getShort(offset + 7) != 0 // deleted
         );
         return entity;
     }
@@ -157,10 +162,11 @@ public class ClassItemDao extends AbstractDao<ClassItem, Long> {
         entity.setClassId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setSportId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setClassDateTime(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
-        entity.setSpotId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setObservations(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setCreateDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
-        entity.setDeleted(cursor.getShort(offset + 6) != 0);
+        entity.setClassDayOfWeek(cursor.getInt(offset + 3));
+        entity.setSpotId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
+        entity.setObservations(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setCreateDate(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
+        entity.setDeleted(cursor.getShort(offset + 7) != 0);
      }
     
     @Override

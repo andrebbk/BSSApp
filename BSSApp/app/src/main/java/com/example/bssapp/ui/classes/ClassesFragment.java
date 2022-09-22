@@ -19,7 +19,6 @@ import com.example.bssapp.databinding.FragmentClassesBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
-import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;

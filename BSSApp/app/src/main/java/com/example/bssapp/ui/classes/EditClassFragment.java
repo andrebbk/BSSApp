@@ -385,6 +385,7 @@ public class EditClassFragment extends Fragment {
             {
                 classItem.setSportId(sportIdValue.get());
                 classItem.setClassDateTime(date.getTime());
+                classItem.setClassDayOfWeek(date.get(Calendar.DAY_OF_WEEK));
                 classItem.setSpotId(spotIdValue.get());
                 classItem.setObservations(Objects.requireNonNull(obsText.getText()).toString().trim());
                 classItem.setDeleted(false);
