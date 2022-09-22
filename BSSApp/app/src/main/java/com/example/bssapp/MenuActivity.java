@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -13,6 +14,7 @@ import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,10 +27,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
+    private DrawerLayout drawer;
 
     @SuppressLint("NewApi")
     @Override
@@ -52,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.theme_primary_color));
         window.setStatusBarContrastEnforced(true);
 
-        DrawerLayout drawer = binding.drawerLayout;
+        drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -64,6 +68,10 @@ public class MenuActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
@@ -78,6 +86,28 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        /*if (id == R.id.nav_students) {
+            // DO your stuff
+        }*/
+
+        //Clear all stacked fragments
+        navController.popBackStack();
+
+        //navigate to fragment
+        navController.navigate(id);
+
+        //Close slide navigation menu
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     public void changeFragment() {
