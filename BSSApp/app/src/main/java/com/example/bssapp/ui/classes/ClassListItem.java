@@ -14,10 +14,11 @@ public class ClassListItem implements Serializable {
     Long SportId;
     String SpotName;
     String ClassDate;
+    String CompleteClassDate;
     String RegisteredNum;
     boolean isEmptyRow;
 
-    public ClassListItem(Long classId, String sportName, Long sportId, String spotName, String classDate, String registeredNum)
+    public ClassListItem(Long classId, String sportName, Long sportId, String spotName, String classDate, String registeredNum, String completeClassDate)
     {
         this.ClassId = classId;
         this.SportName = sportName;
@@ -25,6 +26,7 @@ public class ClassListItem implements Serializable {
         this.SpotName = spotName;
         this.ClassDate = classDate;
         this.RegisteredNum = registeredNum;
+        this.CompleteClassDate = completeClassDate;
         this.isEmptyRow = false;
     }
 
@@ -80,6 +82,12 @@ public class ClassListItem implements Serializable {
     public void setRegisteredNum(String registeredNum) {
         this.RegisteredNum = registeredNum;
     }
+
+    public String getCompleteClassDate() {
+        return CompleteClassDate;
+    }
+
+    public void setCompleteClassDate(String completeClassDate) { CompleteClassDate = completeClassDate; }
 
     public boolean isDummyRow() {
         return isEmptyRow;

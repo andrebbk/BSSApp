@@ -26,6 +26,7 @@ import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
+import com.example.bssapp.UtilsClass;
 import com.example.bssapp.databinding.FragmentCalendarBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.SportItem;
@@ -132,7 +133,7 @@ public class CalendarFragment extends Fragment {
                 {
                     return R.drawable.class_icon_kayak;
                 }
-                else if(sport.contains("SUPPaddle"))
+                else if(sport.contains("SUPaddle"))
                 {
                     return R.drawable.class_icon_sup;
                 }
@@ -174,50 +175,39 @@ public class CalendarFragment extends Fragment {
         final AlertDialog dialog = alert.create();
 
         FloatingActionButton fabAddClass = dayClassesDialog.findViewById(R.id.dialog_fabAddClass);
-        fabAddClass.setOnClickListener(v -> {
-            //Update current time
-            pickedDay.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-            pickedDay.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
-            pickedDay.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND));
 
-            //SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
-            ((MenuActivity) requireActivity()).changeToAddClass(pickedDay);
+        Integer timeFrameDate = UtilsClass.CompareDates(pickedDay, Calendar.getInstance());
 
-            dialog.dismiss();
-        });
+        if(timeFrameDate != 0){
+            fabAddClass.setOnClickListener(v -> {
+                //Update current time
+                pickedDay.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                pickedDay.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
+                pickedDay.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND));
+
+                //SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
+                ((MenuActivity) requireActivity()).changeToAddClass(pickedDay);
+
+                dialog.dismiss();
+            });
+        }
+        else if(timeFrameDate == 0){
+            //past date
+            fabAddClass.setVisibility(View.INVISIBLE);
+        }
+
 
         ListView listViewDialogClasses = dayClassesDialog.findViewById(R.id.listViewDayClasses);
-        LoadDialogClasses(listViewDialogClasses, pickedDay, dialog);
-
-        /*Button saveButton = sportsDialog.findViewById(R.id.buttonSave);
-        Button cancelButton = sportsDialog.findViewById(R.id.buttonCancel);
-        EditText newSport = sportsDialog.findViewById(R.id.editTextData);*/
+        TextView textViewNoScheduledClasses = dayClassesDialog.findViewById(R.id.textViewNoScheduledClassesMsg);
+        LoadDialogClasses(listViewDialogClasses, pickedDay, dialog, textViewNoScheduledClasses);
 
         //this line removed app bar from dialog and make it transparent and you see the image is like floating outside dialog box.
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
-
-        /*cancelButton.setOnClickListener(view2 -> dialog.dismiss());
-
-        saveButton.setOnClickListener(view22 -> {
-            if(TextUtils.isEmpty(newSport.getText())){
-                dialog.dismiss();
-                ((MenuActivity) requireActivity()).ShowSnackBar("A designação da modalidade é obrigatória!");
-                return;
-            }
-            else if(CheckForDuplicatedData(true, newSport.getText().toString().trim(), 0L))
-            {
-                dialog.dismiss();
-                ((MenuActivity) requireActivity()).ShowSnackBar("A modalidade já existe!");
-                return;
-            }
-
-            SaveNewSport(view, dialog, newSport.getText().toString().trim());
-        });*/
     }
 
-    private void LoadDialogClasses(ListView listViewClasses, Calendar pickedDate, AlertDialog dialog) {
+    private void LoadDialogClasses(ListView listViewClasses, Calendar pickedDate, AlertDialog dialog, TextView textViewNoScheduledClasses) {
 
         Calendar startDate = Calendar.getInstance();
         startDate.set(Calendar.YEAR, pickedDate.get(Calendar.YEAR));
@@ -242,7 +232,7 @@ public class CalendarFragment extends Fragment {
                 .where(ClassItemDao.Properties.Deleted.eq(false),
                         ClassItemDao.Properties.ClassDateTime.ge(startDate.getTime()),
                         ClassItemDao.Properties.ClassDateTime.le(endDate.getTime()))
-                .orderDesc(ClassItemDao.Properties.ClassDateTime)
+                .orderAsc(ClassItemDao.Properties.ClassDateTime)
                 .list();
 
         if(classesData != null && classesData.size() > 0)
@@ -261,13 +251,17 @@ public class CalendarFragment extends Fragment {
                 SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
 
+                //save complete date format
+                SimpleDateFormat completeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                String classDateCompleteStr = (completeFormat.format(object.getClassDateTime())).replace(":", "h");
+
                 //registered students number
                 long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
                         .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()))
                         .count();
 
                 classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
-                        classDateStr, String.valueOf(nStudents)));
+                        classDateStr, String.valueOf(nStudents), classDateCompleteStr));
             }
 
             //Last empty row
@@ -279,12 +273,17 @@ public class CalendarFragment extends Fragment {
 
             listViewClasses.setOnItemClickListener((parent, view, position, id) -> {
                 ClassListItem selectedClass = (ClassListItem) parent.getItemAtPosition(position);
+                selectedClass.setClassDate(selectedClass.getCompleteClassDate()); // fix date presentation label (not only time but date)
 
                 if(selectedClass != null){
                     ((MenuActivity) requireActivity()).changeToClassFragment(selectedClass);
                     dialog.dismiss();
                 }
             });
+        }
+        else
+        {
+            textViewNoScheduledClasses.setVisibility(View.VISIBLE);
         }
     }
 

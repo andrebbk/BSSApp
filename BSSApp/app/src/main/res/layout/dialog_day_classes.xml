@@ -24,7 +24,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_vertical|center_horizontal">
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -54,41 +55,50 @@
             <ListView
                 android:id="@+id/listViewDayClasses"
                 android:layout_width="match_parent"
-                android:layout_height="325dp"
+                android:layout_height="385dp"
                 android:layout_marginTop="0sp"
                 android:layout_marginBottom="5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/dialog_fabAddClass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/theme_primary_color"
-                    android:contentDescription="Nova aula"
-                    android:src="@android:drawable/ic_input_add"
-                    app:borderWidth="0sp"
-                    app:tint="@color/purple_700"
-                    tools:ignore="HardcodedText,ImageContrastCheck" />
-
             </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bss_transparent"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewNoScheduledClassesMsg"
+        android:layout_width="190dp"
+        android:layout_height="80sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="280dp"
+        android:text="@string/NoScheduledClassesMsg"
+        android:textColor="@color/purple_700"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/dialog_fabAddClass"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:backgroundTint="@color/theme_primary_color"
+        android:contentDescription="Nova aula"
+        android:src="@android:drawable/ic_input_add"
+        app:borderWidth="0sp"
+        app:tint="@color/purple_700"
+        tools:ignore="HardcodedText,ImageContrastCheck"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="520dp"/>
 
 </RelativeLayout>

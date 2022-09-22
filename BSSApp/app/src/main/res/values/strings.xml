@@ -61,4 +61,6 @@
     <string name="material_calendar_today_button">Hoje</string>
     <string name="material_calendar_positive_button">OK</string>
     <string name="material_calendar_negative_button">Cancelar</string>
+
+    <string name="NoScheduledClassesMsg">Não existem aulas ou eventos agendados</string>
 </resources>

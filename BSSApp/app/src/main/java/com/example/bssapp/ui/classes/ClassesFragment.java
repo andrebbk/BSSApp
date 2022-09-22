@@ -85,7 +85,7 @@ public class ClassesFragment extends Fragment {
                         .count();
 
                 classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
-                        classDateStr, String.valueOf(nStudents)));
+                        classDateStr, String.valueOf(nStudents), null));
             }
 
             //Last empty row
