@@ -35,13 +35,16 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class StatisticFragment extends Fragment {
 
     private FragmentStatisticBinding binding;
 
     private BarChart chart;
-
+    private BarChart chartChildren;
+    private Date lastTwoMonthsDate;
+    private long totalAdultStudents = 0, totalChildrenStudents = 0;
     private DaoSession daoSession;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,7 +55,10 @@ public class StatisticFragment extends Fragment {
 
         daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
 
-        LoadControllers(root);
+        LoadParameters();
+
+        LoadAdultControllers(root);
+        LoadChildrenControllers(root);
         return root;
     }
 
@@ -62,7 +68,23 @@ public class StatisticFragment extends Fragment {
         binding = null;
     }
 
-    private void LoadControllers(View view){
+    private void LoadParameters(){
+        //until last 2 months
+        Calendar cal = Calendar.getInstance();
+        Date today = cal.getTime();
+        cal.add(Calendar.MONTH, -2);
+        lastTwoMonthsDate = cal.getTime();
+
+        totalAdultStudents = daoSession.getStudentItemDao().queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false), StudentItemDao.Properties.IsAdult.eq(true))
+                .count();
+
+        totalChildrenStudents = daoSession.getStudentItemDao().queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false), StudentItemDao.Properties.IsAdult.eq(false))
+                .count();
+    }
+
+    private void LoadAdultControllers(View view){
         chart = view.findViewById(R.id.chartAdults);
 
         chart.getDescription().setEnabled(false);
@@ -89,6 +111,10 @@ public class StatisticFragment extends Fragment {
         chart.setSelected(false);
         chart.setClickable(false);
 
+        //Show 100% value at Y axis
+        chart.getAxisLeft().setAxisMinimum(0);
+        chart.getAxisLeft().setAxisMaximum(100);
+
         ValueFormatter xAxisFormatter = new DayAxisValueFormatter();
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -97,17 +123,19 @@ public class StatisticFragment extends Fragment {
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
 
-        LoadGraphData();
+        LoadGraphAdultData();
     }
 
-    private void LoadGraphData(){
+    private void LoadGraphAdultData(){
         ArrayList<BarEntry> values = new ArrayList<>();
 
-        int dayCounter = 0;
-        for (DaysOfWeekValues day : DaysOfWeekValues.values()) {
-            values.add(new BarEntry(dayCounter, getStudentsCount(day, true)));
-            dayCounter++;
-        }
+        values.add(new BarEntry(0, getStudentsCount(DaysOfWeekValues.MONDAY, true)));
+        values.add(new BarEntry(1, getStudentsCount(DaysOfWeekValues.TUESDAY, true)));
+        values.add(new BarEntry(2, getStudentsCount(DaysOfWeekValues.WEDNESDAY, true)));
+        values.add(new BarEntry(3, getStudentsCount(DaysOfWeekValues.THURSDAY, true)));
+        values.add(new BarEntry(4, getStudentsCount(DaysOfWeekValues.FRIDAY, true)));
+        values.add(new BarEntry(5, getStudentsCount(DaysOfWeekValues.SATURDAY, true)));
+        values.add(new BarEntry(6, getStudentsCount(DaysOfWeekValues.SUNDAY, true)));
 
         BarDataSet set1;
 
@@ -133,14 +161,98 @@ public class StatisticFragment extends Fragment {
         chart.invalidate();
     }
 
-    private Long getStudentsCount(DaysOfWeekValues dayOfWeek, boolean isAdult){
+    private void LoadChildrenControllers(View view){
+        chartChildren = view.findViewById(R.id.chartChildrens);
+
+        chartChildren.getDescription().setEnabled(false);
+
+        chartChildren.setScaleEnabled(false);
+
+        chartChildren.setDrawBarShadow(false);
+        chartChildren.setDrawGridBackground(false);
+
+        chartChildren.getAxisLeft().setDrawGridLines(false);
+        chartChildren.getAxisLeft().setDrawAxisLine(false);
+        chartChildren.getAxisLeft().setTextColor(R.color.purple_700);
+
+        // add a nice and smooth animation
+        chartChildren.animateY(1500);
+        chartChildren.setTouchEnabled(false);
+        chartChildren.getLegend().setEnabled(false);
+
+        chartChildren.getAxisRight().setDrawGridLines(false);
+        chartChildren.getAxisRight().setDrawLabels(false);
+        chartChildren.getAxisRight().setDrawAxisLine(false);
+        chartChildren.getAxisRight().setTextColor(R.color.purple_700);
+
+        chartChildren.setSelected(false);
+        chartChildren.setClickable(false);
+
+        //Show 100% value at Y axis
+        chartChildren.getAxisLeft().setAxisMinimum(0);
+        chartChildren.getAxisLeft().setAxisMaximum(100);
+
+        ValueFormatter xAxisFormatter = new DayAxisValueFormatter();
+        XAxis xAxis = chartChildren.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setLabelCount(7);
+        xAxis.setValueFormatter(xAxisFormatter);
+
+        LoadGraphChildrenData();
+    }
+
+    private void LoadGraphChildrenData(){
+        ArrayList<BarEntry> values = new ArrayList<>();
+
+        values.add(new BarEntry(0, getStudentsCount(DaysOfWeekValues.MONDAY, false)));
+        values.add(new BarEntry(1, getStudentsCount(DaysOfWeekValues.TUESDAY, false)));
+        values.add(new BarEntry(2, getStudentsCount(DaysOfWeekValues.WEDNESDAY, false)));
+        values.add(new BarEntry(3, getStudentsCount(DaysOfWeekValues.THURSDAY, false)));
+        values.add(new BarEntry(4, getStudentsCount(DaysOfWeekValues.FRIDAY, false)));
+        values.add(new BarEntry(5, getStudentsCount(DaysOfWeekValues.SATURDAY, false)));
+        values.add(new BarEntry(6, getStudentsCount(DaysOfWeekValues.SUNDAY, false)));
+
+        BarDataSet set1;
+
+        if (chartChildren.getData() != null &&
+                chartChildren.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chartChildren.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            chartChildren.getData().notifyDataChanged();
+            chartChildren.notifyDataSetChanged();
+        } else {
+            set1 = new BarDataSet(values, "Data Set");
+            set1.setColors(ColorTemplate.rgb("#FF3700B3"));
+            set1.setDrawValues(false);
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            chartChildren.setData(data);
+            chartChildren.setFitBars(true);
+        }
+
+        chartChildren.invalidate();
+    }
+
+    private float getStudentsCount(DaysOfWeekValues dayOfWeek, boolean isAdult){
         QueryBuilder<StudentItem> qb = daoSession.getStudentItemDao().queryBuilder()
                 .where(StudentItemDao.Properties.Deleted.eq(false), StudentItemDao.Properties.IsAdult.eq(isAdult));
         Join cSJoin = qb.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId);
         Join cJoin = qb.join(cSJoin, ClassStudentItemDao.Properties.ClassId, ClassItem.class, ClassItemDao.Properties.ClassId)
-                .where(ClassItemDao.Properties.Deleted.eq(false),ClassItemDao.Properties.ClassDayOfWeek.eq(UtilsClass.GetDayOfWeekValue(dayOfWeek)));
+                .where(ClassItemDao.Properties.Deleted.eq(false),
+                        ClassItemDao.Properties.SportId.eq(1),
+                        ClassItemDao.Properties.ClassDayOfWeek.eq(UtilsClass.GetDayOfWeekValue(dayOfWeek)),
+                        ClassItemDao.Properties.ClassDateTime.ge(lastTwoMonthsDate));
 
-        return qb.count();
+        return calculatePercentage(qb.count());
+    }
+
+    public float calculatePercentage(long obtained) {
+        return obtained * 100 / totalAdultStudents;
     }
 
     public static class DayAxisValueFormatter extends ValueFormatter {

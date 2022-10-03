@@ -65,6 +65,4 @@
     <string name="material_calendar_negative_button">Cancelar</string>
 
     <string name="NoScheduledClassesMsg">Não existem aulas ou eventos agendados</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

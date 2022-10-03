@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingLeft="16dp"
-android:paddingTop="16dp"
-android:paddingRight="16dp"
-android:paddingBottom="16dp"
-tools:context=".ui.statistic.StatisticFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="75dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".ui.statistic.StatisticFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Percentagem da adesão de adultos nos últimos dois meses SURF:"
+        android:textColor="@color/purple_700"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText"
+        android:textAlignment="center"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chartAdults"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="50sp"
+        android:layout_height="300dp"
+        android:layout_marginTop="4sp"
         android:layout_marginBottom="5sp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_marginTop="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Percentagem da adesão de crianças nos últimos dois meses SURF:"
+        android:textColor="@color/purple_700"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText"
+        android:textAlignment="center"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chartChildrens"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="4sp"
+        android:layout_marginBottom="5sp" />
+
+</LinearLayout>
