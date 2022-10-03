@@ -1,22 +1,29 @@
 package com.example.bssapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.example.bssapp.ui.classes.ClassListItem;
 import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.Navigator;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,6 +41,8 @@ public class MenuActivity extends AppCompatActivity implements
     private NavController navController;
     private DrawerLayout drawer;
 
+    public ImageView calendarRangeFilter;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,7 @@ public class MenuActivity extends AppCompatActivity implements
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMenu.toolbar);
+        calendarRangeFilter = findViewById(R.id.calendarRangeFilter);
 
         Window window = getWindow();
 
@@ -72,6 +82,16 @@ public class MenuActivity extends AppCompatActivity implements
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
         }
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if(navDestination.getId() == R.id.nav_classes)
+                    calendarRangeFilter.setVisibility(View.VISIBLE);
+                else
+                    calendarRangeFilter.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -94,9 +114,8 @@ public class MenuActivity extends AppCompatActivity implements
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        /*if (id == R.id.nav_students) {
-            // DO your stuff
-        }*/
+        //if (id == R.id.nav_classes) {
+        //}
 
         //Clear all stacked fragments
         navController.popBackStack();
