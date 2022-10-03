@@ -1,8 +1,15 @@
 package com.example.bssapp;
 
+import android.os.Environment;
+
 import com.example.bssapp.commons.DaysOfWeekValues;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class UtilsClass {
@@ -74,6 +81,41 @@ public class UtilsClass {
                 return 7;
             default:
                 return 0;
+        }
+    }
+
+    public static void WriteToBackUp(ArrayList<String> studentsToBk){
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
+        String fileName = path + "/bss_backup.txt";
+
+        File backUpFile  = new File(String.valueOf(fileName));
+
+        if (!backUpFile.exists()) {
+            backUpFile.getParentFile().mkdir();
+            try {
+                backUpFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(studentsToBk != null && !studentsToBk.isEmpty()) {
+
+            try {
+                String lineSeparator = System.getProperty("line.separator");
+                FileOutputStream overWrite = new FileOutputStream(fileName, false);
+
+                for (String student : studentsToBk) {
+                    overWrite.write(student.getBytes());
+                    overWrite.write(lineSeparator.getBytes());
+                }
+
+                overWrite.flush();
+                overWrite.close();
+
+            } catch (IOException e) {
+                e.toString();
+            }
         }
     }
 

@@ -17,8 +17,13 @@ import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
+import com.example.bssapp.StudentItemDao;
+import com.example.bssapp.UtilsClass;
 import com.example.bssapp.databinding.FragmentEditStudentBinding;
 import com.example.bssapp.db.models.StudentItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditStudentFragment extends Fragment {
 
@@ -128,6 +133,8 @@ public class EditStudentFragment extends Fragment {
 
         daoSession.getStudentItemDao().update(studentItem);
 
+        UpdateStudentsBackup();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("O(a) aluno(a) foi editado(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
@@ -154,5 +161,20 @@ public class EditStudentFragment extends Fragment {
         dialog.show();
 
         ((MenuActivity) requireActivity()).changeToStudentsFromEditFragment();
+    }
+
+    private void UpdateStudentsBackup(){
+        List<StudentItem> studentsData = daoSession.getStudentItemDao().queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false))
+                .orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName)
+                .list();
+
+        ArrayList<String> studentsList = new ArrayList<>();
+
+        for (StudentItem std : studentsData) {
+            studentsList.add(std.getFirstName() + "#" + std.getLastName() + "#" + std.getIsAdult());
+        }
+
+        UtilsClass.WriteToBackUp(studentsList);
     }
 }

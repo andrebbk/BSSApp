@@ -19,10 +19,14 @@ import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.StudentItemDao;
+import com.example.bssapp.UtilsClass;
 import com.example.bssapp.databinding.FragmentNewStudentBinding;
 import com.example.bssapp.db.models.StudentItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewStudentFragment extends Fragment {
 
@@ -100,6 +104,8 @@ public class NewStudentFragment extends Fragment {
 
         studentItemDao.save(newStudent);
 
+        UpdateStudentsBackup();
+
         ClearFormCreateStudent();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -122,5 +128,20 @@ public class NewStudentFragment extends Fragment {
         textLastName.getText().clear();
         checkAdult.setChecked(true);
         checkChild.setChecked(false);
+    }
+
+    private void UpdateStudentsBackup(){
+        List<StudentItem> studentsData = studentItemDao.queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false))
+                .orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName)
+                .list();
+
+        ArrayList<String> studentsList = new ArrayList<>();
+
+        for (StudentItem std : studentsData) {
+            studentsList.add(std.getFirstName() + "#" + std.getLastName() + "#" + std.getIsAdult());
+        }
+
+        UtilsClass.WriteToBackUp(studentsList);
     }
 }
