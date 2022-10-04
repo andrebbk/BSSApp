@@ -26,6 +26,7 @@
         <item name="android:textColorPrimary">#FF3700B3</item>
         <item name="android:textColorSecondary">#FF3700B3</item>
         <item name="actionMenuTextColor">#FF3700B3</item>
+        <item name="android:itemBackground">@color/theme_primary_color</item>
     </style>
 
     <style name="Theme.BSSApp.NoActionBar">

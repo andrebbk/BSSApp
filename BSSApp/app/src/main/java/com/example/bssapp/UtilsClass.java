@@ -1,16 +1,23 @@
 package com.example.bssapp;
 
+import android.annotation.SuppressLint;
 import android.os.Environment;
 
 import com.example.bssapp.commons.DaysOfWeekValues;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class UtilsClass {
 
@@ -116,6 +123,22 @@ public class UtilsClass {
             } catch (IOException e) {
                 e.toString();
             }
+        }
+    }
+
+    public static void LoadStudentsBackupData(){
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
+        String filePath = path + "/bss_backup.txt";
+
+        Charset charset = StandardCharsets.UTF_8;
+
+        try (@SuppressLint({"NewApi", "LocalSuppress"}) BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(filePath), charset)) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException ex) {
+            System.out.format("I/O error: %s%n", ex);
         }
     }
 

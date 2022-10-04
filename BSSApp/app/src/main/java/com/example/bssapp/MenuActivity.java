@@ -1,7 +1,7 @@
 package com.example.bssapp;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,14 +16,10 @@ import com.example.bssapp.ui.professors.ProfessorListItem;
 import com.example.bssapp.ui.students.StudentListItem;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.Navigator;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,6 +38,7 @@ public class MenuActivity extends AppCompatActivity implements
     private DrawerLayout drawer;
 
     public ImageView calendarRangeFilter;
+    public MenuItem buttonLoadBackUp;
 
     @SuppressLint("NewApi")
     @Override
@@ -83,13 +80,17 @@ public class MenuActivity extends AppCompatActivity implements
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if(navDestination.getId() == R.id.nav_classes)
-                    calendarRangeFilter.setVisibility(View.VISIBLE);
+        navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            if(navDestination.getId() == R.id.nav_classes)
+                calendarRangeFilter.setVisibility(View.VISIBLE);
+            else
+                calendarRangeFilter.setVisibility(View.GONE);
+
+            if (buttonLoadBackUp != null) {
+                if(navDestination.getId() == R.id.nav_students)
+                    buttonLoadBackUp.setVisible(true);
                 else
-                    calendarRangeFilter.setVisibility(View.GONE);
+                    buttonLoadBackUp.setVisible(false);
             }
         });
     }
@@ -98,6 +99,11 @@ public class MenuActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        if (menu != null) {
+            buttonLoadBackUp = menu.findItem(R.id.action_loadBackup);
+        }
+
         return true;
     }
 
@@ -127,6 +133,23 @@ public class MenuActivity extends AppCompatActivity implements
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_loadBackup) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+            builder.setMessage(getResources().getString(R.string.load_backup_validation))
+                    .setPositiveButton("Sim", (dialog, id12) -> UtilsClass.LoadStudentsBackupData())
+                    .setNegativeButton("Não", (dialog, id1) -> {});
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void changeFragment() {

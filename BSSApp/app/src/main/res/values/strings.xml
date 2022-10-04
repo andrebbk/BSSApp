@@ -65,4 +65,7 @@
     <string name="material_calendar_negative_button">Cancelar</string>
 
     <string name="NoScheduledClassesMsg">Não existem aulas ou eventos agendados</string>
+
+    <string name="load_backup">Carregar backup</string>
+    <string name="load_backup_validation">Os alunos guardados no ficheiro de backup da bss serão todos registados na aplicação. Deseja continuar?</string>
 </resources>
