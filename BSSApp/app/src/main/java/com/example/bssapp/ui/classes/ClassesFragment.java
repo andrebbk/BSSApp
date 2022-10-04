@@ -105,7 +105,7 @@ public class ClassesFragment extends Fragment {
             listViewClasses.setOnItemClickListener((parent, view, position, id) -> {
                 ClassListItem selectedClass = (ClassListItem) parent.getItemAtPosition(position);
 
-                if(selectedClass != null){
+                if(selectedClass != null && selectedClass.ClassId != null){
                     ((MenuActivity) requireActivity()).changeToClassFragment(selectedClass);
                 }
             });
