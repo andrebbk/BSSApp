@@ -121,8 +121,8 @@ public class ClassesFragment extends Fragment {
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
                 Calendar startDate = Calendar.getInstance();
                 Calendar endDate = Calendar.getInstance();
-                startDate.set(startYear, startMonth, startDay);
-                endDate.set(endYear, endMonth, endDay);
+                startDate.set(startYear, startMonth, startDay, 0, 0, 0);
+                endDate.set(endYear, endMonth, endDay, 23, 59, 59);
 
                 ReloadListViewClasses(startDate, endDate);
             }, true);
@@ -147,7 +147,7 @@ public class ClassesFragment extends Fragment {
                 .orderDesc(ClassItemDao.Properties.ClassDateTime)
                 .list();
 
-        if(classesData != null && classesData.size() > 0)
+        if(classesData != null)
         {
             ArrayList<ClassListItem> classesList = new ArrayList<>();
 
