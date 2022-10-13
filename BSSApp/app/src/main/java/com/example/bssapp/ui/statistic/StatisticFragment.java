@@ -14,12 +14,14 @@ import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.R;
+import com.example.bssapp.SportItemDao;
 import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.UtilsClass;
 import com.example.bssapp.commons.DaysOfWeekValues;
 import com.example.bssapp.databinding.FragmentStatisticBinding;
 import com.example.bssapp.db.models.ClassItem;
 import com.example.bssapp.db.models.ClassStudentItem;
+import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.StudentItem;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,6 +38,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class StatisticFragment extends Fragment {
 
@@ -46,6 +49,7 @@ public class StatisticFragment extends Fragment {
     private Date lastTwoMonthsDate;
     private long totalAdultStudents = 0, totalChildrenStudents = 0;
     private DaoSession daoSession;
+    private Long surfSportId = Long.valueOf(0);
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +58,21 @@ public class StatisticFragment extends Fragment {
         View root = binding.getRoot();
 
         daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+
+        //Load surfId
+        List<SportItem> surfSport = daoSession.getSportItemDao().queryBuilder()
+                .where(SportItemDao.Properties.Deleted.eq(false),
+                        SportItemDao.Properties.SportName.eq("Surf"))
+                .orderAsc(SportItemDao.Properties.CreateDate)
+                .limit(1)
+                .list();
+
+        if(surfSport != null && !surfSport.isEmpty()){
+            SportItem surfItem = surfSport.get(0);
+            if(surfItem != null){
+                surfSportId = surfItem.getSportId();
+            }
+        }
 
         LoadParameters();
 
@@ -244,7 +263,7 @@ public class StatisticFragment extends Fragment {
         Join cSJoin = qb.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId);
         Join cJoin = qb.join(cSJoin, ClassStudentItemDao.Properties.ClassId, ClassItem.class, ClassItemDao.Properties.ClassId)
                 .where(ClassItemDao.Properties.Deleted.eq(false),
-                        ClassItemDao.Properties.SportId.eq(1),
+                        ClassItemDao.Properties.SportId.eq(surfSportId),
                         ClassItemDao.Properties.ClassDayOfWeek.eq(UtilsClass.GetDayOfWeekValue(dayOfWeek)),
                         ClassItemDao.Properties.ClassDateTime.ge(lastTwoMonthsDate));
 

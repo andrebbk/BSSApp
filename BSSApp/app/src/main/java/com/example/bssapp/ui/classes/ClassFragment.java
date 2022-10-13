@@ -90,10 +90,10 @@ public class ClassFragment extends Fragment {
 
         //registered students number
         long nStudents = 0;
-        QueryBuilder<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder();
-        queryBuilder.join(StudentItem.class, StudentItemDao.Properties.StudentId)
-                .where(StudentItemDao.Properties.Deleted.eq(false));
-        nStudents = queryBuilder.count();
+        QueryBuilder<StudentItem> queryBuilder = daoSession.getStudentItemDao().queryBuilder();
+        queryBuilder.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
+                .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()));
+        nStudents = queryBuilder.where(StudentItemDao.Properties.Deleted.eq(false)).count();
 
         TextView textRegNum = view.findViewById(R.id.textRegStudents);
         textRegNum.setText(String.valueOf(nStudents));

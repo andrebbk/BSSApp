@@ -58,16 +58,28 @@ public class DataManagementAdapter extends ArrayAdapter<DataManagementItem> {
         convertView = layoutInflater.inflate(mResource, parent, false);
 
         TextView textView = convertView.findViewById(R.id.textItem);
-        textView.setText(getItem(position).getOptionName());
-
         ImageView imageViewClear = convertView.findViewById(R.id.imageClearItem);
-        imageViewClear.setOnClickListener(view -> {
-            DataManagementItem selectedToDelete = getItem(position);
-            if(selectedToDelete != null){
-                if(selectedToDelete.getIsSport()) DataManagementFragment.DeleteSport(mContext, selectedToDelete, this, position);
-                else DataManagementFragment.DeleteSpot(mContext, selectedToDelete, this, position);
+
+        DataManagementItem item = getItem(position);
+        if(item != null){
+            textView.setText(item.getOptionName());
+
+            if(item.getIsRemovable())
+            {
+                imageViewClear.setOnClickListener(view -> {
+                    DataManagementItem selectedToDelete = getItem(position);
+                    if(selectedToDelete != null){
+                        if(selectedToDelete.getIsSport()) DataManagementFragment.DeleteSport(mContext, selectedToDelete, this, position);
+                        else DataManagementFragment.DeleteSpot(mContext, selectedToDelete, this, position);
+                    }
+                });
             }
-        });
+            else
+            {
+                imageViewClear.setVisibility(View.INVISIBLE);
+            }
+
+        }
 
         return convertView;
     }

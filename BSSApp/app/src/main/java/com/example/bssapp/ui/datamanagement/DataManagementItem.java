@@ -7,17 +7,19 @@ public class DataManagementItem implements Serializable {
     Long ItemId;
     String OptionName;
     boolean IsSport;
+    boolean IsRemovable;
 
     public DataManagementItem()
     {
 
     }
 
-    public DataManagementItem(Long id, String name, boolean isSport)
+    public DataManagementItem(Long id, String name, boolean isSport, boolean isRemovable)
     {
         this.ItemId = id;
         this.OptionName = name;
         this.IsSport = isSport;
+        this.IsRemovable = isRemovable;
     }
 
     public Long getItemId() {
@@ -42,4 +44,9 @@ public class DataManagementItem implements Serializable {
 
     public void setIsSport(boolean isSport) { IsSport = isSport; }
 
+    public boolean getIsRemovable() {
+        return IsRemovable;
+    }
+
+    public void setIsRemovable(boolean isRemovable) { IsRemovable = isRemovable; }
 }

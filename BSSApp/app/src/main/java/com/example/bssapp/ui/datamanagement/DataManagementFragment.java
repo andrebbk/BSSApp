@@ -21,15 +21,23 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bssapp.ClassItemDao;
+import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
 import com.example.bssapp.SpotItemDao;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentDataManagementBinding;
+import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.db.models.StudentItem;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +47,8 @@ public class DataManagementFragment extends Fragment {
 
     private FragmentDataManagementBinding binding;
 
+    //Db
+    private DaoSession daoSession;
     private SportItemDao sportItemDao;
     private SpotItemDao spotItemDao;
 
@@ -65,8 +75,7 @@ public class DataManagementFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void LoadControllers(View view)
     {
-        //Db
-        DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+        daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
         sportItemDao = daoSession.getSportItemDao();
         spotItemDao = daoSession.getSpotItemDao();
 
@@ -172,7 +181,14 @@ public class DataManagementFragment extends Fragment {
                 .list();
 
         for (SportItem object : sportsData) {
-            sportsList.add(new DataManagementItem(object.getSportId(), object.getSportName(), true));
+
+            boolean hideDelete = false;
+            QueryBuilder<ClassItem> queryBuilder = daoSession.getClassItemDao().queryBuilder()
+                    .where(ClassItemDao.Properties.SportId.eq(object.getSportId()),
+                            ClassItemDao.Properties.Deleted.eq(false));
+            hideDelete = queryBuilder.count() > 0;
+
+            sportsList.add(new DataManagementItem(object.getSportId(), object.getSportName(), true, !hideDelete));
         }
 
         //Costume adapter
@@ -304,7 +320,14 @@ public class DataManagementFragment extends Fragment {
                 .list();
 
         for (SpotItem object : spotsData) {
-            spotsList.add(new DataManagementItem(object.getSpotId(), object.getSpotName(), false));
+
+            boolean hideDelete = false;
+            QueryBuilder<ClassItem> queryBuilder = daoSession.getClassItemDao().queryBuilder()
+                    .where(ClassItemDao.Properties.SpotId.eq(object.getSpotId()),
+                            ClassItemDao.Properties.Deleted.eq(false));
+            hideDelete = queryBuilder.count() > 0;
+
+            spotsList.add(new DataManagementItem(object.getSpotId(), object.getSpotName(), false, !hideDelete));
         }
 
         //Costume adapter

@@ -266,11 +266,10 @@ public class CalendarFragment extends Fragment {
 
                 //registered students number
                 long nStudents = 0;
-                QueryBuilder<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder()
+                QueryBuilder<StudentItem> queryBuilder = daoSession.getStudentItemDao().queryBuilder();
+                queryBuilder.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
                         .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
-                queryBuilder.join(StudentItem.class, StudentItemDao.Properties.StudentId)
-                        .where(StudentItemDao.Properties.Deleted.eq(false));
-                nStudents = queryBuilder.count();
+                nStudents = queryBuilder.where(StudentItemDao.Properties.Deleted.eq(false)).count();
 
                 classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
                         classDateStr, String.valueOf(nStudents), classDateCompleteStr));
