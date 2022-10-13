@@ -36,7 +36,11 @@ public class DataManagementAdapter extends ArrayAdapter<DataManagementItem> {
 
     @Override
     public int getCount() {
-        return itemsModelListFiltered.size();
+        if(itemsModelListFiltered != null) {
+            return itemsModelListFiltered.size();
+        }
+
+        return 0;
     }
 
     @Override
