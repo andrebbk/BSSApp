@@ -40,7 +40,11 @@ public class ProfessorAdapter extends ArrayAdapter<ProfessorListItem> implements
 
     @Override
     public int getCount() {
-        return itemsModelListFiltered.size();
+        if(itemsModelListFiltered != null) {
+            return itemsModelListFiltered.size();
+        }
+
+        return 0;
     }
 
     @Override

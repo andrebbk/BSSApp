@@ -121,15 +121,22 @@ public class AddClassFragment extends Fragment {
         }
 
         arrayAdapter = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, sportsList);
-        autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
-        sportName = arrayAdapter.getItem(surfPos).toString();
-        sportIdValue.set(arrayAdapter.getItem(surfPos).getId());
-        autoCompleteTextView.setAdapter(arrayAdapter);
-        autoCompleteTextView.setOnItemClickListener((parent, view1, position, id) -> {
-            DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
-            sportIdValue.set(m.getId());
-            sportName = m.getText();
-        });
+
+        if(arrayAdapter != null && !arrayAdapter.isEmpty()){
+            DropdownViewModel item = arrayAdapter.getItem(surfPos);
+            if(item != null){
+                autoCompleteTextView.setText(item.toString(), false);
+                sportName = item.toString();
+                sportIdValue.set(item.getId());
+            }
+
+            autoCompleteTextView.setAdapter(arrayAdapter);
+            autoCompleteTextView.setOnItemClickListener((parent, view1, position, id) -> {
+                DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
+                sportIdValue.set(m.getId());
+                sportName = m.getText();
+            });
+        }
 
         //Calendar date
         date = Calendar.getInstance();
@@ -156,13 +163,21 @@ public class AddClassFragment extends Fragment {
         }
 
         arrayAdapterLocal = new ArrayAdapter<>(requireContext(),  R.layout.options_sports_item, localizationsList);
-        autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
-        spotIdValue.set(arrayAdapterLocal.getItem(0).getId());
-        autoCompleteLocal.setAdapter(arrayAdapterLocal);
-        autoCompleteLocal.setOnItemClickListener((parent, view1, position, id) -> {
-            DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
-            spotIdValue.set(m.getId());
-        });
+
+        if(arrayAdapterLocal != null && !arrayAdapterLocal.isEmpty()){
+
+            DropdownViewModel item = arrayAdapterLocal.getItem(0);
+            if(item != null) {
+                autoCompleteLocal.setText(item.toString(), false);
+                spotIdValue.set(item.getId());
+            }
+
+            autoCompleteLocal.setAdapter(arrayAdapterLocal);
+            autoCompleteLocal.setOnItemClickListener((parent, view1, position, id) -> {
+                DropdownViewModel m=(DropdownViewModel) parent.getItemAtPosition(position);
+                spotIdValue.set(m.getId());
+            });
+        }
 
         // assign variable
         textViewProfs = view.findViewById(R.id.profsEditText);

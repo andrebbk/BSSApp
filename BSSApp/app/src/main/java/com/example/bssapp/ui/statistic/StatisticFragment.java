@@ -162,7 +162,7 @@ public class StatisticFragment extends Fragment {
     }
 
     private void LoadChildrenControllers(View view){
-        chartChildren = view.findViewById(R.id.chartChildrens);
+        chartChildren = view.findViewById(R.id.chartKids);
 
         chartChildren.getDescription().setEnabled(false);
 
@@ -248,11 +248,16 @@ public class StatisticFragment extends Fragment {
                         ClassItemDao.Properties.ClassDayOfWeek.eq(UtilsClass.GetDayOfWeekValue(dayOfWeek)),
                         ClassItemDao.Properties.ClassDateTime.ge(lastTwoMonthsDate));
 
-        return calculatePercentage(qb.count());
+        if(qb.count() < 1) return qb.count();
+        return isAdult ? calculatePercentage(qb.count()) : calculatePercentageKids(qb.count());
     }
 
     public float calculatePercentage(long obtained) {
         return obtained * 100 / totalAdultStudents;
+    }
+
+    public float calculatePercentageKids(long obtained) {
+        return obtained * 100 / totalChildrenStudents;
     }
 
     public static class DayAxisValueFormatter extends ValueFormatter {

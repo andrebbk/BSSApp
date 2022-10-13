@@ -39,7 +39,11 @@ public class StudentAdapter extends ArrayAdapter<StudentListItem> implements Fil
 
     @Override
     public int getCount() {
-        return itemsModelListFiltered.size();
+        if(itemsModelListFiltered != null) {
+            return itemsModelListFiltered.size();
+        }
+
+        return 0;
     }
 
     @Override

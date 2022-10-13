@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
-    android:paddingTop="75dp"
+    android:paddingTop="80dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
     tools:context=".ui.statistic.StatisticFragment"
@@ -24,13 +24,13 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chartAdults"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="280dp"
         android:layout_marginTop="4sp"
         android:layout_marginBottom="5sp" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="40sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Percentagem da adesão de crianças nos últimos dois meses SURF:"
@@ -43,7 +43,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chartKids"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="280dp"
         android:layout_marginTop="4sp"
         android:layout_marginBottom="5sp" />
 

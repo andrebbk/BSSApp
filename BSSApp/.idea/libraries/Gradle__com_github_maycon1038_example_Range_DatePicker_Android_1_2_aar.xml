@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.maycon1038:example-Range-DatePicker-Android:1.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bc6addef3cdec39ac8e1bf188f3fe935/transformed/jetified-example-Range-DatePicker-Android-1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bc6addef3cdec39ac8e1bf188f3fe935/transformed/jetified-example-Range-DatePicker-Android-1.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bc6addef3cdec39ac8e1bf188f3fe935/transformed/jetified-example-Range-DatePicker-Android-1.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.maycon1038/example-Range-DatePicker-Android/1.2/973ce29b988f136eac69034d414bcfb5cab4ba57/example-Range-DatePicker-Android-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

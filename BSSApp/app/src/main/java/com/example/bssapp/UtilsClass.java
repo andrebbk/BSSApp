@@ -1,7 +1,22 @@
 package com.example.bssapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.bssapp.commons.DaysOfWeekValues;
 
@@ -10,6 +25,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -91,7 +107,15 @@ public class UtilsClass {
         }
     }
 
-    public static void WriteToBackUp(ArrayList<String> studentsToBk){
+    @SuppressLint("NewApi")
+    public static void WriteToBackUp(ArrayList<String> studentsToBk, FragmentActivity activity){
+
+        //ANDROID 10
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
+            SaveToAndroid10(studentsToBk, activity);
+            return;
+        }
+
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
         String fileName = path + "/bss_backup.txt";
 
@@ -139,6 +163,73 @@ public class UtilsClass {
             }
         } catch (IOException ex) {
             System.out.format("I/O error: %s%n", ex);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private static void SaveToAndroid10(ArrayList<String> studentsToBk, FragmentActivity activity){
+        String data = "";
+
+        if(studentsToBk != null && !studentsToBk.isEmpty()) {
+
+            try {
+                for (String student : studentsToBk) {
+                    data += student + System.getProperty("line.separator");
+                }
+            } catch (Exception e) {
+                e.toString();
+            }
+        }
+
+        ContentResolver contentResolver = activity.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, "bss_backup.txt");
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
+        values.put(MediaStore.MediaColumns.IS_PENDING, 1);
+
+        Uri mediaUri = null;
+
+        mediaUri = contentResolver.insert(
+                MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                values);
+
+        //deleteDocumentUri(activity, mediaUri);
+
+        try (OutputStream out = contentResolver.openOutputStream(mediaUri)){
+
+            // Write your data here
+            out.write(data.getBytes(StandardCharsets.UTF_8));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        values = new ContentValues();
+        values.put(MediaStore.MediaColumns.IS_PENDING, 0);
+    }
+
+    private static void deleteDocumentUri(FragmentActivity activity, Uri mediaUri){
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && activity != null) {
+
+                Uri documentUri = MediaStore.getDocumentUri(activity, mediaUri);
+                if (documentUri != null) {
+
+                    DocumentFile documentFile = DocumentFile.fromSingleUri(activity, documentUri);
+
+                    if (documentFile != null) {
+                        if (documentFile.delete()) {
+                            Log.i(TAG, "deleteDocumentUri Delete successful");
+                        } else {
+                            Log.i(TAG, "deleteDocumentUri Delete unsuccessful");
+                        }
+                    }
+                }
+            }
+        }catch(Exception e){
+            Log.e(TAG,"deleteDocumentUri error: " + e);
         }
     }
 

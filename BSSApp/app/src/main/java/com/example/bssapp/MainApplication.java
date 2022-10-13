@@ -59,7 +59,7 @@ public class MainApplication extends Application {
         if(sportItemDao.queryBuilder()
                 .where(com.example.bssapp.SportItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
-            ArrayList<String> sportsList = new ArrayList<>(Arrays.asList("Surf", "SUPaddle", "Yoga", "Canoagem"));
+            ArrayList<String> sportsList = new ArrayList<>(Arrays.asList("Surf", "SUPaddle", "Yoga")); //, "Canoagem"));
 
             for (String spr : sportsList)
             {
@@ -79,7 +79,7 @@ public class MainApplication extends Application {
                 .where(com.example.bssapp.SpotItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
             ArrayList<String> spotsList = new ArrayList<>(
-                    Arrays.asList("Barrinha", "Praia Velha", "Esmoriz", "Cortegaça", "Espinho", "Cangas", "Douro", "Paramos", "Furadouro"));
+                    Arrays.asList("Barrinha", "Praia Velha", "Esmoriz", "Espinho", "Cangas", "Paramos"));
 
             for (String sp : spotsList)
             {
@@ -99,14 +99,14 @@ public class MainApplication extends Application {
                 .where(com.example.bssapp.ProfessorItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
             professorItemDao.save(new ProfessorItem("Mário", "Saxe", currentDate, false));
-            professorItemDao.save(new ProfessorItem("Inês", "Costa", currentDate, false));
+            professorItemDao.save(new ProfessorItem("Inês", "Correia", currentDate, false));
             professorItemDao.save(new ProfessorItem("Miguel", "Oliveira", currentDate, false));
-            professorItemDao.save(new ProfessorItem("Pedro", "Silva", currentDate, false));
+            professorItemDao.save(new ProfessorItem("Pedro", "Sepulveda", currentDate, false));
         }
 
         //Students
         //Alunos
-        com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
+        /*com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
         if(studentItemDao.queryBuilder()
                 .where(com.example.bssapp.StudentItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
@@ -118,6 +118,6 @@ public class MainApplication extends Application {
             studentItemDao.save(new StudentItem("Luís", "Fonseca", true, currentDate, false));
             studentItemDao.save(new StudentItem("Tiago", "Nunes", false, currentDate, false));
             studentItemDao.save(new StudentItem("Ana", "Moreira", false, currentDate, false));
-        }
+        }*/
     }
 }

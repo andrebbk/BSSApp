@@ -26,14 +26,19 @@ import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
 import com.example.bssapp.SportItemDao;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.UtilsClass;
 import com.example.bssapp.databinding.FragmentCalendarBinding;
 import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.db.models.StudentItem;
 import com.example.bssapp.ui.classes.ClassAdapter;
 import com.example.bssapp.ui.classes.ClassListItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,11 +86,15 @@ public class CalendarFragment extends Fragment {
     }
 
     private void LoadCalendarClasses(){
+
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK), 0, 0, 0);
+
         //get all next classes
         ClassItemDao classItemDao = daoSession.getClassItemDao();
         List<ClassItem> classesData = classItemDao.queryBuilder()
                 .where(ClassItemDao.Properties.Deleted.eq(false),
-                        ClassItemDao.Properties.ClassDateTime.ge(Calendar.getInstance().getTime()))
+                        ClassItemDao.Properties.ClassDateTime.ge(currentDate.getTime()))
                 .orderDesc(ClassItemDao.Properties.ClassDateTime)
                 .list();
 
@@ -256,9 +265,12 @@ public class CalendarFragment extends Fragment {
                 String classDateCompleteStr = (completeFormat.format(object.getClassDateTime())).replace(":", "h");
 
                 //registered students number
-                long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
-                        .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()))
-                        .count();
+                long nStudents = 0;
+                QueryBuilder<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder()
+                        .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
+                queryBuilder.join(StudentItem.class, StudentItemDao.Properties.StudentId)
+                        .where(StudentItemDao.Properties.Deleted.eq(false));
+                nStudents = queryBuilder.count();
 
                 classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
                         classDateStr, String.valueOf(nStudents), classDateCompleteStr));

@@ -45,6 +45,20 @@ public class MainActivity extends AppCompatActivity {
         AnnounceWeekClassesMsg();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AnnounceWeekClassesMsg();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        AnnounceWeekClassesMsg();
+    }
+
     @SuppressLint("SetTextI18n")
     private void AnnounceWeekClassesMsg()
     {

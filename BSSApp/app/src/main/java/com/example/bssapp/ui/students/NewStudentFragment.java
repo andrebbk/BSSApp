@@ -104,7 +104,7 @@ public class NewStudentFragment extends Fragment {
 
         studentItemDao.save(newStudent);
 
-        UpdateStudentsBackup();
+        //UpdateStudentsBackup();
 
         ClearFormCreateStudent();
 
@@ -142,6 +142,6 @@ public class NewStudentFragment extends Fragment {
             studentsList.add(std.getFirstName() + "#" + std.getLastName() + "#" + std.getIsAdult());
         }
 
-        UtilsClass.WriteToBackUp(studentsList);
+        UtilsClass.WriteToBackUp(studentsList, getActivity());
     }
 }

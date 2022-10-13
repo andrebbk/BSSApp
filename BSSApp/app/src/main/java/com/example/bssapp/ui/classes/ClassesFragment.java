@@ -16,11 +16,16 @@ import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
+import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentClassesBinding;
 import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassStudentItem;
 import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.SpotItem;
+import com.example.bssapp.db.models.StudentItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -87,9 +92,12 @@ public class ClassesFragment extends Fragment {
                 String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
 
                 //registered students number
-                long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
-                        .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()))
-                        .count();
+                long nStudents = 0;
+                QueryBuilder<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder()
+                        .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
+                queryBuilder.join(StudentItem.class, StudentItemDao.Properties.StudentId)
+                        .where(StudentItemDao.Properties.Deleted.eq(false));
+                nStudents = queryBuilder.count();
 
                 classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
                         classDateStr, String.valueOf(nStudents), null));

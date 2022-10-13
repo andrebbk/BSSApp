@@ -36,7 +36,7 @@
        android:layout_height="wrap_content"
        android:layout_gravity="bottom|end"
        android:layout_marginEnd="36dp"
-       android:backgroundTint="@color/theme_primary_color"
+       android:backgroundTint="@color/purple_700"
        android:contentDescription="Adicionar instrutor"
        android:src="@android:drawable/ic_input_add"
        app:borderWidth="0sp"
@@ -44,6 +44,7 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintVertical_bias="0.98"
-       tools:ignore="HardcodedText,ImageContrastCheck" />
+       tools:ignore="HardcodedText,ImageContrastCheck"
+       app:tint="@color/theme_primary_color"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -89,9 +89,11 @@ public class ClassFragment extends Fragment {
         textDate.setText(currentClass.getClassDate());
 
         //registered students number
-        long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
-                .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()))
-                .count();
+        long nStudents = 0;
+        QueryBuilder<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder();
+        queryBuilder.join(StudentItem.class, StudentItemDao.Properties.StudentId)
+                .where(StudentItemDao.Properties.Deleted.eq(false));
+        nStudents = queryBuilder.count();
 
         TextView textRegNum = view.findViewById(R.id.textRegStudents);
         textRegNum.setText(String.valueOf(nStudents));
@@ -109,7 +111,8 @@ public class ClassFragment extends Fragment {
 
 
         StudentItemDao studentItemDao = daoSession.getStudentItemDao();
-        QueryBuilder<StudentItem> classStudentsData = studentItemDao.queryBuilder();
+        QueryBuilder<StudentItem> classStudentsData = studentItemDao.queryBuilder()
+                .where(StudentItemDao.Properties.Deleted.eq(false));
         classStudentsData.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
                 .where(ClassStudentItemDao.Properties.ClassId.eq(currentClass.getClassId()));
 

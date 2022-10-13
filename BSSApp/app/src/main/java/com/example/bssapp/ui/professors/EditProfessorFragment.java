@@ -14,15 +14,22 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.example.bssapp.ClassItemDao;
+import com.example.bssapp.ClassProfessorItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
+import com.example.bssapp.ProfessorItemDao;
 import com.example.bssapp.R;
 import com.example.bssapp.databinding.FragmentEditProfessorBinding;
 import com.example.bssapp.databinding.FragmentEditStudentBinding;
+import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassProfessorItem;
 import com.example.bssapp.db.models.ProfessorItem;
 import com.example.bssapp.db.models.StudentItem;
 import com.example.bssapp.ui.students.StudentListItem;
+
+import java.util.List;
 
 public class EditProfessorFragment extends Fragment {
 
@@ -90,6 +97,16 @@ public class EditProfessorFragment extends Fragment {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             });
+
+            //SHOW DELETE BUTTON
+            boolean hideButtonDelete = daoSession.getClassProfessorItemDao().queryBuilder()
+                    .where(ClassProfessorItemDao.Properties.ProfessorId.eq(professorItem.getProfessorId()))
+                    .count() > 0;
+
+            if(hideButtonDelete){
+                buttonRemoveProfessor.setVisibility(View.INVISIBLE);
+            }
+
         }else{
             buttonEditProfessor.setVisibility(View.INVISIBLE);
             ((MenuActivity) requireActivity()).ShowSnackBar("Ocorreu um erro! Contactar administrador");

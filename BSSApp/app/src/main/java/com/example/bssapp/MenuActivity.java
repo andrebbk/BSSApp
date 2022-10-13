@@ -86,12 +86,13 @@ public class MenuActivity extends AppCompatActivity implements
             else
                 calendarRangeFilter.setVisibility(View.GONE);
 
-            if (buttonLoadBackUp != null) {
+            //Button backup
+            /*if (buttonLoadBackUp != null) {
                 if(navDestination.getId() == R.id.nav_students)
                     buttonLoadBackUp.setVisible(true);
                 else
                     buttonLoadBackUp.setVisible(false);
-            }
+            }*/
         });
     }
 

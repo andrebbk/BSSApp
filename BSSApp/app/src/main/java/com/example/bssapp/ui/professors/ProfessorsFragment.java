@@ -68,8 +68,11 @@ public class ProfessorsFragment extends Fragment {
         ArrayList<ProfessorListItem> professorsList = new ArrayList<>();
 
         for (ProfessorItem object : professorsData) {
-            professorsList.add(new ProfessorListItem(object.getProfessorId(), object.getFirstName() + " " + object.getLastName(),
-                    R.drawable.professor_icon));
+            professorsList.add(new ProfessorListItem(
+                    object.getProfessorId(),
+                    object.getFirstName() + " " + object.getLastName(),
+                    R.drawable.professor_icon
+            ));
         }
 
         //Costume adapter

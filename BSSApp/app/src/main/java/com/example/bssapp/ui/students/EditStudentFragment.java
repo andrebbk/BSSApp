@@ -133,7 +133,7 @@ public class EditStudentFragment extends Fragment {
 
         daoSession.getStudentItemDao().update(studentItem);
 
-        UpdateStudentsBackup();
+        //UpdateStudentsBackup();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("O(a) aluno(a) foi editado(a) com sucesso!")
@@ -175,6 +175,6 @@ public class EditStudentFragment extends Fragment {
             studentsList.add(std.getFirstName() + "#" + std.getLastName() + "#" + std.getIsAdult());
         }
 
-        UtilsClass.WriteToBackUp(studentsList);
+        UtilsClass.WriteToBackUp(studentsList, getActivity());
     }
 }

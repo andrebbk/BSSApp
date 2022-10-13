@@ -31,16 +31,22 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h1000dp/activity_main.xml" value="0.10034722222222223" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h150dp/activity_main.xml" value="0.21927162367223066" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h600dp/activity_main.xml" value="0.30104166666666665" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h800dp/activity_main.xml" value="0.67" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h700dp/fragment_statistic.xml" value="0.2765625" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h740dp/fragment_statistic.xml" value="0.23504273504273504" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h800dp/activity_main.xml" value="0.20982905982905983" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h800dp/fragment_class.xml" value="0.2536231884057971" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-h800dp/fragment_statistic.xml" value="0.25" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-hdpi/activity_main.xml" value="0.21927162367223066" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-large/activity_main.xml" value="0.141015625" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-long/activity_main.xml" value="0.6768149882903981" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-mdpi/activity_main.xml" value="0.30104166666666665" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-normal/fragment_statistic.xml" value="0.20256410256410257" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-small/activity_main.xml" value="1.325657894736842" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-xxhdpi/activity_main.xml" value="0.21927162367223066" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-xxhdpi/fragment_statistic.xml" value="0.1" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout-xxxhdpi/activity_main.xml" value="0.30104166666666665" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/activity_classes.xml" value="0.75" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/activity_main.xml" value="0.30104166666666665" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/activity_main.xml" value="0.21649029982363316" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/activity_menu.xml" value="0.2611585944919278" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/app_bar_menu.xml" value="0.4192176870748299" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/appbar_home_drawer.xml" value="0.30104166666666665" />
@@ -57,17 +63,17 @@
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_add_class_student.xml" value="0.26794871794871794" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_add_student.xml" value="0.26794871794871794" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_calendar.xml" value="0.22" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_class.xml" value="0.33" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_class.xml" value="0.2536231884057971" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_classes.xml" value="0.18" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_data_management.xml" value="0.26707132018209406" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_class.xml" value="0.22" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_professor.xml" value="0.19233687405159333" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_professor.xml" value="0.21535087719298246" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_edit_student.xml" value="0.33" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_gallery.xml" value="0.45125" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_new_professor.xml" value="0.22040971168437026" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_new_student.xml" value="0.18" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_professors.xml" value="0.18" />
-        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_statistic.xml" value="0.1876068376068376" />
+        <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_statistic.xml" value="0.21535087719298246" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/fragment_students.xml" value="0.25" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/header_file.xml" value="0.75" />
         <entry key="..\:/Repositorios/BSSApp/BSSApp/app/src/main/res/layout/layout.xml" value="1.1" />
