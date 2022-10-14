@@ -2,13 +2,16 @@ package com.example.bssapp;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.example.bssapp.ui.classes.ClassListItem;
@@ -252,5 +255,27 @@ public class MenuActivity extends AppCompatActivity implements
 
     public void changeToClassesFragment() {
         navController.navigate(R.id.nav_classes);
+    }
+
+    public void changeToStudentsFragment() {
+        navController.navigate(R.id.nav_students);
+    }
+
+    public void changeToProfessorsFragment() {
+        navController.navigate(R.id.nav_professors);
+    }
+
+    public void changeToCalendarFragment(Calendar classDate) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ClassDate", classDate);
+
+        //Drawable menu works with a navigation controller that functions like a stack
+        //Use this first line to clear the stack and then navigate to destination view
+        //navController.popBackStack(R.id.nav_classes, true);
+        navController.navigate(R.id.nav_calendar, bundle);
+    }
+
+    public void changeToCalendarFragmentNoArgs() {
+        navController.navigate(R.id.nav_calendar);
     }
 }

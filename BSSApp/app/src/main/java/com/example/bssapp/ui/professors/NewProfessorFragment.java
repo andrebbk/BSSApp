@@ -1,6 +1,7 @@
 package com.example.bssapp.ui.professors;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -93,6 +95,8 @@ public class NewProfessorFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("O(a) instrutor(a) foi registado(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
+                    ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(textLastName.getWindowToken(), 0);
+                    ((MenuActivity) requireActivity()).changeToProfessorsFragment();
                 });
 
         AlertDialog dialog = builder.create();

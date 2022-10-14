@@ -91,6 +91,9 @@ public class ClassesFragment extends Fragment {
                 SimpleDateFormat sdFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
 
+                Calendar classDateValue = Calendar.getInstance();
+                classDateValue.setTime(object.getClassDateTime());
+
                 //registered students number
                 long nStudents = 0;
                 QueryBuilder<StudentItem> queryBuilder = daoSession.getStudentItemDao().queryBuilder();
@@ -98,8 +101,8 @@ public class ClassesFragment extends Fragment {
                         .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
                 nStudents = queryBuilder.where(StudentItemDao.Properties.Deleted.eq(false)).count();
 
-                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
-                        classDateStr, String.valueOf(nStudents), null));
+                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(), object.getSpotId(),
+                        classDateStr, classDateValue, String.valueOf(nStudents), null));
             }
 
             //Last empty row
@@ -170,13 +173,16 @@ public class ClassesFragment extends Fragment {
                 SimpleDateFormat sdFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
 
+                Calendar classDateValue = Calendar.getInstance();
+                classDateValue.setTime(object.getClassDateTime());
+
                 //registered students number
                 long nStudents = daoSession.getClassStudentItemDao().queryBuilder()
                         .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()))
                         .count();
 
-                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
-                        classDateStr, String.valueOf(nStudents), null));
+                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(), object.getSpotId(),
+                        classDateStr, classDateValue, String.valueOf(nStudents), null));
             }
 
             //Last empty row

@@ -63,6 +63,11 @@ public class CalendarFragment extends Fragment {
         View root = binding.getRoot();
 
         LoadControllers(root);
+
+        if (getArguments() != null) {
+            LoadDayClassDialog((Calendar) getArguments().getSerializable("ClassDate"));
+        }
+
         return root;
     }
 
@@ -264,6 +269,9 @@ public class CalendarFragment extends Fragment {
                 SimpleDateFormat completeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 String classDateCompleteStr = (completeFormat.format(object.getClassDateTime())).replace(":", "h");
 
+                Calendar classDateValue = Calendar.getInstance();
+                classDateValue.setTime(object.getClassDateTime());
+
                 //registered students number
                 long nStudents = 0;
                 QueryBuilder<StudentItem> queryBuilder = daoSession.getStudentItemDao().queryBuilder();
@@ -271,8 +279,8 @@ public class CalendarFragment extends Fragment {
                         .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
                 nStudents = queryBuilder.where(StudentItemDao.Properties.Deleted.eq(false)).count();
 
-                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(),
-                        classDateStr, String.valueOf(nStudents), classDateCompleteStr));
+                classesList.add(new ClassListItem(object.getClassId(), sportItem.getSportName(), object.getSportId(), spotItem.getSpotName(), object.getSpotId(),
+                        classDateStr, classDateValue, String.valueOf(nStudents), classDateCompleteStr));
             }
 
             //Last empty row
@@ -286,7 +294,7 @@ public class CalendarFragment extends Fragment {
                 ClassListItem selectedClass = (ClassListItem) parent.getItemAtPosition(position);
                 selectedClass.setClassDate(selectedClass.getCompleteClassDate()); // fix date presentation label (not only time but date)
 
-                if(selectedClass != null){
+                if(selectedClass != null && selectedClass.getClassId() != 0){
                     ((MenuActivity) requireActivity()).changeToClassFragment(selectedClass);
                     dialog.dismiss();
                 }

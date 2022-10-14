@@ -272,13 +272,17 @@ public class EditClassFragment extends Fragment {
         if(currentClass != null)
         {
             //Sport
+            sportName = currentClass.getSportName();
             autoCompleteTextView.setText(currentClass.getSportName(), false);
+            sportIdValue.set(currentClass.getSportId());
 
             //Class date
             calendarText.setText(currentClass.getClassDate());
+            date = currentClass.getClassDateValue();
 
             //Spot
             autoCompleteLocal.setText(currentClass.getSpotName(), false);
+            spotIdValue.set(currentClass.getSpotId());
 
             //Load other data from DB
             classItem = daoSession.getClassItemDao().load(currentClass.getClassId());
@@ -420,6 +424,7 @@ public class EditClassFragment extends Fragment {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
             builder.setMessage("A aula de " + sportName + " foi editada com sucesso!")
                     .setPositiveButton("Ok", (dialog, id) -> {
+                        ((MenuActivity) requireActivity()).changeToClassFragment(LoadClassItemToGoBack(classItem));
                     });
 
             android.app.AlertDialog dialog = builder.create();
@@ -474,7 +479,7 @@ public class EditClassFragment extends Fragment {
 
                             builder.setMessage(msgAlert)
                                     .setPositiveButton("Ok", (dialog2, id2) -> {
-                                        ((MenuActivity) requireActivity()).changeToClassesFragment();
+                                        ((MenuActivity) requireActivity()).changeToCalendarFragmentNoArgs();
                                     });
 
                             android.app.AlertDialog dialog2 = builder.create();
@@ -491,4 +496,45 @@ public class EditClassFragment extends Fragment {
         }
     }
 
+    private ClassListItem  LoadClassItemToGoBack(ClassItem object){
+
+        ClassListItem classListItem = null;
+
+        //sport
+        SportItem sportItem = daoSession.getSportItemDao().load(object.getSportId());
+
+        //spot
+        SpotItem spotItem = daoSession.getSpotItemDao().load(object.getSpotId());
+
+        //date
+        SimpleDateFormat sdFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String classDateStr = (sdFormat.format(object.getClassDateTime())).replace(":", "h");
+
+        //save complete date format
+        SimpleDateFormat completeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String classDateCompleteStr = (completeFormat.format(object.getClassDateTime())).replace(":", "h");
+
+        Calendar classDateValue = Calendar.getInstance();
+        classDateValue.setTime(object.getClassDateTime());
+
+        //registered students number
+        long nStudents = 0;
+        QueryBuilder<StudentItem> queryBuilder = daoSession.getStudentItemDao().queryBuilder();
+        queryBuilder.join(ClassStudentItem.class, ClassStudentItemDao.Properties.StudentId)
+                .where(ClassStudentItemDao.Properties.ClassId.eq(object.getClassId()));
+        nStudents = queryBuilder.where(StudentItemDao.Properties.Deleted.eq(false)).count();
+
+        classListItem = new ClassListItem(
+                object.getClassId(),
+                sportItem.getSportName(),
+                object.getSportId(),
+                spotItem.getSpotName(),
+                object.getSpotId(),
+                classDateStr,
+                classDateValue,
+                String.valueOf(nStudents),
+                classDateCompleteStr);
+
+        return  classListItem;
+    }
 }

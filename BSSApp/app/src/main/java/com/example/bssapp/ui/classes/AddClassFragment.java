@@ -347,6 +347,9 @@ public class AddClassFragment extends Fragment {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
             builder.setMessage("A aula de " + sportName + " foi registada com sucesso!")
                     .setPositiveButton("Ok", (dialog, id) -> {
+
+                        //Go to CALENDAR View
+                        ((MenuActivity) requireActivity()).changeToCalendarFragment(date);
                     });
 
             android.app.AlertDialog dialog = builder.create();
@@ -388,15 +391,15 @@ public class AddClassFragment extends Fragment {
         autoCompleteTextView.setText(arrayAdapter.getItem(surfPos).toString(), false);
 
         //Data & Hora
-        if(newClassDate != null){
+        /*if(newClassDate != null){
             date = newClassDate;
         }
         else{
             date = Calendar.getInstance();
-        }
+        }*/
 
-        SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
-        calendarText.setText(sdFormat.format(date.getTime()));
+        //SimpleDateFormat sdFormat = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.getDefault());
+        //calendarText.setText(sdFormat.format(date.getTime()));
 
         //Local
         autoCompleteLocal.setText(arrayAdapterLocal.getItem(0).toString(), false);
