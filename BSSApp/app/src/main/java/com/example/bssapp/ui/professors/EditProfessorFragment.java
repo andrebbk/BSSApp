@@ -135,7 +135,7 @@ public class EditProfessorFragment extends Fragment {
         daoSession.getProfessorItemDao().update(professorItem);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("O(a) instrutor(a) foi editado(a) com sucesso!")
+        builder.setMessage("O(a) treinador(a) foi editado(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
                 });
 
@@ -152,7 +152,7 @@ public class EditProfessorFragment extends Fragment {
         daoSession.getProfessorItemDao().update(professorItem);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("O(a) instrutor(a) foi removido(a) com sucesso!")
+        builder.setMessage("O(a) treinador(a) foi removido(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
                 });
 

@@ -108,7 +108,7 @@
         android:layout_width="252dp"
         android:layout_height="61dp"
         android:backgroundTint="@color/purple_700"
-        android:text="Inscrever instrutor"
+        android:text="Inscrever treinador"
         android:textColor="@color/theme_primary_color"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -93,7 +93,7 @@ public class NewProfessorFragment extends Fragment {
         ClearFormCreateProfessor();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("O(a) instrutor(a) foi registado(a) com sucesso!")
+        builder.setMessage("O(a) treinador(a) foi registado(a) com sucesso!")
                 .setPositiveButton("Ok", (dialog, id) -> {
                     ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(textLastName.getWindowToken(), 0);
                     ((MenuActivity) requireActivity()).changeToProfessorsFragment();

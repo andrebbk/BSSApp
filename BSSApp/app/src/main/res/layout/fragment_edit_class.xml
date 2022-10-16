@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:drawableEnd="@drawable/arrow_down_layout"
-                android:hint="Instrutores"
+                android:hint="Treinadores"
                 android:inputType="none"
                 android:maxLines="4"
                 android:text=" "

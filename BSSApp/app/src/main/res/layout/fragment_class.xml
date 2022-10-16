@@ -119,19 +119,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="110sp"
+            android:layout_width="120sp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="0sp">
 
             <Button
                 android:id="@+id/buttonAddStudent"
-                android:layout_width="110sp"
+                android:layout_width="115sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:layout_marginBottom="4sp"
                 android:backgroundTint="@color/purple_700"
-                android:text="Adicionar alunos"
+                android:text="Gerir alunos"
                 android:textColor="@color/theme_primary_color"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -139,7 +139,7 @@
 
             <Button
                 android:id="@+id/buttonEditClass"
-                android:layout_width="110sp"
+                android:layout_width="115sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7sp"
                 android:layout_marginBottom="4sp"

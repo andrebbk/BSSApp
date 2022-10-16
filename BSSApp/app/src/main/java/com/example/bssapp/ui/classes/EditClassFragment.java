@@ -198,7 +198,7 @@ public class EditClassFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(requireContext(), R.style.MyAlertDialogTheme));
 
             // set title
-            builder.setTitle("Selecionar instrutores");
+            builder.setTitle("Selecionar treinadores");
 
             // set dialog non cancelable
             builder.setCancelable(false);
@@ -453,7 +453,7 @@ public class EditClassFragment extends Fragment {
         }
         else if(profIds.size() < 1)
         {
-            ((MenuActivity) requireActivity()).ShowSnackBar("Pelo menos 1 instrutor é obrigatório!");
+            ((MenuActivity) requireActivity()).ShowSnackBar("Pelo menos 1 treinador é obrigatório!");
             isValid = false;
         }
 

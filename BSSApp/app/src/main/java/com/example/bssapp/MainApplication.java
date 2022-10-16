@@ -59,7 +59,7 @@ public class MainApplication extends Application {
         if(sportItemDao.queryBuilder()
                 .where(com.example.bssapp.SportItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
-            ArrayList<String> sportsList = new ArrayList<>(Arrays.asList("Surf", "SUPaddle", "Yoga")); //, "Canoagem"));
+            ArrayList<String> sportsList = new ArrayList<>(Arrays.asList("Surf", "SUPaddle", "Yoga", "Canoagem"));
 
             for (String spr : sportsList)
             {
@@ -106,7 +106,7 @@ public class MainApplication extends Application {
 
         //Students
         //Alunos
-        /*com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
+        com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
         if(studentItemDao.queryBuilder()
                 .where(com.example.bssapp.StudentItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
@@ -117,7 +117,24 @@ public class MainApplication extends Application {
             studentItemDao.save(new StudentItem("Ernesto", "Carvalho", true, currentDate, false));
             studentItemDao.save(new StudentItem("Luís", "Fonseca", true, currentDate, false));
             studentItemDao.save(new StudentItem("Tiago", "Nunes", false, currentDate, false));
-            studentItemDao.save(new StudentItem("Ana", "Moreira", false, currentDate, false));
-        }*/
+            studentItemDao.save(new StudentItem("Nuno", "Moreira", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Oscar", "Silva", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Carlos", "Menezes", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Manuel", "Castro", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Jorge", "Gomes", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Cristiano", "Moreira", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Paula", "Paiva", true, currentDate, false));
+            studentItemDao.save(new StudentItem("Ana", "Paiva", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Alexandra", "Paiva", true, currentDate, false));
+            studentItemDao.save(new StudentItem("Igor", "Nunes", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Carlitos", "Paiva", true, currentDate, false));
+            studentItemDao.save(new StudentItem("Francisco", "Nunes", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Chico", "Silva", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Mário", "Jorge", false, currentDate, false));
+            studentItemDao.save(new StudentItem("William", "Carvalho", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Nelson", "Viera", false, currentDate, false));
+            studentItemDao.save(new StudentItem("Eduardo", "Santos", true, currentDate, false));
+            studentItemDao.save(new StudentItem("Dennis", "Silva", false, currentDate, false));
+        }
     }
 }
