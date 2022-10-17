@@ -10,14 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import com.example.bssapp.ClassItemDao;
+import com.example.bssapp.ClassStudentItemDao;
 import com.example.bssapp.DaoSession;
 import com.example.bssapp.MainApplication;
 import com.example.bssapp.MenuActivity;
 import com.example.bssapp.R;
+import com.example.bssapp.SportItemDao;
 import com.example.bssapp.StudentItemDao;
 import com.example.bssapp.databinding.FragmentStudentsBinding;
+import com.example.bssapp.db.models.ClassItem;
+import com.example.bssapp.db.models.ClassStudentItem;
+import com.example.bssapp.db.models.SportItem;
 import com.example.bssapp.db.models.StudentItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +36,10 @@ public class StudentsFragment extends Fragment {
 
     private ListView listViewStudents;
     private SearchView searchViewStudents;
+
+    //Db
+    private DaoSession daoSession;
+    private long surfSportId = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,24 +62,43 @@ public class StudentsFragment extends Fragment {
         fabAddStudent.setOnClickListener(v -> ((MenuActivity) requireActivity()).changeFragment());
 
         //Db
-        DaoSession daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
+        daoSession = ((MainApplication) requireActivity().getApplication()).getDaoSession();
         StudentItemDao studentItemDao = daoSession.getStudentItemDao();
         List<StudentItem> studentsData = studentItemDao.queryBuilder()
                 .where(StudentItemDao.Properties.Deleted.eq(false))
                 .orderAsc(StudentItemDao.Properties.FirstName, StudentItemDao.Properties.LastName)
                 .list();
 
+        //Load surfId
+        List<SportItem> surfSport = daoSession.getSportItemDao().queryBuilder()
+                .where(SportItemDao.Properties.Deleted.eq(false),
+                        SportItemDao.Properties.SportName.eq("Surf"))
+                .orderAsc(SportItemDao.Properties.CreateDate)
+                .limit(1)
+                .list();
+
+        if(surfSport != null && !surfSport.isEmpty()){
+            SportItem surfItem = surfSport.get(0);
+            if(surfItem != null){
+                surfSportId = surfItem.getSportId();
+            }
+        }
+
+        //Load students
         listViewStudents = root.findViewById(R.id.listViewStudents);
 
         ArrayList<StudentListItem> studentsList = new ArrayList<>();
 
         for (StudentItem object : studentsData) {
-            studentsList.add(new StudentListItem(object.getStudentId(), object.getFirstName() + " " + object.getLastName(),
-                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby)));
+            studentsList.add(new StudentListItem(object.getStudentId(),
+                    object.getFirstName() + " " + object.getLastName(),
+                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby),
+                    GetClassesCount(object.getStudentId()))
+            );
         }
 
         //Costume adapter
-        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList);
+        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList, true);
         listViewStudents.setAdapter(adapter);
 
         searchViewStudents = root.findViewById(R.id.searchViewStudents);
@@ -116,5 +147,22 @@ public class StudentsFragment extends Fragment {
                 ((MenuActivity) requireActivity()).changeToEditStudentFragment(selectedStudent);
             }
         });
+    }
+
+    private long GetClassesCount(long studentId){
+
+        long output = 0;
+        List<ClassStudentItem> queryBuilder = daoSession.getClassStudentItemDao().queryBuilder()
+                .where(ClassStudentItemDao.Properties.StudentId.eq(studentId))
+                .list();
+
+        for (ClassStudentItem csItem : queryBuilder) {
+            ClassItem classItem = daoSession.getClassItemDao().load(csItem.getClassId());
+            if(classItem != null){
+                if(!classItem.isDeleted() && classItem.getSportId() == surfSportId) output++;
+            }
+        }
+
+        return output;
     }
 }

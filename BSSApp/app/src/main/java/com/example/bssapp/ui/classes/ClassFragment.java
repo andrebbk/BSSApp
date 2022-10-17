@@ -124,11 +124,11 @@ public class ClassFragment extends Fragment {
 
         for (StudentItem object : classStudentsData.list()) {
             studentsList.add(new StudentListItem(object.getStudentId(), object.getFirstName() + " " + object.getLastName(),
-                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby)));
+                    (object.getIsAdult() ?  R.drawable.user : R.drawable.cute_baby), 0));
         }
 
         //Costume adapter
-        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList);
+        StudentAdapter adapter = new StudentAdapter(this.requireActivity(), R.layout.list_student_row, studentsList, false);
         listViewClassStudents.setAdapter(adapter);
     }
 }

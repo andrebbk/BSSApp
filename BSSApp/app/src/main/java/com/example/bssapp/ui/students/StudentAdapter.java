@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,14 +28,16 @@ public class StudentAdapter extends ArrayAdapter<StudentListItem> implements Fil
 
     private final List<StudentListItem> itemsModelsl;
     private List<StudentListItem> itemsModelListFiltered;
+    private boolean ShowClassesCount;
 
-    public StudentAdapter(@NonNull Context context, int resource, @NonNull ArrayList<StudentListItem> objects) {
+    public StudentAdapter(@NonNull Context context, int resource, @NonNull ArrayList<StudentListItem> objects, boolean showClassesCount) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
 
         this.itemsModelsl = objects;
         this.itemsModelListFiltered = objects;
+        this.ShowClassesCount = showClassesCount;
     }
 
     @Override
@@ -67,8 +70,19 @@ public class StudentAdapter extends ArrayAdapter<StudentListItem> implements Fil
         ImageView imageView = convertView.findViewById(R.id.imageStudent);
         TextView textView = convertView.findViewById(R.id.textStudent);
 
-        imageView.setImageResource(getItem(position).getStudentImage());
-        textView.setText(getItem(position).getStudentName());
+        StudentListItem studentItem = getItem(position);
+        if(studentItem != null){
+            imageView.setImageResource(studentItem.getStudentImage());
+            textView.setText(studentItem.getStudentName());
+
+            if(ShowClassesCount){
+                LinearLayout llCC = convertView.findViewById(R.id.layoutCountClasses);
+                TextView textViewClasses = convertView.findViewById(R.id.textClasses);
+
+                textViewClasses.setText(String.valueOf(studentItem.getStudentClassesCount()));
+                llCC.setVisibility(View.VISIBLE);
+            }
+        }
 
         return convertView;
     }

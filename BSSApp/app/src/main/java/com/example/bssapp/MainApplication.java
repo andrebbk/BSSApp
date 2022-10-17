@@ -106,7 +106,7 @@ public class MainApplication extends Application {
 
         //Students
         //Alunos
-        com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
+        /*com.example.bssapp.StudentItemDao studentItemDao = daoSession.getStudentItemDao();
         if(studentItemDao.queryBuilder()
                 .where(com.example.bssapp.StudentItemDao.Properties.Deleted.notEq(1)).count() < 1)
         {
@@ -135,6 +135,6 @@ public class MainApplication extends Application {
             studentItemDao.save(new StudentItem("Nelson", "Viera", false, currentDate, false));
             studentItemDao.save(new StudentItem("Eduardo", "Santos", true, currentDate, false));
             studentItemDao.save(new StudentItem("Dennis", "Silva", false, currentDate, false));
-        }
+        }*/
     }
 }

@@ -7,17 +7,19 @@ public class StudentListItem implements Serializable {
     Long StudentId;
     String StudentName;
     int StudentImage;
+    long StudentClassesCount;
 
     public StudentListItem()
     {
 
     }
 
-    public StudentListItem(Long id, String name, int image)
+    public StudentListItem(Long id, String name, int image, long studentClassesCount)
     {
         this.StudentId = id;
         this.StudentName = name;
         this.StudentImage = image;
+        this.StudentClassesCount = studentClassesCount;
     }
 
     public Long getStudentId() {
@@ -43,4 +45,10 @@ public class StudentListItem implements Serializable {
     public void setStudentImage(int studentImage) {
         StudentImage = studentImage;
     }
+
+    public long getStudentClassesCount() {
+        return StudentClassesCount;
+    }
+
+    public void setStudentClassesCount(long studentClassesCount) { StudentClassesCount = studentClassesCount; }
 }
